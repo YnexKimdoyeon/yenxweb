@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react"
 import { Check, Loader2, MessageCircle } from "lucide-react"
+import { trackEvent } from "@/lib/gtag"
 
 const KAKAO_URL = "https://open.kakao.com/o/sgQ0uyxi"
 
@@ -26,6 +27,8 @@ export function ContactForm() {
       })
       if (!res.ok) throw new Error("failed")
       setStatus("success")
+      // 현장 방문 신청 폼 제출 성공 = 핵심 전환 (GA4 추천 이벤트명)
+      trackEvent("generate_lead", { method: "contact_form" })
       form.reset()
     } catch {
       setStatus("error")
