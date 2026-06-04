@@ -1,6 +1,6 @@
 // Google Analytics 4 (GA4) 전환 추적 헬퍼
-// 측정 ID는 환경변수로 주입 (없으면 추적 전체가 비활성 → 안전)
-export const GA_ID = process.env.NEXT_PUBLIC_GA_ID ?? ""
+// 측정 ID는 환경변수 우선, 없으면 기본값 사용 (측정 ID는 공개되어도 안전한 값)
+export const GA_ID = process.env.NEXT_PUBLIC_GA_ID ?? "G-7WPN1SMP77"
 
 declare global {
   interface Window {
