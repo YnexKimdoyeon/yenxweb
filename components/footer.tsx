@@ -4,9 +4,9 @@ import Image from "next/image"
 import Link from "next/link"
 
 const quickLinks = [
-  { label: "서비스", href: "/#services" },
-  { label: "도입사례", href: "/#cases" },
-  { label: "자주 묻는 질문", href: "/#faq" },
+  { label: "서비스", href: "/services" },
+  { label: "포트폴리오", href: "/portfolio" },
+  { label: "자주 묻는 질문", href: "/faq" },
   { label: "현장 방문 신청", href: "/#contact" },
 ]
 
