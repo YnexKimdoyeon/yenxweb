@@ -4,14 +4,14 @@ import { GoogleAnalytics } from '@/components/google-analytics'
 import './globals.css'
 
 const siteUrl = 'https://ynex.kr'
-const siteTitle = '와이넥스 YNEX | 업무자동화·매크로·ERP 개발 전문'
-const siteDescription = '영업사원이 아닌 개발자가 직접 현장을 방문해 업무를 분석합니다. 전국 무료 현장 방문, 100% 맞춤 개발. 고민하지 마세요, 저희가 직접 찾아갑니다.'
+const siteTitle = '주식회사 와이넥스(YNEX) | 업무자동화·매크로·ERP 개발 전문'
+const siteDescription = '주식회사 와이넥스(YNEX)는 영업사원이 아닌 개발자가 직접 현장을 방문해 업무를 분석합니다. 전국 무료 현장 방문, 100% 맞춤 개발. 고민하지 마세요, 저희가 직접 찾아갑니다.'
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: siteTitle,
   description: siteDescription,
-  keywords: ['업무자동화', '매크로', 'ERP', 'RPA', '맞춤개발', '와이넥스', 'YNEX', '파이썬 자동화', '크롤링', '아산'],
+  keywords: ['업무자동화', '매크로', 'ERP', 'RPA', '맞춤개발', '주식회사 와이넥스', '와이넥스', '(주)와이넥스', 'YNEX', '파이썬 자동화', '크롤링', '아산'],
   authors: [{ name: '주식회사 와이넥스' }],
   creator: '주식회사 와이넥스',
   openGraph: {

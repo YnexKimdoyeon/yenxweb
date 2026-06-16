@@ -11,7 +11,7 @@ const quickLinks = [
 ]
 
 const socialLinks = [
-  { label: "블로그", href: "#" },
+  { label: "블로그", href: "https://blog.naver.com/kims2369" },
   { label: "인스타그램", href: "#" },
   { label: "유튜브", href: "#" },
 ]

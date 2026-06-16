@@ -7,7 +7,8 @@ const ORG_ID = `${SITE_URL}/#organization`
 const WEBSITE_ID = `${SITE_URL}/#website`
 
 const ORG_NAME = "주식회사 와이넥스"
-const ORG_ALT_NAME = "YNEX"
+// 검색 별칭: 법인 표기·약칭·영문명 모두 같은 회사로 인식되도록 등록
+const ORG_ALT_NAME = ["와이넥스", "(주)와이넥스", "YNEX"]
 const ORG_DESCRIPTION =
   "영업사원이 아닌 개발자가 직접 현장을 방문해 업무를 분석하고 맞춤형 업무자동화·ERP·매크로·크롤링 시스템을 개발하는 IT 전문 기업."
 
@@ -32,6 +33,7 @@ export function organizationSchema() {
     description: ORG_DESCRIPTION,
     email: "ceo@ynex.kr",
     founder: { "@type": "Person", name: "김도연" },
+    slogan: "현장을 아는 개발자가 직접 찾아갑니다",
     address: {
       "@type": "PostalAddress",
       streetAddress: "탕정면 이순신대로 442, 912호",
@@ -40,8 +42,33 @@ export function organizationSchema() {
       addressCountry: "KR",
     },
     areaServed: { "@type": "Country", name: "대한민국" },
+    priceRange: "₩₩",
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "sales",
+      email: "ceo@ynex.kr",
+      areaServed: "KR",
+      availableLanguage: "Korean",
+    },
+    // AI가 이 기업의 전문 주제(권위 영역)를 인식하도록 명시
+    knowsAbout: [
+      "업무자동화",
+      "RPA",
+      "ERP 개발",
+      "CRM 개발",
+      "SCM 개발",
+      "웹 크롤링",
+      "데이터 파싱",
+      "재고관리 시스템",
+      "물류관리 WMS",
+      "전자결재 그룹웨어",
+      "매크로 개발",
+      "파이썬 자동화",
+      "맞춤형 소프트웨어 개발",
+    ],
     aggregateRating: AGGREGATE_RATING,
-    sameAs: [] as string[],
+    // 동일 주체임을 알리는 외부 프로필 (검색·AI 엔티티 연결)
+    sameAs: ["https://blog.naver.com/kims2369", "https://kmong.com/@Kimdoyeon"],
   }
 }
 
