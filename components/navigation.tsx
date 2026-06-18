@@ -7,9 +7,9 @@ import { Menu, X } from "lucide-react"
 import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion"
 
 const navItems = [
-  { label: "서비스", href: "/#services", id: "services" },
-  { label: "도입사례", href: "/#cases", id: "cases" },
-  { label: "자주 묻는 질문", href: "/#faq", id: "faq" },
+  { label: "서비스", href: "/services", id: "services" },
+  { label: "도입사례", href: "/portfolio", id: "cases" },
+  { label: "자주 묻는 질문", href: "/faq", id: "faq" },
 ]
 
 export function Navigation() {
