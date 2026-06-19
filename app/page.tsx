@@ -14,6 +14,7 @@ import { WhySection } from "@/components/why-section"
 import { ProcessSection } from "@/components/process-section"
 import { ServicesSection } from "@/components/services-section"
 import { CasesSection } from "@/components/cases-section"
+import { ClientsSection } from "@/components/clients-section"
 import { TrustSection } from "@/components/trust-section"
 import { TestimonialsSection } from "@/components/testimonials-section"
 import { FaqSection } from "@/components/faq-section"
@@ -42,6 +43,7 @@ export default function HomePage() {
       <ProcessSection />
       <ServicesSection />
       <CasesSection />
+      <ClientsSection />
       <TrustSection />
       <TestimonialsSection />
       <FaqSection />
