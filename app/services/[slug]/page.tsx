@@ -149,7 +149,7 @@ export default async function ServiceDetailPage({
                     카카오톡 상담하기
                   </a>
                   <Link
-                    href="/#contact"
+                    href="/contact"
                     className="inline-flex items-center justify-center rounded-lg border border-border bg-background px-6 py-3 text-base font-semibold text-foreground transition-colors hover:bg-muted"
                   >
                     현장 방문 신청

@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { FaqSection } from "@/components/faq-section"
+import { VisitCtaBand } from "@/components/visit-cta-band"
 import { FloatingKakao } from "@/components/floating-kakao"
 import { JsonLd } from "@/components/json-ld"
 import { graph, breadcrumbSchema, faqSchema, SITE_URL } from "@/lib/structured-data"
@@ -61,12 +62,15 @@ export default function FaqPage() {
               궁금한 점이 있으신가요?
             </h1>
             <p className="mx-auto max-w-2xl text-lg leading-relaxed text-muted-foreground">
-              {description}
+              현장 방문 비용, 방문 가능 지역, 개발 기간, 유지보수까지.
+              <br className="hidden sm:block" />{" "}
+              와이넥스 업무자동화·ERP 개발에 대해 자주 묻는 질문을 모았습니다.
             </p>
           </div>
         </section>
 
         <FaqSection showHeader={false} />
+        <VisitCtaBand />
       </main>
       <Footer />
       <FloatingKakao />

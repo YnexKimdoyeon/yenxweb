@@ -7,13 +7,11 @@ const quickLinks = [
   { label: "서비스", href: "/services" },
   { label: "포트폴리오", href: "/portfolio" },
   { label: "자주 묻는 질문", href: "/faq" },
-  { label: "현장 방문 신청", href: "/#contact" },
+  { label: "현장 방문 신청", href: "/contact" },
 ]
 
 const socialLinks = [
   { label: "블로그", href: "https://blog.naver.com/kims2369" },
-  { label: "인스타그램", href: "#" },
-  { label: "유튜브", href: "#" },
 ]
 
 export function Footer() {

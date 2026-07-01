@@ -104,7 +104,7 @@ export function Navigation() {
           {/* Desktop CTA */}
           <div className="hidden lg:block">
             <Link
-              href="/#contact"
+              href="/contact"
               className="inline-flex items-center justify-center rounded-lg bg-primary px-5 py-2.5 text-[15px] font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
             >
               현장 방문 신청
@@ -146,7 +146,7 @@ export function Navigation() {
               ))}
               <div className="pt-4">
                 <Link
-                  href="/#contact"
+                  href="/contact"
                   className="block w-full rounded-lg bg-primary px-3 py-2.5 text-center text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >

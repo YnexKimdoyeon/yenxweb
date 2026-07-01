@@ -1,11 +1,19 @@
 "use client"
 
 import { AnimatePresence, motion } from "framer-motion"
-import { Check, ChevronLeft, ChevronRight, X, ZoomIn } from "lucide-react"
+import { ArrowRight, Check, ChevronLeft, ChevronRight, X, ZoomIn } from "lucide-react"
+import Link from "next/link"
 import { useCallback, useEffect, useState } from "react"
 import { cases } from "@/lib/cases-data"
 
-export function CasesSection({ showHeader = true }: { showHeader?: boolean }) {
+export function CasesSection({
+  showHeader = true,
+  featured = false,
+}: {
+  showHeader?: boolean
+  featured?: boolean
+}) {
+  const list = featured ? cases.filter((c) => c.featured) : cases
   const [gallery, setGallery] = useState<{
     images: string[]
     title: string
@@ -63,7 +71,7 @@ export function CasesSection({ showHeader = true }: { showHeader?: boolean }) {
         )}
 
         <div className="mx-auto max-w-6xl space-y-20 lg:space-y-28">
-          {cases.map((item, index) => {
+          {list.map((item, index) => {
             const reversed = index % 2 === 1
             const portrait = (item as { portrait?: boolean }).portrait
             const color = item.color
@@ -161,6 +169,21 @@ export function CasesSection({ showHeader = true }: { showHeader?: boolean }) {
             )
           })}
         </div>
+
+        {featured && (
+          <div className="mt-16 flex flex-col items-center gap-3">
+            <p className="text-sm text-muted-foreground">
+              이 외에도 다양한 도입사례가 있습니다
+            </p>
+            <Link
+              href="/portfolio"
+              className="group inline-flex items-center justify-center gap-2.5 rounded-xl bg-primary px-8 py-4 text-base font-semibold text-primary-foreground shadow-lg shadow-primary/25 transition-all hover:-translate-y-0.5 hover:bg-primary/90 hover:shadow-xl hover:shadow-primary/30"
+            >
+              전체 도입사례 보기
+              <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+            </Link>
+          </div>
+        )}
       </div>
 
       <AnimatePresence>

@@ -2,8 +2,12 @@
 import {
   Boxes,
   Car,
+  ClipboardCheck,
   ClipboardList,
   LayoutDashboard,
+  PartyPopper,
+  Send,
+  Star,
   Truck,
   type LucideIcon,
 } from "lucide-react"
@@ -12,6 +16,7 @@ export interface CaseItem {
   category: string
   color: string
   icon: LucideIcon
+  featured?: boolean
   title: string
   description: string
   features: string[]
@@ -68,6 +73,7 @@ export const cases: CaseItem[] = [
     category: "운영 관리",
     color: "#2563EB",
     icon: ClipboardList,
+    featured: true,
     title: "물류 운영 시스템 구축",
     description:
       "작업 일보, 인력 배정, 자원 배치, 지시서까지. 현장 운영에 필요한 일들을 한 화면에서 다 끝낼 수 있게 만들었습니다.",
@@ -124,6 +130,103 @@ export const cases: CaseItem[] = [
     ],
     improvement: "80%",
     cost: "₩3,000,000",
+    duration: "2주",
+  },
+  {
+    category: "HACCP 관리",
+    color: "#7C3AED",
+    icon: ClipboardCheck,
+    featured: true,
+    title: "식품 HACCP 관리 시스템 구축",
+    description:
+      "매일 손으로 쓰던 점검일지와 성적서·법적서류를, 쓰던 양식 그대로 화면에 얹어 PC에서 처리합니다. 미작성·유효기간 만료를 시스템이 대신 챙겨줍니다.",
+    features: [
+      "쓰던 서류 그대로 화면에 얹는 양식 편집기",
+      "점검일지 주기 관리·미작성 자동 표시",
+      "성적서·보건증·결재까지 단일 흐름 처리",
+    ],
+    images: [
+      "/portfolio/haccp-s1.png",
+      "/portfolio/haccp-s2.png",
+      "/portfolio/haccp-s3.png",
+      "/portfolio/haccp-s4.png",
+      "/portfolio/haccp-s5.png",
+      "/portfolio/haccp-s6.png",
+      "/portfolio/haccp-s7.png",
+      "/portfolio/haccp-s8.png",
+    ],
+    improvement: "98%",
+    cost: "₩5,000,000",
+    duration: "1개월",
+  },
+  {
+    category: "행사 운영",
+    color: "#2563EB",
+    icon: PartyPopper,
+    featured: true,
+    title: "소개팅·파티 행사 운영 시스템 구축",
+    description:
+      "참가자 등록부터 실시간 호감 투표·상호 매칭·현장 요청까지, 오프라인 소개팅·파티 행사를 QR 하나로 처음부터 끝까지 운영합니다. 운영진은 PC로 관제하고 참가자는 본인 폰으로 참여합니다.",
+    features: [
+      "회차별 QR 입장·참가자 등록 관리",
+      "실시간 호감 투표 집계·상호 매칭 자동 산출",
+      "화면 노출 실시간 통제·현장 요청 접수",
+    ],
+    images: [
+      "/portfolio/event-d1.png",
+      "/portfolio/event-d2.png",
+      "/portfolio/event-d3.png",
+      "/portfolio/event-d4.png",
+      "/portfolio/event-d5.png",
+      "/portfolio/event-d6.png",
+      "/portfolio/event-d7.png",
+    ],
+    improvement: "90%",
+    cost: "₩4,000,000",
+    duration: "1개월",
+  },
+  {
+    category: "수금 자동화",
+    color: "#7C3AED",
+    icon: Send,
+    title: "입금 알림 문자 자동발송 시스템 구축",
+    description:
+      "매달 정기 수금 거래처에, 정해진 시간에 아직 입금 안 한 고객에게만 안내 문자가 자동으로 나갑니다. 이번 달 받을 돈·미수금·발송 이력을 한 화면에서 관리합니다.",
+    features: [
+      "미입금 고객에게만 지정 시간 자동 발송",
+      "이번 달 수금·미수금 대시보드 자동 집계",
+      "발송 이력·월별 정산 엑셀 다운로드",
+    ],
+    images: [
+      "/portfolio/payflow-s1.png",
+      "/portfolio/payflow-s2.png",
+      "/portfolio/payflow-s3.png",
+      "/portfolio/payflow-s4.png",
+      "/portfolio/payflow-s5.png",
+    ],
+    improvement: "95%",
+    cost: "₩2,500,000",
+    duration: "2주",
+  },
+  {
+    category: "리뷰 관리",
+    color: "#2563EB",
+    icon: Star,
+    title: "체험단·리뷰 관리 ERP 구축",
+    description:
+      "진행자 등록·설문 응답이 구글 시트에 자동 기록되고, 리뷰어·부계정을 매칭키로 자동 연결합니다. 구매·리뷰 인증 사진을 리뷰어별로 모아 한 화면에서 검수하고 정산까지 추적합니다.",
+    features: [
+      "진행자별 설문 폼·구글 시트 열 매핑 자동 연동",
+      "리뷰어·부계정 통합 관리·매칭키 자동 연결",
+      "구매·리뷰 인증 사진 한 화면 검수·정산 추적",
+    ],
+    images: [
+      "/portfolio/review-s1.png",
+      "/portfolio/review-s2.png",
+      "/portfolio/review-s3.png",
+    ],
+    improvement: "85%",
+    cost: "₩2,000,000",
     duration: "2주",
   },
 ]

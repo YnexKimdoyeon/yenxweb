@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { CasesSection } from "@/components/cases-section"
+import { VisitCtaBand } from "@/components/visit-cta-band"
 import { FloatingKakao } from "@/components/floating-kakao"
 import { JsonLd } from "@/components/json-ld"
 import { graph, breadcrumbSchema, SITE_URL } from "@/lib/structured-data"
@@ -74,12 +75,15 @@ export default function PortfolioPage() {
               포트폴리오·도입사례
             </h1>
             <p className="mx-auto max-w-2xl text-lg leading-relaxed text-muted-foreground">
-              {description}
+              와이넥스가 직접 만든 업무자동화·ERP·물류·재고관리·크롤링 시스템 도입사례 모음.
+              <br className="hidden sm:block" />{" "}
+              업무 효율·개발 금액·소요 기간까지 실제 결과를 공개합니다.
             </p>
           </div>
         </section>
 
         <CasesSection showHeader={false} />
+        <VisitCtaBand />
       </main>
       <Footer />
       <FloatingKakao />

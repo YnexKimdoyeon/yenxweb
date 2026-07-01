@@ -42,7 +42,7 @@ export default function HomePage() {
       <WhySection />
       <ProcessSection />
       <ServicesSection />
-      <CasesSection />
+      <CasesSection featured />
       <ClientsSection />
       <TrustSection />
       <TestimonialsSection />

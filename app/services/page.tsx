@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { ServicesSection } from "@/components/services-section"
+import { VisitCtaBand } from "@/components/visit-cta-band"
 import { FloatingKakao } from "@/components/floating-kakao"
 import { JsonLd } from "@/components/json-ld"
 import { graph, breadcrumbSchema, SITE_URL } from "@/lib/structured-data"
@@ -80,6 +81,7 @@ export default function ServicesPage() {
         </section>
 
         <ServicesSection showHeader={false} />
+        <VisitCtaBand />
       </main>
       <Footer />
       <FloatingKakao />
