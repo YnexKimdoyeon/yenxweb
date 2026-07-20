@@ -130,6 +130,25 @@ export function serviceSchema(service: ServiceDetail) {
   }
 }
 
+// 단계형 안내 (HowTo) — AI 답변엔진·검색 리치 결과에 절차로 노출 (GEO)
+export function howToSchema(input: {
+  name: string
+  description: string
+  steps: { name: string; text: string }[]
+}) {
+  return {
+    "@type": "HowTo",
+    name: input.name,
+    description: input.description,
+    step: input.steps.map((s, i) => ({
+      "@type": "HowToStep",
+      position: i + 1,
+      name: s.name,
+      text: s.text,
+    })),
+  }
+}
+
 // 여러 스키마를 하나의 @graph 로 묶어 단일 script 로 출력
 export function graph(...nodes: object[]) {
   return {

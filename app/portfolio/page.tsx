@@ -6,8 +6,9 @@ import { ProcessFlowSection } from "@/components/process-flow-section"
 import { VisitCtaBand } from "@/components/visit-cta-band"
 import { FloatingKakao } from "@/components/floating-kakao"
 import { JsonLd } from "@/components/json-ld"
-import { graph, breadcrumbSchema, SITE_URL } from "@/lib/structured-data"
+import { graph, breadcrumbSchema, howToSchema, SITE_URL } from "@/lib/structured-data"
 import { cases } from "@/lib/cases-data"
+import { processFlow } from "@/lib/process-flow-data"
 
 const title = "포트폴리오·도입사례 | 와이넥스 YNEX"
 const description =
@@ -48,11 +49,29 @@ const jsonLd = graph(
       itemListElement: cases.map((c, i) => ({
         "@type": "ListItem",
         position: i + 1,
-        name: c.title,
-        description: c.description,
+        url: `${SITE_URL}/portfolio#${c.slug}`,
+        item: {
+          "@type": "CreativeWork",
+          name: c.title,
+          about: c.category,
+          url: `${SITE_URL}/portfolio#${c.slug}`,
+          image: `${SITE_URL}${c.images[0]}`,
+          // GEO: 문제→해결→성과를 한 문단으로 합쳐 AI가 사례 맥락을 통째로 읽게 함
+          description: `${c.description} ${c.detail.problem} ${c.detail.approach} ${c.detail.result}`,
+        },
       })),
     },
   },
+  // 도입 프로세스 6단계 — 절차형 구조화 데이터 (검색·AI 답변엔진 노출)
+  howToSchema({
+    name: "와이넥스 업무자동화 시스템 도입 프로세스",
+    description:
+      "문제인식부터 성과 도출까지, 와이넥스가 업무자동화·ERP·물류·재고·크롤링 시스템을 만드는 6단계 절차.",
+    steps: processFlow.map((s) => ({
+      name: s.title,
+      text: `${s.summary} ${s.detail}`,
+    })),
+  }),
 )
 
 export default function PortfolioPage() {

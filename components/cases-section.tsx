@@ -1,7 +1,15 @@
 "use client"
 
 import { AnimatePresence, motion } from "framer-motion"
-import { ArrowRight, Check, ChevronLeft, ChevronRight, X, ZoomIn } from "lucide-react"
+import {
+  ArrowRight,
+  Check,
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  X,
+  ZoomIn,
+} from "lucide-react"
 import Link from "next/link"
 import { useCallback, useEffect, useState } from "react"
 import { cases } from "@/lib/cases-data"
@@ -20,6 +28,10 @@ export function CasesSection({
     portrait?: boolean
   } | null>(null)
   const [index, setIndex] = useState(0)
+  // 사례별 "자세히 보기" 펼침 상태 (slug 기준). 내용은 항상 DOM에 렌더 → CSS로만 접힘
+  const [openDetails, setOpenDetails] = useState<Record<string, boolean>>({})
+  const toggleDetail = (slug: string) =>
+    setOpenDetails((prev) => ({ ...prev, [slug]: !prev[slug] }))
 
   const openGallery = (images: string[], title: string, portrait = false) => {
     setIndex(0)
@@ -79,18 +91,19 @@ export function CasesSection({
             return (
               <motion.article
                 key={item.title}
+                id={item.slug}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-80px" }}
                 transition={{ duration: 0.6 }}
-                className="grid items-start gap-10 md:grid-cols-2 lg:gap-16"
+                className="grid scroll-mt-24 items-start gap-10 md:grid-cols-2 lg:gap-16"
               >
                 {/* Project screenshot — hover/click to open gallery */}
                 <div className={reversed ? "md:order-2" : ""}>
                   <button
                     type="button"
                     onClick={() => openGallery(item.images, item.title, !!portrait)}
-                    aria-label={`${item.title} 화면 자세히 보기`}
+                    aria-label={`${item.title} 화면 크게 보기`}
                     className={`group relative mx-auto block w-full cursor-pointer ${
                       portrait ? "max-w-[300px]" : ""
                     }`}
@@ -108,7 +121,7 @@ export function CasesSection({
                     <span className="pointer-events-none absolute inset-0 flex items-center justify-center rounded-xl bg-foreground/0 opacity-0 transition-all duration-300 group-hover:bg-foreground/40 group-hover:opacity-100">
                       <span className="inline-flex items-center gap-1.5 rounded-full bg-background/95 px-4 py-2 text-sm font-semibold text-foreground shadow-lg">
                         <ZoomIn className="h-4 w-4" />
-                        자세히 보기
+                        화면 크게 보기
                       </span>
                     </span>
                   </button>
@@ -164,6 +177,71 @@ export function CasesSection({
                       </dd>
                     </div>
                   </dl>
+
+                  {/* 자세히 보기 — 문제→해결→성과 상세 (내용은 항상 렌더, 접힘만 CSS) */}
+                  <div className="mt-6">
+                    <button
+                      type="button"
+                      onClick={() => toggleDetail(item.slug)}
+                      aria-expanded={!!openDetails[item.slug]}
+                      aria-controls={`${item.slug}-detail`}
+                      className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-card px-4 py-2.5 text-sm font-semibold text-foreground transition-colors hover:border-primary/40 hover:text-primary"
+                    >
+                      {openDetails[item.slug] ? "접기" : "자세히 보기"}
+                      <ChevronDown
+                        className={`h-4 w-4 transition-transform duration-300 ${
+                          openDetails[item.slug] ? "rotate-180" : ""
+                        }`}
+                      />
+                    </button>
+
+                    <div
+                      id={`${item.slug}-detail`}
+                      className={`grid transition-all duration-300 ease-out ${
+                        openDetails[item.slug]
+                          ? "mt-4 grid-rows-[1fr] opacity-100"
+                          : "grid-rows-[0fr] opacity-0"
+                      }`}
+                    >
+                      <div className="overflow-hidden">
+                        <div className="space-y-4 rounded-xl border border-border bg-secondary/50 p-5">
+                          <div>
+                            <h4
+                              className="mb-1 text-sm font-bold"
+                              style={{ color }}
+                            >
+                              문제인식 — 도입 전
+                            </h4>
+                            <p className="text-sm leading-relaxed text-muted-foreground">
+                              {item.detail.problem}
+                            </p>
+                          </div>
+                          <div>
+                            <h4
+                              className="mb-1 text-sm font-bold"
+                              style={{ color }}
+                            >
+                              업무 분석 · 설계 — 어떻게 만들었나
+                            </h4>
+                            <p className="text-sm leading-relaxed text-muted-foreground">
+                              {item.detail.approach}
+                            </p>
+                          </div>
+                          <div>
+                            <h4
+                              className="mb-1 text-sm font-bold"
+                              style={{ color }}
+                            >
+                              성과 도출 — 도입 후
+                            </h4>
+                            <p className="text-sm leading-relaxed text-muted-foreground">
+                              {item.detail.result}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </motion.article>
             )
