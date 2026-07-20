@@ -99,6 +99,15 @@ export function Navigation() {
                 </Link>
               )
             })}
+            {/* 프로그램샵(ynexshop.kr) — 완성형 프로그램 구독 스토어 */}
+            <a
+              href="https://ynexshop.kr"
+              target="_blank"
+              rel="noopener"
+              className="text-base font-semibold tracking-[-0.01em] text-foreground/90 transition-colors hover:text-primary"
+            >
+              프로그램샵
+            </a>
           </div>
 
           {/* Desktop CTA */}
@@ -144,6 +153,15 @@ export function Navigation() {
                   {item.label}
                 </Link>
               ))}
+              <a
+                href="https://ynexshop.kr"
+                target="_blank"
+                rel="noopener"
+                className="block rounded-lg px-3 py-2 text-base font-medium text-foreground transition-colors hover:bg-muted"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                프로그램샵
+              </a>
               <div className="pt-4">
                 <Link
                   href="/contact"

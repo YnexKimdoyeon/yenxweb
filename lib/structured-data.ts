@@ -67,8 +67,19 @@ export function organizationSchema() {
       "맞춤형 소프트웨어 개발",
     ],
     aggregateRating: AGGREGATE_RATING,
-    // 동일 주체임을 알리는 외부 프로필 (검색·AI 엔티티 연결)
-    sameAs: ["https://blog.naver.com/kims2369", "https://kmong.com/@Kimdoyeon"],
+    // 동일 주체임을 알리는 외부 프로필 + 자사 프로그램샵 (검색·AI 엔티티 연결)
+    sameAs: [
+      "https://ynexshop.kr",
+      "https://blog.naver.com/kims2369",
+      "https://kmong.com/@Kimdoyeon",
+    ],
+    // 자사가 운영하는 프로그램 구독 스토어
+    subjectOf: {
+      "@type": "WebSite",
+      name: "와이넥스 프로그램샵",
+      url: "https://ynexshop.kr",
+      description: "와이넥스가 직접 개발한 업무 자동화·매크로 프로그램을 월 구독으로 판매하는 스토어",
+    },
   }
 }
 

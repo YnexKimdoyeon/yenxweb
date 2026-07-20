@@ -43,6 +43,15 @@ export function GET() {
     lines.push("")
   }
 
+  lines.push("## 프로그램샵 (프로그램 구독 스토어)")
+  lines.push("")
+  lines.push(
+    "와이넥스가 직접 개발한 업무 자동화·매크로 프로그램을 월 구독으로 바로 구매·다운로드할 수 있는 온라인 스토어입니다. 중고나라·인벤 자동 글등록 매크로 등 완성형 프로그램을 즉시 이용하거나, 원하는 기능은 주문제작으로 의뢰할 수 있습니다. 설치형 윈도우 프로그램, 1PC 라이선스, 실시간 상담 지원.",
+  )
+  lines.push("")
+  lines.push("- 프로그램샵: https://ynexshop.kr")
+  lines.push("")
+
   lines.push("## 자주 묻는 질문")
   lines.push("")
   for (const f of faqs) {
@@ -57,6 +66,7 @@ export function GET() {
   lines.push(`- [서비스 전체](${SITE}/services)`)
   lines.push(`- [포트폴리오](${SITE}/portfolio)`)
   lines.push(`- [자주 묻는 질문](${SITE}/faq)`)
+  lines.push(`- [프로그램샵 (업무 자동화·매크로 프로그램 구독)](https://ynexshop.kr)`)
   lines.push(`- [공식 블로그 (네이버)](https://blog.naver.com/kims2369)`)
   lines.push("")
 

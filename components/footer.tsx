@@ -8,6 +8,7 @@ const quickLinks = [
   { label: "포트폴리오", href: "/portfolio" },
   { label: "자주 묻는 질문", href: "/faq" },
   { label: "현장 방문 신청", href: "/contact" },
+  { label: "프로그램샵", href: "https://ynexshop.kr", external: true },
 ]
 
 const socialLinks = [
@@ -59,6 +60,8 @@ export function Footer() {
                   <li key={link.label}>
                     <a
                       href={link.href}
+                      target={link.external ? "_blank" : undefined}
+                      rel={link.external ? "noopener noreferrer" : undefined}
                       className="text-sm text-white/65 transition-colors hover:text-white"
                     >
                       {link.label}
