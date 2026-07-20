@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { CasesSection } from "@/components/cases-section"
+import { ProcessFlowSection } from "@/components/process-flow-section"
 import { VisitCtaBand } from "@/components/visit-cta-band"
 import { FloatingKakao } from "@/components/floating-kakao"
 import { JsonLd } from "@/components/json-ld"
@@ -82,6 +83,7 @@ export default function PortfolioPage() {
           </div>
         </section>
 
+        <ProcessFlowSection />
         <CasesSection showHeader={false} />
         <VisitCtaBand />
       </main>
