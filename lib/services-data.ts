@@ -11,7 +11,7 @@ export interface ServicePackage {
 
 export interface ServiceDetail {
   slug: string
-  icon: "scale" | "database" | "globe" | "code" | "fileText" | "repeat"
+  icon: "scale" | "database" | "globe" | "code" | "fileText" | "repeat" | "bot"
   category: string
   cardTitle: string
   cardSubtitle: string
@@ -65,7 +65,46 @@ export const services: ServiceDetail[] = [
       { q: "기획안을 먼저 준비해야 하나요?", a: "필요 없습니다. 직접 현장을 보고 실제 업무를 이해한 뒤 개발하므로 기획안 없이 시작할 수 있습니다." },
       { q: "기능을 추가하면 비용이 계속 늘어나나요?", a: "페이지 단위 가격 구조라 기능을 추가할 때마다 비용이 증가하지 않습니다." },
     ],
-    keywords: ["ERP 개발", "맞춤 ERP", "CRM 개발", "SCM 개발", "RPA 자동화", "웹사이트 제작", "업무 자동화 시스템", "재고관리 프로그램"],
+    keywords: ["ERP 개발", "맞춤 ERP", "CRM 개발", "SCM 개발", "RPA 자동화", "웹사이트 제작", "업무 자동화 시스템", "재고관리 프로그램", "디지털 전환", "DX 구축"],
+  },
+  {
+    slug: "ai-automation",
+    icon: "bot",
+    category: "AI 전환·AX",
+    cardTitle: "AI 업무자동화·챗봇 구축",
+    cardSubtitle: "반복 업무를 AI로 줄입니다",
+    cardDescription: "문서 자동 생성·요약, 데이터 분류, AI 상담 챗봇으로 사람 손이 덜 가는 구조를 만듭니다.",
+    priceFrom: "300,000원",
+    title: "AI 업무자동화·문서 자동화·상담 챗봇 구축 (AX)",
+    tagline: "AI를 도입만 하지 않고, 실제 업무에 붙여 일을 줄입니다",
+    description:
+      "'AI를 도입하고 싶은데 어디서 시작할지 모르겠다'는 고민에서 출발합니다. 견적서·계약서·보고서 자동 작성과 요약, 수집 데이터의 AI 분류·분석, 사내 자료 기반 상담 챗봇까지 — 실제 업무 흐름을 직접 보고 AI가 효과를 내는 지점에만 붙입니다. 유행어가 아니라, 사람 손이 덜 가는 구조를 만드는 것이 목표입니다.",
+    features: [
+      "현장 방문 후 AI 적용 지점 진단 — 무료",
+      "문서 자동 생성·요약 (견적·계약·보고서)",
+      "사내 자료 기반 AI 상담 챗봇",
+      "수집 데이터 AI 분류·분석·인사이트",
+      "기존 ERP·자동화에 AI 판단 단계 결합",
+      "도입 후 실사용·효율 개선까지 사후 점검",
+    ],
+    packages: [
+      { name: "STANDARD", price: "300,000원", desc: "단일 업무 AI 자동화 (문서·분류 등)", days: "5일", revisions: "무제한" },
+      { name: "DELUXE", price: "600,000원", desc: "AI 상담 챗봇 또는 다중 업무 자동화", days: "7일", revisions: "6회" },
+      { name: "PREMIUM", price: "1,200,000원", desc: "기존 시스템 연동형 AI 자동화 통합", days: "14일", revisions: "6회" },
+    ],
+    process: [
+      { step: "현장 확인 및 업무 분석", desc: "직접 방문해 반복 업무와 AI 적용 지점을 파악합니다." },
+      { step: "AI 적용 설계", desc: "효과가 확실한 지점에만 AI를 붙이도록 설계합니다." },
+      { step: "AI 자동화 개발", desc: "문서 자동화·챗봇·데이터 분석 기능을 개발합니다." },
+      { step: "실제 사용 기준 점검", desc: "개발 후 현장을 재방문해 정확도와 사용성을 확인합니다." },
+      { step: "유지보수 및 개선", desc: "운영 데이터에 맞춰 AI 성능을 지속 개선합니다." },
+    ],
+    faq: [
+      { q: "AI를 처음 도입하는데 무엇부터 해야 하나요?", a: "먼저 현장을 방문해 반복 업무를 분석하고, AI가 실제로 효과를 내는 지점부터 단계적으로 적용합니다. 기획·진단은 무료입니다." },
+      { q: "우리 회사 데이터로 챗봇을 만들 수 있나요?", a: "네, 사내 문서·매뉴얼·제품 자료를 기반으로 질문에 답하는 맞춤 AI 챗봇을 구축합니다." },
+      { q: "기존에 쓰던 ERP·자동화와 연동되나요?", a: "PREMIUM 패키지에서 기존 시스템에 AI 판단·자동화 단계를 결합해 통합 구축합니다." },
+    ],
+    keywords: ["AI 업무자동화", "AI 자동화", "AX", "AI 전환", "AI 챗봇 제작", "문서 자동화", "AI 도입", "중소기업 AI", "LLM 자동화", "생성형 AI 업무"],
   },
   {
     slug: "lawyer-landing",

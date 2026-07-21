@@ -12,6 +12,7 @@ import {
   Code,
   FileText,
   Repeat,
+  Bot,
   type LucideIcon,
 } from "lucide-react"
 import { Navigation } from "@/components/navigation"
@@ -36,6 +37,7 @@ const iconMap: Record<string, LucideIcon> = {
   code: Code,
   fileText: FileText,
   repeat: Repeat,
+  bot: Bot,
 }
 
 export function generateStaticParams() {

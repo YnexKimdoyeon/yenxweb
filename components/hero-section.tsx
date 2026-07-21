@@ -58,7 +58,7 @@ export function HeroSection() {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent/50" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
               </span>
-              전국 무료 현장 방문 서비스
+              중소기업 DX·AX 파트너 · 전국 무료 현장 방문
             </motion.span>
 
             <motion.h1
@@ -86,6 +86,17 @@ export function HeroSection() {
                 </svg>
               </span>
             </motion.h1>
+
+            <motion.p
+              variants={item}
+              className="mb-8 max-w-xl text-lg leading-relaxed text-muted-foreground"
+            >
+              엑셀·수기 업무를 시스템으로 바꾸는{" "}
+              <span className="font-semibold text-foreground">디지털 전환(DX)</span>,
+              반복 업무를 AI로 줄이는{" "}
+              <span className="font-semibold text-foreground">AI 전환(AX)</span>.
+              대기업 컨설팅사의 뜬구름이 아니라, 현장을 직접 보고 만드는 실행 중심 맞춤 개발입니다.
+            </motion.p>
 
             <motion.div
               variants={item}

@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { Database, Scale, Globe, Code, FileText, Repeat, ArrowRight, type LucideIcon } from "lucide-react"
+import { Database, Scale, Globe, Code, FileText, Repeat, Bot, ArrowRight, type LucideIcon } from "lucide-react"
 import { services } from "@/lib/services-data"
 
 const iconMap: Record<string, LucideIcon> = {
@@ -12,6 +12,7 @@ const iconMap: Record<string, LucideIcon> = {
   code: Code,
   fileText: FileText,
   repeat: Repeat,
+  bot: Bot,
 }
 
 export function ServicesSection({ showHeader = true }: { showHeader?: boolean }) {
