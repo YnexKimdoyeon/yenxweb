@@ -16,7 +16,6 @@ import { ServicesSection } from "@/components/services-section"
 import { CasesSection } from "@/components/cases-section"
 import { ClientsSection } from "@/components/clients-section"
 import { TrustSection } from "@/components/trust-section"
-import { TestimonialsSection } from "@/components/testimonials-section"
 import { FaqSection } from "@/components/faq-section"
 import { CtaSection } from "@/components/cta-section"
 import { Footer } from "@/components/footer"
@@ -41,11 +40,10 @@ export default function HomePage() {
       <ProblemSection />
       <WhySection />
       <ProcessSection />
-      <ServicesSection />
       <CasesSection featured />
+      <ServicesSection />
       <ClientsSection />
       <TrustSection />
-      <TestimonialsSection />
       <FaqSection />
       <CtaSection />
       <Footer />
