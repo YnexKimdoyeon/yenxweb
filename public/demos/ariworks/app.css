@@ -1,0 +1,102 @@
+/* (가상) 루미웍스 인트라넷 체험판 보조 스타일 */
+:root {
+  --bg: #f3f4f8;
+  --line: #e5e7eb;
+  --line2: #eef0f3;
+  --ink: #111827;
+  --sub: #6b7280;
+  --blue: #3182f6;
+  --blue-soft: #e8f1fe;
+}
+html, body { background: var(--bg); color: var(--ink); font-family: Pretendard, system-ui, sans-serif; }
+body { overflow-x: hidden; }
+* { -webkit-tap-highlight-color: transparent; }
+
+.card { background: #fff; border: 1px solid var(--line); border-radius: 16px; }
+.card-h { font-weight: 700; font-size: 14px; padding: 16px 18px; border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+
+/* 사이드바 */
+.side { width: 250px; background: #fff; border-right: 1px solid var(--line); }
+.nav-g { font-size: 11px; font-weight: 600; color: #6b7280; padding: 14px 10px 6px; }
+.nav-i { display: flex; align-items: center; gap: 8px; padding: 7px 12px; border-radius: 10px; font-size: 14px; color: #1f2937; margin: 1px 0; }
+.nav-i:hover { background: #f6f7f9; }
+.nav-i.on { background: var(--blue-soft); color: var(--blue); font-weight: 600; }
+.nav-i .ic { width: 20px; text-align: center; font-size: 16px; line-height: 1; }
+
+/* 탭(알약) */
+.pill { padding: 7px 13px; border-radius: 9px; font-size: 13px; background: #f2f4f6; color: #374151; white-space: nowrap; font-weight: 500; }
+.pill:hover { background: #e9ecef; }
+.pill.on { background: #111827; color: #fff; font-weight: 600; }
+.pill.dis { color: #9ca3af; }
+.seg { padding: 6px 12px; border-radius: 8px; font-size: 13px; color: #374151; }
+.seg.on { background: var(--blue-soft); color: var(--blue); font-weight: 600; border: 1px solid #bfdbfe; }
+
+/* 버튼 */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 4px; padding: 8px 14px; border-radius: 9px; font-size: 13px; font-weight: 600; border: 1px solid var(--line); background: #fff; color: #111827; white-space: nowrap; }
+.btn:hover { background: #f9fafb; }
+.btn-p { background: var(--blue); border-color: var(--blue); color: #fff; }
+.btn-p:hover { background: #1b6ee8; }
+.btn-p:disabled, .btn:disabled { opacity: .5; cursor: not-allowed; }
+.btn-r { color: #ef4444; border-color: #fecaca; background: #fff; }
+.btn-r:hover { background: #fef2f2; }
+.btn-g { background: #10b981; border-color: #10b981; color: #fff; }
+.btn-x { padding: 4px 9px; font-size: 12px; border-radius: 7px; font-weight: 500; }
+.btn-dark { background: #111827; color: #fff; border-color: #111827; }
+.eye { display: inline-flex; align-items: center; gap: 3px; border: 1px solid #d1d5db; border-radius: 7px; padding: 2px 8px; font-size: 11px; color: #4b5563; background: #fff; margin-left: 8px; white-space: nowrap; }
+.eye:hover { background: #f3f4f6; }
+.ico { width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid #d1d5db; border-radius: 8px; background: #fff; font-size: 13px; }
+.ico:hover { background: #f3f4f6; }
+
+/* 표 */
+.tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
+.tbl th { background: #f9fafb; color: #4b5563; font-weight: 600; font-size: 12px; text-align: left; padding: 11px 14px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.tbl td { white-space: nowrap; padding: 12px 14px; border-bottom: 1px solid var(--line2); color: #374151; vertical-align: middle; }
+.tbl td.wrap { white-space: normal; }
+.tbl tr:last-child td { border-bottom: 0; }
+.tbl tbody tr:hover td { background: #fafbfc; }
+.tbl .r { text-align: right; }
+.tbl .c { text-align: center; }
+.tbl td.b { color: #111827; font-weight: 600; }
+.tbl.sm td { padding: 9px 10px; }
+.tbl.sm th { padding: 9px 10px; }
+
+/* 배지 */
+.bd { display: inline-block; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 999px; white-space: nowrap; }
+.bd-blue { background: #e8f1fe; color: #1d64d8; }
+.bd-green { background: #e7f8ef; color: #15803d; }
+.bd-gray { background: #f1f2f4; color: #4b5563; }
+.bd-red { background: #fdecec; color: #dc2626; }
+.bd-amber { background: #fff4e5; color: #c2410c; }
+
+/* 입력 */
+.inp { width: 100%; border: 1px solid #d1d5db; border-radius: 9px; padding: 9px 11px; font-size: 14px; background: #fff; color: #111827; outline: none; }
+.inp:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(49,130,246,.15); }
+.inp[readonly], .inp:disabled { background: #f6f7f9; color: #6b7280; }
+.inp-sm { padding: 6px 9px; font-size: 13px; border-radius: 8px; }
+.lbl { display: block; font-size: 13px; font-weight: 600; color: #111827; margin-bottom: 6px; }
+.lbl small { font-weight: 500; color: #3182f6; margin-left: 4px; }
+.tag-brand { display: inline-block; font-size: 10px; border: 1px solid #d1d5db; color: #6b7280; border-radius: 5px; padding: 0 4px; margin-left: 4px; font-weight: 500; vertical-align: 1px; }
+
+.note-blue { background: #eef5ff; border-left: 4px solid var(--blue); color: #1d64d8; border-radius: 12px; padding: 13px 18px; font-size: 13px; line-height: 1.6; }
+.note-red { background: #fdecec; border-left: 4px solid #ef4444; color: #dc2626; border-radius: 12px; padding: 13px 18px; font-size: 13px; line-height: 1.6; }
+.help { font-size: 12px; color: #6b7280; }
+
+.dot-on { width: 14px; height: 14px; border-radius: 99px; background: #10b981; display: inline-block; }
+.dot-off { width: 14px; height: 14px; border-radius: 99px; border: 1.5px solid #d1d5db; display: inline-block; background: #fff; }
+.drop { border: 1.5px dashed #d1d5db; border-radius: 12px; padding: 12px 14px; }
+
+/* 모달 */
+.modal-bg { position: fixed; inset: 0; background: rgba(17,24,39,.45); z-index: 60; display: flex; align-items: flex-start; justify-content: center; padding: 48px 16px; overflow-y: auto; }
+.modal { background: #fff; border-radius: 16px; width: 100%; max-width: 560px; box-shadow: 0 20px 50px rgba(0,0,0,.25); }
+.modal.wide { max-width: 820px; }
+
+.clamp4 { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+.mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+
+@media (max-width: 1023px) {
+  .side { position: fixed; left: 0; top: 0; bottom: 0; z-index: 50; transform: translateX(-100%); transition: transform .2s; }
+  .side.open { transform: none; box-shadow: 0 0 40px rgba(0,0,0,.2); }
+}
+@media print {
+  .side, header, #demo-toast { display: none !important; }
+}
