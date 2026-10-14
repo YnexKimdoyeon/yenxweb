@@ -86,6 +86,7 @@ export interface DashboardScreen {
   list?: {
     title: string
     table: string
+    rows?: (db: DB) => Row[] // 표 대신 계산한 행을 보여줄 때
     columns: Column[]
     filter?: (row: Row) => boolean
     limit?: number

@@ -245,7 +245,7 @@ function Dashboard({ screen, db, accent }: { screen: DashboardScreen; db: DB; ac
   const max = Math.max(1, ...chart.map((c) => c.value))
   const list = screen.list
   const listRows = list
-    ? db[list.table].filter((r) => (list.filter ? list.filter(r) : true)).slice(0, list.limit ?? 5)
+    ? (list.rows ? list.rows(db) : db[list.table]).filter((r) => (list.filter ? list.filter(r) : true)).slice(0, list.limit ?? 5)
     : []
 
   return (
