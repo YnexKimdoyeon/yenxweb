@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ko" class="noto_sans_kr_5def19ff-module__O4w_rq__variable geist_mono_42eec60-module__Gb1_vG__variable">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#2863ab">
+<title>(가상) 늘봄빌리지 통합 ERP</title>
+<meta name="description" content="와이넥스 포트폴리오 체험판 · 주거복지시설용 통합 인트라넷/ERP (전자결재·일정·인사·행정·서비스기록, 가상 데이터)">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="app.css">
+<style>
+  /* 원본 글꼴 변수(Next.js 글꼴 모듈) — Google Fonts 의 Noto Sans KR 로 대체 */
+  .noto_sans_kr_5def19ff-module__O4w_rq__variable{--font-noto-sans-kr:"Noto Sans KR",system-ui,sans-serif}
+  .geist_mono_42eec60-module__Gb1_vG__variable{--font-geist-mono:ui-monospace,SFMono-Regular,Menlo,monospace}
+  html, body { background: var(--background); }
+  /* 체험판 보조 스타일: 원본 CSS 에 없는 대화상자·메뉴·서랍만 */
+  .demo-native-select { position:absolute; inset:0; width:100%; height:100%; opacity:0; cursor:pointer; font-size:16px; }
+  .demo-overlay { position:fixed; inset:0; z-index:60; background:rgba(0,0,0,.4); }
+  .demo-dialog { position:fixed; z-index:61; left:50%; top:50%; transform:translate(-50%,-50%); width:min(560px, calc(100vw - 24px)); max-height:calc(100vh - 32px); overflow-y:auto; box-shadow:0 20px 50px rgba(0,0,0,.25); }
+  .demo-dialog-wide { width:min(760px, calc(100vw - 24px)); }
+  .demo-drawer { position:fixed; z-index:61; left:0; top:0; bottom:0; width:min(16rem, 85vw); display:flex; box-shadow:0 0 40px rgba(0,0,0,.3); }
+  .demo-pop-bg { position:fixed; inset:0; z-index:55; }
+  .demo-pop { position:fixed; z-index:56; min-width:12rem; max-width:calc(100vw - 16px); box-shadow:0 10px 30px rgba(0,0,0,.15); }
+  .demo-pop-item { display:flex; width:100%; align-items:center; gap:.5rem; border-radius:.375rem; padding:.375rem .5rem; font-size:.875rem; text-align:left; white-space:nowrap; }
+  .demo-pop-item:hover { background:var(--muted); }
+  .demo-dot { position:absolute; top:6px; right:6px; width:7px; height:7px; border-radius:999px; background:var(--destructive); }
+  .demo-xs { font-size:.625rem; line-height:1; }
+  textarea.demo-textarea { height:auto; min-height:96px; resize:vertical; padding-top:.5rem; padding-bottom:.5rem; }
+  textarea.demo-textarea-lg { min-height:220px; }
+</style>
+</head>
+<body class="font-sans antialiased">
+<div id="app"></div>
+<script src="/demos/_shared/demo.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
