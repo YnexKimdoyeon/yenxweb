@@ -21,7 +21,7 @@ export function PortfolioList() {
               대표 프로젝트
             </h2>
             <p className="mt-1 text-muted-foreground">
-              모든 시스템을 가상 데이터로 직접 눌러 볼 수 있습니다.
+              와이넥스의 대표 프로젝트를 직접 확인해보세요
             </p>
           </div>
         </div>
