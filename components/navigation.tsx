@@ -11,7 +11,7 @@ import { navGroups, type NavGroup } from "@/lib/nav-data"
 // 지금 주소가 어느 메뉴 그룹에 속하는지
 function isActive(group: NavGroup, pathname: string) {
   if (group.label === "키오스크") return pathname.startsWith("/kiosk") || pathname === "/portfolio/kiosk"
-  if (group.label === "ERP·SI 개발")
+  if (group.label === "ERP·업무자동화")
     return pathname.startsWith("/services") || pathname.startsWith("/portfolio/software") || pathname.startsWith("/portfolio/demo")
   if (group.label === "고객지원") return pathname === "/contact" || pathname.startsWith("/support")
   return pathname.startsWith(group.href)

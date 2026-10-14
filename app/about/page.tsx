@@ -11,13 +11,13 @@ import { VisitCtaBand } from "@/components/visit-cta-band"
 
 export const metadata: Metadata = {
   title: "와이넥스 소개 | 와이넥스 YNEX",
-  description: "주식회사 와이넥스는 ERP·SI 개발과 키오스크 제작을 함께 하는 회사입니다. 개발자가 직접 현장을 보고 업무에 맞는 시스템을 만듭니다.",
+  description: "주식회사 와이넥스는 ERP·업무자동화 개발과 키오스크 제작을 함께 하는 회사입니다. 개발자가 직접 현장을 보고 업무에 맞는 시스템을 만듭니다.",
   alternates: { canonical: "/about" },
 }
 
 const capabilities = [
   {
-    title: "ERP·SI 개발",
+    title: "ERP·업무 시스템",
     items: ["ERP·MES·WMS", "그룹웨어·사내 인트라넷", "관리자 시스템·B2B 주문", "전자결재·인사·회계"],
   },
   {
@@ -40,7 +40,7 @@ export default function AboutPage() {
         <PageHero
           badge="회사소개"
           title="현장을 아는 개발 회사, 와이넥스"
-          description="주식회사 와이넥스는 업무 시스템(ERP·SI)을 만들고, 키오스크를 제작합니다. 개발자가 직접 현장을 보고, 그 업무에 맞는 프로그램을 만듭니다."
+          description="주식회사 와이넥스는 ERP·업무자동화 시스템을 만들고, 키오스크를 제작합니다. 개발자가 직접 현장을 보고, 그 업무에 맞는 프로그램을 만듭니다."
         />
         <WhySection />
         <section id="capabilities" className="scroll-mt-24 bg-muted/30 py-20">

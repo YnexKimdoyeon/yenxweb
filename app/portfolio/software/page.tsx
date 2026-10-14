@@ -8,7 +8,7 @@ import { JsonLd } from "@/components/json-ld"
 import { graph, breadcrumbSchema, SITE_URL } from "@/lib/structured-data"
 import { cases } from "@/lib/cases-data"
 
-const title = "ERP·SI 개발 포트폴리오 | 와이넥스 YNEX"
+const title = "ERP·업무자동화 포트폴리오 | 와이넥스 YNEX"
 const description =
   "와이넥스가 직접 만든 업무자동화·ERP·물류·재고관리·크롤링 시스템 도입사례 모음. 업무 효율·개발 금액·소요 기간까지 실제 결과를 공개합니다."
 
@@ -37,11 +37,11 @@ const jsonLd = graph(
   breadcrumbSchema([
     { name: "홈", url: SITE_URL },
     { name: "포트폴리오", url: `${SITE_URL}/portfolio` },
-    { name: "ERP·SI 개발", url: `${SITE_URL}/portfolio/software` },
+    { name: "ERP·업무자동화", url: `${SITE_URL}/portfolio/software` },
   ]),
   {
     "@type": "CollectionPage",
-    name: "ERP·SI 개발 포트폴리오",
+    name: "ERP·업무자동화 포트폴리오",
     url: `${SITE_URL}/portfolio/software`,
     mainEntity: {
       "@type": "ItemList",
@@ -81,7 +81,7 @@ export default function SoftwarePortfolioPage() {
               직접 만든 시스템
             </span>
             <h1 className="mb-4 text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
-              ERP·SI 개발 포트폴리오
+              ERP·업무자동화 포트폴리오
             </h1>
             <p className="mx-auto max-w-2xl text-lg leading-relaxed text-muted-foreground">
               와이넥스가 직접 만든 업무자동화·ERP·물류·재고관리·크롤링 시스템 도입사례 모음.

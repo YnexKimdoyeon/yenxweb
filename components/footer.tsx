@@ -5,7 +5,7 @@ import Link from "next/link"
 
 const quickLinks = [
   { label: "회사소개", href: "/about" },
-  { label: "ERP·SI 개발", href: "/services" },
+  { label: "ERP·업무자동화", href: "/services" },
   { label: "키오스크 주문제작", href: "/kiosk" },
   { label: "포트폴리오", href: "/portfolio" },
   { label: "자주 묻는 질문", href: "/faq" },

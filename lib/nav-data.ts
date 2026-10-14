@@ -1,4 +1,4 @@
-// 상단 메뉴 단일 출처: 회사소개·고객지원은 공통, 서비스·포트폴리오·견적은 사업별(ERP·SI / 키오스크)로 나눈다
+// 상단 메뉴 단일 출처: 회사소개·고객지원은 공통, 서비스·포트폴리오·견적은 사업별(ERP·업무자동화 / 키오스크)로 나눈다
 export interface NavGroup {
   label: string
   href: string // 그룹 이름을 눌렀을 때 가는 곳
@@ -15,7 +15,7 @@ export const navGroups: NavGroup[] = [
     ],
   },
   {
-    label: "ERP·SI 개발",
+    label: "ERP·업무자동화",
     href: "/services",
     items: [
       { label: "ERP·MES·WMS 개발", href: "/services", desc: "업무에 맞춘 시스템 개발" },
@@ -37,7 +37,7 @@ export const navGroups: NavGroup[] = [
     label: "고객지원",
     href: "/contact",
     items: [
-      { label: "견적 문의", href: "/contact", desc: "ERP·SI 개발 상담" },
+      { label: "견적 문의", href: "/contact", desc: "ERP·업무자동화 상담" },
       { label: "키오스크 견적 문의", href: "/kiosk/quote", desc: "키오스크 제작 상담" },
       { label: "유지보수 문의", href: "/support/maintenance", desc: "운영 중인 시스템 지원" },
     ],

@@ -9,7 +9,7 @@ import { cases } from "@/lib/cases-data"
 
 export const metadata: Metadata = {
   title: "포트폴리오 | 와이넥스 YNEX",
-  description: "와이넥스가 만든 ERP·SI 시스템과 키오스크 포트폴리오. 사업별로 나눠 보실 수 있습니다.",
+  description: "와이넥스가 만든 ERP·업무자동화 시스템과 키오스크 포트폴리오. 사업별로 나눠 보실 수 있습니다.",
   alternates: { canonical: "/portfolio" },
 }
 
@@ -17,8 +17,8 @@ const choices = [
   {
     href: "/portfolio/software",
     icon: MousePointerClick,
-    badge: "ERP·SI 개발",
-    title: "ERP·SI 포트폴리오",
+    badge: "ERP·업무자동화",
+    title: "ERP·업무자동화 포트폴리오",
     desc: "프로젝트별 상세 구축 사례입니다. 고객 업종, 개발 기능, 업무 개선 효과를 보고, 대부분의 시스템은 체험판으로 직접 눌러 볼 수 있습니다.",
     meta: `구축 사례 ${cases.length}건`,
   },
