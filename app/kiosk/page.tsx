@@ -1,59 +1,142 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { ArrowRight, Boxes, Cpu, Palette, Wrench } from "lucide-react"
+import {
+  ArrowRight,
+  Building2,
+  Cable,
+  Factory,
+  Hospital,
+  LayoutDashboard,
+  MonitorSmartphone,
+  PartyPopper,
+  Store,
+  Ticket,
+  UtensilsCrossed,
+  Wrench,
+} from "lucide-react"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { FloatingKakao } from "@/components/floating-kakao"
-import { PageHero } from "@/components/page-hero"
-import { bundleFlow, kioskTypes } from "@/lib/kiosk-data"
 
 export const metadata: Metadata = {
   title: "키오스크 주문제작 | 와이넥스 YNEX",
-  description: "용도와 설치 환경에 맞춰 외함 디자인부터 소프트웨어까지 만드는 와이넥스 키오스크 주문제작. ERP와 연결한 결합 상품도 함께 상담합니다.",
+  description:
+    "주문·접수·출고·발권·결제 등 필요한 업무에 맞춰 키오스크와 ERP를 함께 설계합니다. 외함 제작부터 화면 개발, 데이터 연동, 설치와 유지보수까지 와이넥스가 직접 맡습니다.",
   alternates: { canonical: "/kiosk" },
 }
 
-const scope = [
-  { icon: Palette, title: "외함 디자인", desc: "설치 장소와 매장 분위기에 맞춰 형태와 색을 정합니다." },
-  { icon: Cpu, title: "하드웨어 구성", desc: "화면 크기와 결제·출력·스캔 등 필요한 모듈을 고릅니다." },
-  { icon: Boxes, title: "소프트웨어", desc: "주문·접수·안내 화면을 업무 흐름에 맞춰 직접 개발합니다." },
-  { icon: Wrench, title: "설치·유지보수", desc: "설치 후 사용 교육과 운영 중 문제 대응까지 맡습니다." },
+const differences = [
+  {
+    icon: Wrench,
+    title: "키오스크 주문제작",
+    desc: "설치 장소와 사용 목적에 맞춰 스탠드형·벽걸이형·테이블형·매립형 외함을 설계합니다. 터치스크린, 바코드 스캐너, 영수증 프린터, 카드리더기 등 필요한 장비만 구성합니다.",
+  },
+  {
+    icon: MonitorSmartphone,
+    title: "전용 화면 개발",
+    desc: "사용자가 헤매지 않도록 실제 업무 순서에 맞춘 화면을 개발합니다. 접수·주문·결제·발권·출고 요청처럼 현장마다 다른 절차를 그대로 구현합니다.",
+  },
+  {
+    icon: LayoutDashboard,
+    title: "맞춤 ERP 구축",
+    desc: "키오스크에서 입력된 데이터가 관리자 ERP에 즉시 반영됩니다. 매출, 주문, 재고, 고객, 작업 현황과 통계를 한곳에서 관리합니다.",
+  },
+  {
+    icon: Cable,
+    title: "기존 시스템 연동",
+    desc: "이미 사용 중인 ERP·WMS·POS·그룹웨어가 있다면 API 또는 데이터 연동 방식으로 연결합니다. 기존 시스템을 유지한 채 필요한 기능만 확장할 수도 있습니다.",
+  },
 ]
 
-const steps = ["상담·현장 확인", "사양 확정", "외함 디자인", "제작·소프트웨어 개발", "설치·교육", "유지보수"]
+const flow = [
+  "고객·직원이 키오스크에서 업무 등록",
+  "데이터가 ERP에 실시간 반영",
+  "담당자에게 작업·처리 요청 전달",
+  "재고·매출·상태 자동 업데이트",
+  "관리자 화면에서 현황과 통계 확인",
+]
+
+const places = [
+  { icon: UtensilsCrossed, title: "식당·카페", desc: "주문·결제·대기번호·매출·재고 관리" },
+  { icon: Hospital, title: "병원·검진센터", desc: "접수·문진·순번표·환자 호출" },
+  { icon: Factory, title: "공장·물류센터", desc: "출고 요청·작업 지시·지게차 배차·WMS 연동" },
+  { icon: Store, title: "무인매장", desc: "상품 조회·결제·회원 인증·원격 관리" },
+  { icon: Building2, title: "관공서·안내시설", desc: "민원 접수·번호표·시설 안내·증명서 출력" },
+  { icon: PartyPopper, title: "행사·전시장", desc: "참가 등록·티켓 발권·QR 확인·현장 통계" },
+]
+
+const caseFlow = [
+  "키오스크에서 출고 요청 등록",
+  "지게차 산업용 태블릿에 실시간 전달",
+  "지게차 기사가 요청 확인·수락",
+  "차량번호·위치정보 SMS 자동 발송",
+  "ERP·WMS에 처리 이력 자동 저장",
+]
+
+const scope = [
+  { title: "하드웨어", items: ["맞춤 외함 디자인", "터치스크린", "바코드·QR 스캐너", "카드리더기", "영수증·번호표 프린터"] },
+  { title: "소프트웨어", items: ["키오스크 전용 화면", "관리자 ERP", "모바일·태블릿 화면", "통계·현황판", "사용자·권한 관리"] },
+  { title: "연동·운영", items: ["ERP·WMS·POS 연동", "결제·문자·알림 연동", "데이터 이전", "설치·교육", "유지보수"] },
+]
 
 export default function KioskPage() {
   return (
     <>
       <Navigation />
       <main className="pt-16 lg:pt-20">
-        <PageHero
-          badge="키오스크"
-          title="키오스크 주문제작"
-          description="쓰는 곳과 하는 일에 맞춰 키오스크를 만듭니다. 외함부터 화면 소프트웨어, 업무 시스템 연결까지 한 회사가 맡습니다."
-        >
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Link href="/kiosk/quote" className="rounded-xl bg-primary px-6 py-3 font-semibold text-primary-foreground hover:bg-primary/90">
-              키오스크 견적 문의
-            </Link>
-            <Link href="/kiosk/erp" className="rounded-xl border border-border bg-card px-6 py-3 font-semibold text-foreground hover:border-primary/40">
-              키오스크 + ERP 결합 보기
-            </Link>
+        {/* 1. 첫 화면 */}
+        <section className="relative overflow-hidden border-b border-border bg-gradient-to-b from-secondary to-background">
+          <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-14 lg:grid-cols-[1fr_1.1fr] lg:py-20">
+            <div>
+              <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3.5 py-1.5 text-sm font-semibold tracking-wide text-primary">
+                <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+                KIOSK × CUSTOM ERP
+              </span>
+              <h1 className="mb-5 text-3xl font-bold leading-tight tracking-tight text-foreground sm:text-4xl md:text-5xl">
+                현장에 맞춘 키오스크,
+                <br />
+                업무에 맞춘 ERP
+              </h1>
+              <p className="mb-8 max-w-xl text-lg leading-relaxed text-muted-foreground">
+                주문·접수·출고·발권·결제 등 필요한 업무에 맞춰 키오스크와 ERP를 함께 설계합니다. 외함 제작부터 화면 개발, 데이터 연동, 설치와 유지보수까지 와이넥스가 직접 맡습니다.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <Link href="/kiosk/quote" className="rounded-xl bg-primary px-6 py-3 font-semibold text-primary-foreground hover:bg-primary/90">
+                  무료 현장 상담 신청
+                </Link>
+                <a href="#scope" className="rounded-xl border border-border bg-card px-6 py-3 font-semibold text-foreground hover:border-primary/40">
+                  제작 가능 범위 보기
+                </a>
+              </div>
+            </div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/kiosk/kiosk-hero.jpg"
+              alt="물류 사무실에 놓인 맞춤 제작 스탠드형 키오스크"
+              width={1586}
+              height={992}
+              className="w-full rounded-2xl border border-border shadow-2xl"
+            />
           </div>
-        </PageHero>
+        </section>
 
-        <section className="py-16">
+        {/* 2. 무엇이 다른가요? */}
+        <section className="py-16 lg:py-20">
           <div className="mx-auto max-w-6xl px-4">
-            <h2 className="mb-2 text-2xl font-bold text-foreground md:text-3xl">주문제작 범위</h2>
-            <p className="mb-8 text-muted-foreground">기성품을 고르는 대신, 필요한 것만 골라 하나로 만듭니다.</p>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {scope.map((s) => {
-                const Icon = s.icon
+            <p className="mb-2 text-sm font-semibold text-primary">무엇이 다른가요?</p>
+            <h2 className="mb-10 text-2xl font-bold leading-snug text-foreground md:text-3xl">
+              키오스크 한 대가 아니라,
+              <br />
+              업무가 돌아가는 시스템을 만듭니다
+            </h2>
+            <div className="grid gap-4 md:grid-cols-2">
+              {differences.map((d) => {
+                const Icon = d.icon
                 return (
-                  <div key={s.title} className="rounded-2xl border border-border bg-card p-6">
+                  <div key={d.title} className="rounded-2xl border border-border bg-card p-6">
                     <Icon className="mb-4 h-7 w-7 text-primary" />
-                    <h3 className="mb-1 font-bold text-foreground">{s.title}</h3>
-                    <p className="text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
+                    <h3 className="mb-2 text-lg font-bold text-foreground">{d.title}</h3>
+                    <p className="leading-relaxed text-muted-foreground">{d.desc}</p>
                   </div>
                 )
               })}
@@ -61,62 +144,133 @@ export default function KioskPage() {
           </div>
         </section>
 
-        <section className="bg-muted/30 py-16">
+        {/* 3. 하나의 흐름 */}
+        <section className="bg-muted/30 py-16 lg:py-20">
           <div className="mx-auto max-w-6xl px-4">
-            <div className="mb-8 flex flex-wrap items-end justify-between gap-3">
-              <div>
-                <h2 className="mb-2 text-2xl font-bold text-foreground md:text-3xl">제작 유형</h2>
-                <p className="text-muted-foreground">설치 환경에 따라 형태가 달라집니다.</p>
-              </div>
-              <Link href="/kiosk/products" className="inline-flex items-center gap-1 font-semibold text-primary">
-                제작 유형 자세히 <ArrowRight className="h-4 w-4" />
-              </Link>
-            </div>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {kioskTypes.map((t) => (
-                <div key={t.slug} className="rounded-2xl border border-border bg-card p-6">
-                  <h3 className="mb-2 text-lg font-bold text-foreground">{t.name}</h3>
-                  <p className="text-sm leading-relaxed text-muted-foreground">{t.summary}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="py-16">
-          <div className="mx-auto max-w-6xl px-4">
-            <div className="rounded-3xl bg-accent p-8 text-accent-foreground md:p-12">
-              <p className="mb-2 text-sm font-semibold text-white/70">결합 상품</p>
-              <h2 className="mb-3 text-2xl font-bold md:text-3xl">키오스크에서 받은 주문이 ERP로 바로 이어집니다</h2>
-              <p className="mb-8 max-w-2xl text-white/80">
-                주문·결제는 키오스크에서, 재고·매출·정산은 ERP에서. 따로 맞춰 볼 필요 없이 한 흐름으로 만듭니다.
-              </p>
-              <ol className="mb-8 grid gap-3 md:grid-cols-4">
-                {bundleFlow.map((f, i) => (
-                  <li key={f.step} className="rounded-xl bg-white/10 p-4">
-                    <span className="text-xs font-bold text-white/60">{String(i + 1).padStart(2, "0")}</span>
-                    <p className="font-semibold">{f.step}</p>
-                  </li>
-                ))}
-              </ol>
-              <Link href="/kiosk/erp" className="inline-flex items-center gap-1.5 rounded-xl bg-white px-5 py-3 font-semibold text-accent">
-                결합 상품 자세히 <ArrowRight className="h-4 w-4" />
-              </Link>
-            </div>
-          </div>
-        </section>
-
-        <section className="bg-muted/30 py-16">
-          <div className="mx-auto max-w-6xl px-4">
-            <h2 className="mb-8 text-2xl font-bold text-foreground md:text-3xl">제작 절차</h2>
-            <ol className="grid gap-3 sm:grid-cols-3 lg:grid-cols-6">
-              {steps.map((s, i) => (
-                <li key={s} className="rounded-xl border border-border bg-card p-4">
-                  <span className="text-xs font-bold text-primary">{String(i + 1).padStart(2, "0")}</span>
-                  <p className="font-semibold text-foreground">{s}</p>
+            <h2 className="mb-10 text-2xl font-bold text-foreground md:text-3xl">한 번 입력하고, 모든 업무가 이어집니다</h2>
+            <ol className="mb-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+              {flow.map((f, i) => (
+                <li key={f} className="rounded-xl border border-border bg-card p-5">
+                  <span className="mb-2 flex h-8 w-8 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">
+                    {i + 1}
+                  </span>
+                  <p className="font-semibold leading-snug text-foreground">{f}</p>
                 </li>
               ))}
             </ol>
+            <p className="rounded-xl bg-primary/5 px-5 py-4 leading-relaxed text-foreground">
+              키오스크 따로, 관리 프로그램 따로 맞출 필요가 없습니다. 처음부터 하나의 흐름으로 설계하기 때문에 입력 누락과 중복 업무를 줄일 수 있습니다.
+            </p>
+          </div>
+        </section>
+
+        {/* 4. 적용 분야 */}
+        <section className="py-16 lg:py-20">
+          <div className="mx-auto max-w-6xl px-4">
+            <h2 className="mb-10 text-2xl font-bold text-foreground md:text-3xl">이런 곳에 적용할 수 있습니다</h2>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {places.map((pl) => {
+                const Icon = pl.icon
+                return (
+                  <div key={pl.title} className="flex gap-4 rounded-2xl border border-border bg-card p-5">
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                      <Icon className="h-5 w-5" />
+                    </span>
+                    <div>
+                      <h3 className="mb-1 font-bold text-foreground">{pl.title}</h3>
+                      <p className="text-sm leading-relaxed text-muted-foreground">{pl.desc}</p>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* 5. 구축 사례 예시 */}
+        <section className="bg-muted/30 py-16 lg:py-20">
+          <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 lg:grid-cols-2">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/kiosk/logistics-case.jpg"
+              alt="지게차 산업용 태블릿과 출고 요청 키오스크가 연결된 물류 현장 예시"
+              width={1586}
+              height={992}
+              loading="lazy"
+              className="w-full rounded-2xl border border-border shadow-xl"
+            />
+            <div>
+              <span className="mb-3 inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
+                <Ticket className="h-3.5 w-3.5" />
+                물류 현장 적용 예시
+              </span>
+              <h2 className="mb-4 text-2xl font-bold leading-snug text-foreground md:text-3xl">
+                키오스크 출고 요청과 지게차 작업을 실시간 연결
+              </h2>
+              <p className="mb-6 leading-relaxed text-muted-foreground">
+                화물차 기사가 사무실 키오스크에서 출고를 요청하면 지게차 태블릿에 즉시 전달됩니다. 담당 기사가 요청을 수락하면 차량번호와 위치를 문자로 안내하고, 모든 처리 이력은 ERP에 자동 기록됩니다.
+              </p>
+              <ol className="mb-5 space-y-2">
+                {caseFlow.map((c, i) => (
+                  <li key={c} className="flex items-center gap-3 rounded-lg bg-card px-4 py-2.5 text-sm text-foreground">
+                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground">
+                      {i + 1}
+                    </span>
+                    {c}
+                  </li>
+                ))}
+              </ol>
+              <p className="text-sm text-muted-foreground">
+                이 사례는 활용 예시 중 하나입니다. 업종과 업무 방식에 따라 장비와 기능을 새롭게 구성합니다.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* 6. 제작 범위 */}
+        <section id="scope" className="scroll-mt-24 py-16 lg:py-20">
+          <div className="mx-auto max-w-6xl px-4">
+            <h2 className="mb-10 text-2xl font-bold text-foreground md:text-3xl">제작 범위</h2>
+            <div className="grid gap-4 md:grid-cols-3">
+              {scope.map((s) => (
+                <div key={s.title} className="rounded-2xl border border-border bg-card p-6">
+                  <h3 className="mb-4 text-lg font-bold text-primary">{s.title}</h3>
+                  <ul className="space-y-2.5">
+                    {s.items.map((it) => (
+                      <li key={it} className="flex gap-2 text-foreground">
+                        <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+                        {it}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+            <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">
+              <Link href="/kiosk/products" className="inline-flex items-center gap-1 text-primary hover:underline">
+                제작 유형 보기 <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link href="/kiosk/erp" className="inline-flex items-center gap-1 text-primary hover:underline">
+                키오스크 + ERP 결합 보기 <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link href="/portfolio/software" className="inline-flex items-center gap-1 text-primary hover:underline">
+                ERP 체험판 보기 <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* 7. 마지막 문의 */}
+        <section className="bg-accent py-16 text-accent-foreground">
+          <div className="mx-auto max-w-3xl px-4 text-center">
+            <h2 className="mb-4 text-2xl font-bold md:text-3xl">필요한 키오스크가 시중에 없으신가요?</h2>
+            <p className="mb-8 leading-relaxed text-white/80">
+              사용 목적과 현재 업무만 알려주세요. 개발자가 직접 현장을 확인하고, 키오스크와 ERP를 어떤 구조로 만들면 좋을지 제안해 드립니다.
+            </p>
+            <Link href="/kiosk/quote" className="inline-flex rounded-xl bg-white px-7 py-3.5 font-semibold text-accent hover:bg-white/90">
+              무료 현장 상담 신청
+            </Link>
+            <p className="mt-5 text-sm text-white/60">외함·장비·프로그램·ERP 연동·설치·유지보수를 한 회사가 책임집니다.</p>
           </div>
         </section>
       </main>
