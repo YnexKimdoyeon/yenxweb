@@ -8,6 +8,7 @@ export interface GalleryData {
   images: string[]
   title: string
   portrait?: boolean
+  start?: number // 처음 보여 줄 장
 }
 
 // 사례 화면 크게 보기 (가로 슬라이드)
@@ -28,7 +29,7 @@ export function CaseGallery({
   )
 
   useEffect(() => {
-    setIndex(0)
+    setIndex(gallery?.start ?? 0)
   }, [gallery])
 
   useEffect(() => {
