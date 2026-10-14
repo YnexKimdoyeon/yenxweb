@@ -1,8 +1,9 @@
 "use client"
 
-import { useState, type FormEvent } from "react"
+import { useEffect, useState, type FormEvent } from "react"
 import { Check, Loader2, MessageCircle } from "lucide-react"
 import { trackEvent } from "@/lib/gtag"
+import { cases } from "@/lib/cases-data"
 
 const KAKAO_URL = "https://open.kakao.com/o/sgQ0uyxi"
 
@@ -24,6 +25,13 @@ export function ContactForm({
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">(
     "idle",
   )
+  // 체험판의 "이런 시스템 문의"로 들어오면 ?from=<사례 slug> 로 어떤 시스템을 보고 있었는지 넘어온다
+  const [system, setSystem] = useState<string | null>(null)
+  useEffect(() => {
+    const from = new URLSearchParams(window.location.search).get("from")
+    const item = from ? cases.find((c) => c.slug === from) : undefined
+    if (item) setSystem(item.title)
+  }, [])
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -83,7 +91,14 @@ export function ContactForm({
         tabIndex={-1}
         autoComplete="off"
       />
-      <input type="hidden" name="_subject" value={subject} />
+      <input type="hidden" name="_subject" value={system ? `${subject} · ${system}` : subject} />
+      {system && <input type="hidden" name="보고있던_시스템" value={system} />}
+
+      {system && (
+        <p className="mb-4 rounded-lg bg-primary/5 px-3.5 py-2.5 text-sm text-primary">
+          보고 계셨던 시스템: <span className="font-semibold">{system}</span>
+        </p>
+      )}
       <input type="hidden" name="_template" value="table" />
       <input type="hidden" name="_captcha" value="false" />
 
@@ -105,7 +120,9 @@ export function ContactForm({
           문의 내용
         </label>
         <textarea
+          key={system ?? "none"}
           name="문의내용"
+          defaultValue={system ? `[체험판: ${system}] 이 시스템과 비슷하게 만들고 싶습니다.\n` : undefined}
           rows={4}
           placeholder={placeholder}
           className="w-full resize-none rounded-lg border border-input bg-background px-3.5 py-2.5 text-foreground placeholder:text-muted-foreground/70 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"

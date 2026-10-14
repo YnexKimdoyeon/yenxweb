@@ -136,11 +136,13 @@
         "font:500 13px/1.2 Pretendard,system-ui,sans-serif;white-space:nowrap;max-width:calc(100vw - 24px);overflow-x:auto",
     )
     var a = "color:#fff;text-decoration:none;padding:6px 10px;border-radius:999px;"
+    // 지금 보고 있는 체험판 (/demos/<slug>/...) → 문의 폼에 어떤 시스템인지 넘긴다
+    var slug = opt.slug || (location.pathname.split("/")[2] || "")
     bar.innerHTML =
       '<span style="background:#fff;color:#111827;font-weight:700;padding:3px 8px;border-radius:999px;font-size:12px">체험판</span>' +
       '<span style="opacity:.75">가상 데이터 · 새로고침하면 처음으로</span>' +
       '<a href="' + (opt.back || "/portfolio/software") + '" style="' + a + 'background:rgba(255,255,255,.12)">← 포트폴리오</a>' +
-      '<a href="/contact" style="' + a + 'background:#fff;color:#111827;font-weight:700">이런 시스템 문의</a>' +
+      '<a href="/contact?from=' + encodeURIComponent(slug) + '" style="' + a + 'background:#fff;color:#111827;font-weight:700">이런 시스템 문의</a>' +
       '<button type="button" aria-label="안내 접기" style="border:0;background:transparent;color:#fff;opacity:.7;font-size:18px;line-height:1;padding:4px 6px;cursor:pointer">×</button>'
     document.body.appendChild(bar)
 
