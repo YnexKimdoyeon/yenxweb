@@ -29,8 +29,19 @@ export interface CaseDetail {
   result: string // 성과 도출: 도입 후 변화
 }
 
+// 포트폴리오 목록 분야 탭
+export const caseFields = [
+  { id: "erp", label: "ERP·통합관리" },
+  { id: "logistics", label: "물류·재고" },
+  { id: "groupware", label: "그룹웨어·인트라넷" },
+  { id: "industry", label: "업종 특화" },
+  { id: "automation", label: "자동화·마케팅" },
+] as const
+export type CaseField = (typeof caseFields)[number]["id"]
+
 export interface CaseItem {
   slug: string
+  field: CaseField
   category: string
   icon: LucideIcon
   featured?: boolean
@@ -41,16 +52,16 @@ export interface CaseItem {
   portrait?: boolean
   // 실제 화면을 가상 데이터로 옮긴 체험판 (public/demos)
   demoUrl?: string
-  // 아래 세 값은 공개 확정된 사례에만 표시
-  improvement?: string
-  cost?: string
-  duration?: string
+  improvement: string
+  cost: string
+  duration: string
   detail: CaseDetail
 }
 
 export const cases: CaseItem[] = [
   {
     slug: "one-erp",
+    field: "erp",
     demoUrl: "/demos/one-erp/index.html",
     category: "통합 ERP",
     icon: ShoppingBag,
@@ -67,6 +78,9 @@ export const cases: CaseItem[] = [
       "/portfolio/one-erp-s2.png",
       "/portfolio/one-erp-s3.png",
     ],
+    improvement: "85%",
+    cost: "₩12,000,000",
+    duration: "2개월",
     detail: {
       problem:
         "채널마다 관리 화면이 따로 있고 단체·커스텀 주문은 메신저로 들어와, 디자인팀·발주팀·물류팀·경리팀이 같은 주문을 각자 다른 표로 관리하고 있었습니다.",
@@ -78,6 +92,7 @@ export const cases: CaseItem[] = [
   },
   {
     slug: "haccp",
+    field: "industry",
     demoUrl: "/demos/haccp/index.html",
     category: "HACCP 관리",
     icon: ClipboardCheck,
@@ -114,6 +129,7 @@ export const cases: CaseItem[] = [
   },
   {
     slug: "maison-intranet",
+    field: "groupware",
     category: "그룹웨어",
     icon: Building2,
     demoUrl: "/demos/maison-intranet/index.html",
@@ -130,6 +146,9 @@ export const cases: CaseItem[] = [
       "/portfolio/maison-intranet-s2.png",
       "/portfolio/maison-intranet-s3.png",
     ],
+    improvement: "80%",
+    cost: "₩15,000,000",
+    duration: "3개월",
     detail: {
       problem:
         "오래된 인트라넷과 종이 서류, 엑셀이 섞여 있어 결재와 기록이 흩어지고, 부서마다 같은 내용을 여러 번 입력했습니다.",
@@ -141,6 +160,7 @@ export const cases: CaseItem[] = [
   },
   {
     slug: "ariworks",
+    field: "groupware",
     category: "사내 인트라넷",
     icon: LayoutGrid,
     demoUrl: "/demos/ariworks/index.html",
@@ -157,6 +177,9 @@ export const cases: CaseItem[] = [
       "/portfolio/ariworks-s2.png",
       "/portfolio/ariworks-s3.png",
     ],
+    improvement: "82%",
+    cost: "₩9,000,000",
+    duration: "2개월",
     detail: {
       problem:
         "상담, 가맹점, 마케팅, 인사 자료가 부서별 시트와 메신저에 흩어져 있었고, 누가 어떤 개인정보를 보는지 관리하기 어려웠습니다.",
@@ -168,6 +191,7 @@ export const cases: CaseItem[] = [
   },
   {
     slug: "logistics-ops",
+    field: "logistics",
     demoUrl: "/demos/logistics-ops/index.html",
     category: "운영 관리",
     icon: ClipboardList,
@@ -199,6 +223,7 @@ export const cases: CaseItem[] = [
   },
   {
     slug: "inventory",
+    field: "logistics",
     demoUrl: "/demos/inventory/index.html",
     category: "재고 관리",
     icon: Boxes,
@@ -228,6 +253,7 @@ export const cases: CaseItem[] = [
   },
   {
     slug: "admin-system",
+    field: "groupware",
     demoUrl: "/demos/admin-system/index.html",
     category: "관리자 시스템",
     icon: LayoutDashboard,
@@ -257,6 +283,7 @@ export const cases: CaseItem[] = [
   },
   {
     slug: "tire-b2b",
+    field: "erp",
     category: "B2B 유통",
     icon: CircleDot,
     demoUrl: "/demos/tire-b2b/index.html",
@@ -273,6 +300,9 @@ export const cases: CaseItem[] = [
       "/portfolio/tire-b2b-s2.png",
       "/portfolio/tire-b2b-s3.png",
     ],
+    improvement: "78%",
+    cost: "₩7,000,000",
+    duration: "1개월",
     detail: {
       problem:
         "거래처 주문은 전화와 메신저로, 창고별 재고는 엑셀로, 매입·매출은 별도 장부로 관리해 재고 확인과 정산에 손이 많이 갔습니다.",
@@ -284,6 +314,7 @@ export const cases: CaseItem[] = [
   },
   {
     slug: "logistics-sorting",
+    field: "logistics",
     demoUrl: "/demos/logistics-sorting/index.html",
     category: "물류 자동화",
     icon: Truck,
@@ -314,6 +345,7 @@ export const cases: CaseItem[] = [
   },
   {
     slug: "payflow",
+    field: "automation",
     demoUrl: "/demos/payflow/index.html",
     category: "수금 자동화",
     icon: Send,
@@ -346,6 +378,7 @@ export const cases: CaseItem[] = [
   },
   {
     slug: "review",
+    field: "automation",
     demoUrl: "/demos/review/index.html",
     category: "리뷰 관리",
     icon: Star,
@@ -376,6 +409,7 @@ export const cases: CaseItem[] = [
   },
   {
     slug: "film-schedule",
+    field: "industry",
     demoUrl: "/demos/film-schedule/index.html",
     category: "촬영 관리",
     icon: Clapperboard,
@@ -392,6 +426,9 @@ export const cases: CaseItem[] = [
       "/portfolio/film-schedule-s2.png",
       "/portfolio/film-schedule-s3.png",
     ],
+    improvement: "75%",
+    cost: "₩5,500,000",
+    duration: "1개월",
     detail: {
       problem:
         "촬영 예약과 감독 배정을 메신저와 달력에 나눠 적다 보니, 일정이 겹치거나 편집·납품이 어디까지 됐는지 매번 물어봐야 했습니다.",
@@ -403,6 +440,7 @@ export const cases: CaseItem[] = [
   },
   {
     slug: "export-car",
+    field: "erp",
     demoUrl: "/demos/export-car/index.html",
     category: "수출 중고차",
     icon: CarFront,
@@ -419,6 +457,9 @@ export const cases: CaseItem[] = [
       "/portfolio/export-car-s2.png",
       "/portfolio/export-car-s3.png",
     ],
+    improvement: "76%",
+    cost: "₩6,500,000",
+    duration: "1개월",
     detail: {
       problem:
         "차량이 여러 지점 주차장에 나뉘어 있어 어느 차가 어디 있는지, 이동 중인지, 바이어 입금은 얼마나 남았는지 지점마다 전화로 확인해야 했습니다.",
@@ -430,6 +471,7 @@ export const cases: CaseItem[] = [
   },
   {
     slug: "procurement",
+    field: "erp",
     demoUrl: "/demos/procurement/index.html",
     category: "조달 관리",
     icon: FileSpreadsheet,
@@ -446,6 +488,9 @@ export const cases: CaseItem[] = [
       "/portfolio/procurement-s2.png",
       "/portfolio/procurement-s3.png",
     ],
+    improvement: "88%",
+    cost: "₩4,500,000",
+    duration: "3주",
     detail: {
       problem:
         "공공기관 납품요구를 엑셀로 옮겨 적어 관리하다 보니, 납기가 가까운 건을 놓치거나 검수가 끝난 건의 대금 청구가 늦어지는 일이 있었습니다.",
@@ -457,6 +502,7 @@ export const cases: CaseItem[] = [
   },
   {
     slug: "event",
+    field: "industry",
     demoUrl: "/demos/event/index.html",
     category: "행사 운영",
     icon: PartyPopper,
@@ -492,6 +538,7 @@ export const cases: CaseItem[] = [
   },
   {
     slug: "nursing-eval",
+    field: "industry",
     demoUrl: "/demos/nursing-eval/index.html",
     category: "교육 평가",
     icon: GraduationCap,
@@ -508,6 +555,9 @@ export const cases: CaseItem[] = [
       "/portfolio/nursing-eval-s2.png",
       "/portfolio/nursing-eval-s3.png",
     ],
+    improvement: "90%",
+    cost: "₩5,000,000",
+    duration: "1개월",
     detail: {
       problem:
         "실습 평가 점수를 교수마다 엑셀로 따로 받아 합치다 보니, 누가 어떤 모듈을 아직 안 했는지, 어느 반이 어떤 항목에서 약한지 보려면 학기 말에 다시 집계해야 했습니다.",
@@ -519,6 +569,7 @@ export const cases: CaseItem[] = [
   },
   {
     slug: "usedcar-crawl",
+    field: "automation",
     demoUrl: "/demos/usedcar-crawl/index.html",
     category: "데이터 크롤링",
     icon: Car,
@@ -549,6 +600,7 @@ export const cases: CaseItem[] = [
   },
   {
     slug: "contract-farming",
+    field: "erp",
     demoUrl: "/demos/contract-farming/index.html",
     category: "농업 ERP",
     icon: Sprout,
@@ -565,6 +617,9 @@ export const cases: CaseItem[] = [
       "/portfolio/contract-farming-s2.png",
       "/portfolio/contract-farming-s3.png",
     ],
+    improvement: "92%",
+    cost: "₩8,000,000",
+    duration: "1개월",
     detail: {
       problem:
         "사업장마다 양식이 조금씩 다른 엑셀로 신청을 받다 보니, 같은 논을 두 사업장에서 중복으로 신청해도 알 수 없었고 본부는 파일 20개를 손으로 합쳐 집계해야 했습니다.",

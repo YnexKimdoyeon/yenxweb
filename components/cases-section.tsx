@@ -5,6 +5,7 @@ import { ArrowRight, Check, ChevronDown, MousePointerClick, ZoomIn } from "lucid
 import Link from "next/link"
 import { useCallback, useState } from "react"
 import { CaseGallery, type GalleryData } from "@/components/case-gallery"
+import { DemoModal, type DemoTarget } from "@/components/demo-modal"
 import { cases, demoHref } from "@/lib/cases-data"
 
 export function CasesSection({
@@ -24,6 +25,8 @@ export function CasesSection({
   const openGallery = (images: string[], title: string, portrait = false) =>
     setGallery({ images, title, portrait })
   const close = useCallback(() => setGallery(null), [])
+  const [demo, setDemo] = useState<DemoTarget | null>(null)
+  const closeDemo = useCallback(() => setDemo(null), [])
 
   return (
     <section id="cases" className="overflow-hidden bg-muted/30 py-24">
@@ -145,13 +148,18 @@ export function CasesSection({
 
                   {/* 자세히 보기: 문제→해결→성과 상세 (내용은 항상 렌더, 접힘만 CSS) */}
                   <div className="mt-6">
-                    <Link
+                    <a
                       href={demoHref(item)}
+                      onClick={(e) => {
+                        if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return
+                        e.preventDefault()
+                        setDemo({ url: demoHref(item), title: item.title })
+                      }}
                       className="mr-2 inline-flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
                     >
                       <MousePointerClick className="h-4 w-4" />
                       체험해보기
-                    </Link>
+                    </a>
                     <button
                       type="button"
                       onClick={() => toggleDetail(item.slug)}
@@ -237,6 +245,7 @@ export function CasesSection({
       </div>
 
       <CaseGallery gallery={gallery} onClose={close} />
+      <DemoModal demo={demo} onClose={closeDemo} />
     </section>
   )
 }

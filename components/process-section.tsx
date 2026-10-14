@@ -1,7 +1,6 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Lightbulb } from "lucide-react"
 
 const steps = [
   {
@@ -83,10 +82,6 @@ export function ProcessSection() {
           <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
             고민에서 자동화까지, 5단계
           </h2>
-          <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-accent/10 px-4 py-2 text-sm font-medium text-accent">
-            <Lightbulb className="h-4 w-4" />
-            와이넥스에 맡기지 않으셔도 됩니다.
-          </div>
         </motion.div>
 
         {/* Timeline */}

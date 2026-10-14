@@ -138,13 +138,22 @@
     var a = "color:#fff;text-decoration:none;padding:6px 10px;border-radius:999px;"
     // 지금 보고 있는 체험판 (/demos/<slug>/...) → 문의 폼에 어떤 시스템인지 넘긴다
     var slug = opt.slug || (location.pathname.split("/")[2] || "")
+    // 포트폴리오의 팝업(iframe) 안에서 열렸는지
+    var framed = window.parent !== window
     bar.innerHTML =
       '<span style="background:#fff;color:#111827;font-weight:700;padding:3px 8px;border-radius:999px;font-size:12px">체험판</span>' +
       '<span style="opacity:.75">가상 데이터 · 새로고침하면 처음으로</span>' +
-      '<a href="' + (opt.back || "/portfolio/software") + '" style="' + a + 'background:rgba(255,255,255,.12)">← 포트폴리오</a>' +
-      '<a href="/contact?from=' + encodeURIComponent(slug) + '" style="' + a + 'background:#fff;color:#111827;font-weight:700">이런 시스템 문의</a>' +
+      (framed
+        ? '<button type="button" data-demo-close style="border:0;cursor:pointer;font:inherit;' + a + 'background:rgba(255,255,255,.12)">← 포트폴리오</button>'
+        : '<a href="' + (opt.back || "/portfolio/software") + '" style="' + a + 'background:rgba(255,255,255,.12)">← 포트폴리오</a>') +
+      '<a href="/contact?from=' + encodeURIComponent(slug) + '" target="_top" style="' + a + 'background:#fff;color:#111827;font-weight:700">이런 시스템 문의</a>' +
       '<button type="button" aria-label="안내 접기" style="border:0;background:transparent;color:#fff;opacity:.7;font-size:18px;line-height:1;padding:4px 6px;cursor:pointer">×</button>'
     document.body.appendChild(bar)
+    var closeBtn = bar.querySelector("[data-demo-close]")
+    if (closeBtn)
+      closeBtn.addEventListener("click", function () {
+        window.parent.postMessage("ynex-demo-close", location.origin)
+      })
 
     // 접으면 화면을 가리지 않도록 오른쪽 아래 작은 표시만 남긴다
     var chip = document.createElement("button")
@@ -156,7 +165,7 @@
         "background:rgba(17,24,39,.9);color:#fff;padding:7px 12px;border-radius:999px;font:700 12px/1 Pretendard,system-ui,sans-serif;box-shadow:0 6px 20px rgba(0,0,0,.25)",
     )
     document.body.appendChild(chip)
-    bar.querySelector("button").addEventListener("click", function () {
+    bar.querySelector("[aria-label=\"안내 접기\"]").addEventListener("click", function () {
       bar.style.display = "none"
       chip.style.display = "block"
     })
