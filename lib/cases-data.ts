@@ -64,7 +64,11 @@ export const cases: CaseItem[] = [
       "디자인·생산 작업지시서와 예약·홀딩 재고",
       "채널별 매출 분석·정산과 팀별 권한",
     ],
-    images: [],
+    images: [
+      "/portfolio/one-erp-s1.png",
+      "/portfolio/one-erp-s2.png",
+      "/portfolio/one-erp-s3.png",
+    ],
     detail: {
       problem:
         "채널마다 관리 화면이 따로 있고 단체·커스텀 주문은 메신저로 들어와, 디자인팀·발주팀·물류팀·경리팀이 같은 주문을 각자 다른 표로 관리하고 있었습니다.",
@@ -125,7 +129,11 @@ export const cases: CaseItem[] = [
       "일정·업무일지·게시판·공람문서",
       "행정지원·인사·서비스기록·회계 통합",
     ],
-    images: [],
+    images: [
+      "/portfolio/maison-intranet-s1.png",
+      "/portfolio/maison-intranet-s2.png",
+      "/portfolio/maison-intranet-s3.png",
+    ],
     detail: {
       problem:
         "오래된 인트라넷과 종이 서류, 엑셀이 섞여 있어 결재와 기록이 흩어지고, 부서마다 같은 내용을 여러 번 입력했습니다.",
@@ -149,7 +157,11 @@ export const cases: CaseItem[] = [
       "광고 성과·리드 현황 등 통합 마케팅 관리",
       "급여대장·연차·매입매출, 부서별 권한·삭제 결재",
     ],
-    images: [],
+    images: [
+      "/portfolio/ariworks-s1.png",
+      "/portfolio/ariworks-s2.png",
+      "/portfolio/ariworks-s3.png",
+    ],
     detail: {
       problem:
         "상담, 가맹점, 마케팅, 인사 자료가 부서별 시트와 메신저에 흩어져 있었고, 누가 어떤 개인정보를 보는지 관리하기 어려웠습니다.",
@@ -265,7 +277,11 @@ export const cases: CaseItem[] = [
       "창고별 재고 스프레드시트·재고표 관리",
       "매입·매출 전표, 입출금 조회, 회원·역할 관리",
     ],
-    images: [],
+    images: [
+      "/portfolio/tire-b2b-s1.png",
+      "/portfolio/tire-b2b-s2.png",
+      "/portfolio/tire-b2b-s3.png",
+    ],
     detail: {
       problem:
         "거래처 주문은 전화와 메신저로, 창고별 재고는 엑셀로, 매입·매출은 별도 장부로 관리해 재고 확인과 정산에 손이 많이 갔습니다.",
@@ -384,7 +400,11 @@ export const cases: CaseItem[] = [
       "최종관리자·촬영감독 권한 분리 로그인",
       "촬영→편집→납품 진행 추적",
     ],
-    images: [],
+    images: [
+      "/portfolio/film-schedule-s1.png",
+      "/portfolio/film-schedule-s2.png",
+      "/portfolio/film-schedule-s3.png",
+    ],
     detail: {
       problem:
         "촬영 예약과 감독 배정을 메신저와 달력에 나눠 적다 보니, 일정이 겹치거나 편집·납품이 어디까지 됐는지 매번 물어봐야 했습니다.",
@@ -408,7 +428,11 @@ export const cases: CaseItem[] = [
       "지점 간 이동 요청·승인·도착 확인",
       "바이어 입금·연체·지점별 미수금 현황",
     ],
-    images: [],
+    images: [
+      "/portfolio/export-car-s1.png",
+      "/portfolio/export-car-s2.png",
+      "/portfolio/export-car-s3.png",
+    ],
     detail: {
       problem:
         "차량이 여러 지점 주차장에 나뉘어 있어 어느 차가 어디 있는지, 이동 중인지, 바이어 입금은 얼마나 남았는지 지점마다 전화로 확인해야 했습니다.",
@@ -432,7 +456,11 @@ export const cases: CaseItem[] = [
       "생산·납품·검수 단계와 납기 D-day 관리",
       "수요기관별 실적·대금 청구 현황",
     ],
-    images: [],
+    images: [
+      "/portfolio/procurement-s1.png",
+      "/portfolio/procurement-s2.png",
+      "/portfolio/procurement-s3.png",
+    ],
     detail: {
       problem:
         "공공기관 납품요구를 엑셀로 옮겨 적어 관리하다 보니, 납기가 가까운 건을 놓치거나 검수가 끝난 건의 대금 청구가 늦어지는 일이 있었습니다.",
@@ -492,7 +520,11 @@ export const cases: CaseItem[] = [
       "학생별 이수 완료·진행·미이수 자동 판정",
       "실습반 순위·역량별 성취도·취약 항목 Top 5",
     ],
-    images: [],
+    images: [
+      "/portfolio/nursing-eval-s1.png",
+      "/portfolio/nursing-eval-s2.png",
+      "/portfolio/nursing-eval-s3.png",
+    ],
     detail: {
       problem:
         "실습 평가 점수를 교수마다 엑셀로 따로 받아 합치다 보니, 누가 어떤 모듈을 아직 안 했는지, 어느 반이 어떤 항목에서 약한지 보려면 학기 말에 다시 집계해야 했습니다.",
@@ -547,7 +579,11 @@ export const cases: CaseItem[] = [
       "전 사업장 필지 중복 자동 차단·본부 예외 승인",
       "수매·출하 회차 관리와 본부 집계·자료 제출",
     ],
-    images: [],
+    images: [
+      "/portfolio/contract-farming-s1.png",
+      "/portfolio/contract-farming-s2.png",
+      "/portfolio/contract-farming-s3.png",
+    ],
     detail: {
       problem:
         "사업장마다 양식이 조금씩 다른 엑셀로 신청을 받다 보니, 같은 논을 두 사업장에서 중복으로 신청해도 알 수 없었고 본부는 파일 20개를 손으로 합쳐 집계해야 했습니다.",
