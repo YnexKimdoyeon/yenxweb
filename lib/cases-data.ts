@@ -206,6 +206,7 @@ export const cases: CaseItem[] = [
   },
   {
     slug: "haccp",
+    demoUrl: "/demos/haccp/index.html",
     category: "HACCP 관리",
     color: "#7C3AED",
     icon: ClipboardCheck,
