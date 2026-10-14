@@ -113,6 +113,7 @@ export const cases: CaseItem[] = [
   },
   {
     slug: "logistics-ops",
+    demoUrl: "/demos/logistics-ops/index.html",
     category: "운영 관리",
     color: "#2563EB",
     icon: ClipboardList,

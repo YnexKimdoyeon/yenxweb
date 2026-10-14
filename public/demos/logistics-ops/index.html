@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pack-Ops (가상) 동해수출포장</title>
+<meta name="description" content="와이넥스 포트폴리오 체험판 · 수출포장 운영 관리 시스템 (가상 데이터)">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="app.css">
+<style>
+  /* 원본 CSS 에 없는 몇 가지만 보탠다 */
+  :root { color-scheme: light; --background: #f8fafc; --foreground: #171717; }
+  body { background: #f8fafc; font-family: Arial, Helvetica, "Apple SD Gothic Neo", Pretendard, "Malgun Gothic", sans-serif; }
+  .demo-t13 { font-size: 13px; }
+  .demo-br0 { border-right-width: 0; }
+  .demo-aside { position: sticky; top: 0; height: 100vh; }
+  .demo-split { display: grid; grid-template-columns: 270px minmax(0, 1fr); gap: 1rem; align-items: start; }
+  .demo-assign { display: grid; grid-template-columns: 264px minmax(0, 1fr); align-items: start; }
+  .demo-pool { position: sticky; top: 0; height: calc(100vh - 73px); }
+  .demo-drop-on { outline: 2px solid #3b82f6; outline-offset: 2px; background: #eff6ff !important; }
+  .demo-sheet { border-collapse: collapse; font-size: 12px; background: #fff; }
+  .demo-sheet td, .demo-sheet th { border: 1px solid #e2e8f0; padding: 4px 6px; height: 26px; }
+  .demo-sheet .sb { border: 1px solid #475569; }
+  .demo-sheet .gh { background: #d9d9d9; font-weight: 700; text-align: center; color: #0f172a; }
+  .demo-sheet th { background: #f1f5f9; color: #64748b; font-weight: 400; font-size: 11px; }
+  .demo-sheet .rn { background: #f1f5f9; color: #64748b; text-align: center; font-size: 11px; width: 32px; }
+  .demo-print-only { display: none; }
+  @media (max-width: 1023px) { .demo-split { grid-template-columns: minmax(0, 1fr); } }
+  @media (max-width: 767px) {
+    .demo-aside { position: fixed; left: 0; top: 0; bottom: 0; z-index: 60; transform: translateX(-100%); transition: transform .2s; }
+    .demo-aside.demo-open { transform: none; }
+    .demo-assign { grid-template-columns: minmax(0, 1fr); }
+    .demo-pool { position: static; height: auto; max-height: 420px; }
+  }
+  @media print {
+    .demo-aside, .demo-noprint { display: none !important; }
+    .demo-print-only { display: block; }
+  }
+</style>
+</head>
+<body class="geist_a71539c9-module__T19VSG__variable geist_mono_8d43a2aa-module__8Li5zG__variable antialiased">
+<div id="app"></div>
+<script src="/demos/_shared/demo.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
