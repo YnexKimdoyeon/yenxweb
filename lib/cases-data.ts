@@ -339,6 +339,7 @@ export const cases: CaseItem[] = [
   },
   {
     slug: "contract-farming",
+    demoUrl: "/demos/contract-farming/index.html",
     category: "농업 ERP",
     color: "#7C3AED",
     icon: Sprout,
