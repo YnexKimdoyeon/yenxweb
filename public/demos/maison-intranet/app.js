@@ -176,7 +176,7 @@ function shell(route, groupLabel, title, content) {
     '<span class="hidden md:inline-flex"><button type="button" data-slot="tooltip-trigger" aria-label="화면감추기" title="전체화면" class="' + K.K6 + '" data-act="fullscreen">' + ic("maximize2") + "</button></span>" +
     '<a role="button" data-slot="tooltip-trigger" aria-label="시스템설정" title="시스템설정" class="' + K.K6 + '" href="#/users">' + ic("settings") + "</a>" +
     '<button type="button" data-slot="tooltip-trigger" aria-label="' + (S.dark ? "라이트 모드로 전환" : "다크 모드로 전환") + '" title="테마" class="' + K.K6 + '" data-act="theme">' + ic(S.dark ? "moon" : "sun") + "</button>" +
-    '<button type="button" data-slot="tooltip-trigger" aria-label="알림 — ' + (n ? "할 일 " + n + "건" : "할 일 없음") + '" title="알림" aria-haspopup="menu" class="' + K.K7 + '" data-act="bell">' + ic("bell") +
+    '<button type="button" data-slot="tooltip-trigger" aria-label="알림, ' + (n ? "할 일 " + n + "건" : "할 일 없음") + '" title="알림" aria-haspopup="menu" class="' + K.K7 + '" data-act="bell">' + ic("bell") +
     (n ? '<span class="demo-dot" aria-hidden="true"></span>' : "") + "</button>" +
     '<div data-orientation="vertical" role="separator" aria-orientation="vertical" data-slot="separator" class="' + K.K8 + '"></div>' +
     '<button type="button" data-slot="dropdown-menu-trigger" aria-haspopup="menu" class="' + K.K9 + '" data-act="userMenu"><span data-slot="avatar" data-size="default" class="' + K.K10 + '"><span data-slot="avatar-fallback" class="' + K.K11 + '">관</span></span>' +

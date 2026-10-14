@@ -1,4 +1,4 @@
-/* (가상) 루미웍스 사내 통합 인트라넷 — 와이넥스 포트폴리오 체험판
+/* (가상) 루미웍스 사내 통합 인트라넷, 와이넥스 포트폴리오 체험판
  * 모든 데이터는 가상이며 브라우저 메모리에만 있다. 새로고침하면 처음 상태로 돌아간다.
  */
 ;(function () {
@@ -385,7 +385,7 @@
   function toast(m) { Demo.toast(m) }
   function copyText(t) { try { navigator.clipboard.writeText(t).catch(function () {}) } catch (e) {} }
   function manage(kind, item, editAct) {
-    if (!mine(item)) return '<span class="text-gray-400">—</span>'
+    if (!mine(item)) return '<span class="text-gray-400"></span>'
     return '<div class="flex justify-end gap-1.5"><button class="btn btn-x" data-act="' + (editAct || "editItem") + '" data-kind="' + kind + '" data-id="' + item.id + '">수정</button><button class="btn btn-x btn-r" data-act="del" data-kind="' + kind + '" data-id="' + item.id + '">삭제</button></div>'
   }
   function emptyRow(n, t) { return '<tr><td colspan="' + n + '" class="c" style="padding:48px 0;color:#6b7280">' + E(t) + "</td></tr>" }
@@ -424,27 +424,27 @@
 
   /* ───────── 삭제 결재 ───────── */
   var KINDS = {
-    notice: { key: "notices", label: function (x) { return "공지 삭제 — " + x.title } },
-    worklog: { key: "worklogs", label: function (x) { return "업무일지 삭제 — " + nm(x.by) + " · " + x.tab + " " + dot(x.date) } },
-    consult: { key: "consults", label: function (x) { return "상담 삭제 — " + x.name + " (" + maskPhone(x.phone) + ")" } },
-    template: { key: "templates", label: function (x) { return "상담템플릿 삭제 — " + x.title } },
-    store: { key: "stores", label: function (x) { return "가맹점 삭제 — " + x.name + " (" + x.tid + ")" } },
-    blacklist: { key: "blacklist", label: function (x) { return "블랙리스트 삭제 — [" + x.line + "] " + (x.bizName || x.content) } },
-    inquiry: { key: "inquiries", label: function (x) { return "고객문의 삭제 — " + x.name + " (" + maskPhone(x.phone) + ")" } },
-    stockHist: { key: "stockHist", label: function (x) { return "재고 이력 삭제 — [" + x.brand + "] " + x.item + " " + x.type + " " + x.qty + "개" } },
-    promo: { key: "promos", label: function (x) { return "프로모션 삭제 — " + x.name } },
-    expense: { key: "expenses", label: function (x) { return "지출 삭제 — " + x.item + " " + won(x.amount) } },
-    review: { key: "reviews", label: function (x) { return "리뷰 작업 삭제 — " + (x.product || x.name) } },
-    cafe: { key: "cafes", label: function (x) { return "카페·채널 삭제 — " + x.name } },
-    sns: { key: "sns", label: function (x) { return "SNS 카피 삭제 — " + x.main } },
-    prompt: { key: "prompts", label: function (x) { return "AI 프롬프트 삭제 — " + x.title } },
-    script: { key: "scripts", label: function (x) { return "영업 스크립트 삭제 — " + x.q } },
-    rival: { key: "rivals", label: function (x) { return "경쟁사 정책 삭제 — " + x.target } },
-    login: { key: "logins", label: function (x) { return "로그인정보 삭제 — " + x.ch + " / " + x.name } },
-    shared: { key: "shared", label: function (x) { return "공용 계정 삭제 — " + x.platform } },
-    ledger: { key: "ledger", label: function (x) { return "입출금 삭제 — " + dot(x.date) + " " + x.desc + " " + won(x.amount) } },
-    annual: { key: "annual", label: function (x) { return "연간요약 삭제 — " + x.ym } },
-    file: { key: "files", label: function (x) { return "드라이브 파일 삭제 — " + x.name } },
+    notice: { key: "notices", label: function (x) { return "공지 삭제, " + x.title } },
+    worklog: { key: "worklogs", label: function (x) { return "업무일지 삭제, " + nm(x.by) + " · " + x.tab + " " + dot(x.date) } },
+    consult: { key: "consults", label: function (x) { return "상담 삭제, " + x.name + " (" + maskPhone(x.phone) + ")" } },
+    template: { key: "templates", label: function (x) { return "상담템플릿 삭제, " + x.title } },
+    store: { key: "stores", label: function (x) { return "가맹점 삭제, " + x.name + " (" + x.tid + ")" } },
+    blacklist: { key: "blacklist", label: function (x) { return "블랙리스트 삭제, [" + x.line + "] " + (x.bizName || x.content) } },
+    inquiry: { key: "inquiries", label: function (x) { return "고객문의 삭제, " + x.name + " (" + maskPhone(x.phone) + ")" } },
+    stockHist: { key: "stockHist", label: function (x) { return "재고 이력 삭제, [" + x.brand + "] " + x.item + " " + x.type + " " + x.qty + "개" } },
+    promo: { key: "promos", label: function (x) { return "프로모션 삭제, " + x.name } },
+    expense: { key: "expenses", label: function (x) { return "지출 삭제, " + x.item + " " + won(x.amount) } },
+    review: { key: "reviews", label: function (x) { return "리뷰 작업 삭제, " + (x.product || x.name) } },
+    cafe: { key: "cafes", label: function (x) { return "카페·채널 삭제, " + x.name } },
+    sns: { key: "sns", label: function (x) { return "SNS 카피 삭제, " + x.main } },
+    prompt: { key: "prompts", label: function (x) { return "AI 프롬프트 삭제, " + x.title } },
+    script: { key: "scripts", label: function (x) { return "영업 스크립트 삭제, " + x.q } },
+    rival: { key: "rivals", label: function (x) { return "경쟁사 정책 삭제, " + x.target } },
+    login: { key: "logins", label: function (x) { return "로그인정보 삭제, " + x.ch + " / " + x.name } },
+    shared: { key: "shared", label: function (x) { return "공용 계정 삭제, " + x.platform } },
+    ledger: { key: "ledger", label: function (x) { return "입출금 삭제, " + dot(x.date) + " " + x.desc + " " + won(x.amount) } },
+    annual: { key: "annual", label: function (x) { return "연간요약 삭제, " + x.ym } },
+    file: { key: "files", label: function (x) { return "드라이브 파일 삭제, " + x.name } },
   }
   function findIn(arr, id) { for (var i = 0; i < arr.length; i++) if (String(arr[i].id) === String(id)) return arr[i] }
   function stockAfterRemove(x) {
@@ -584,7 +584,7 @@
       var op = S.stores.filter(function (s) { return s.opened }).length
       var sp = S.stores.filter(function (s) { return s.shipped }).length
       var wait = S.stores.filter(function (s) { return s.shipped && !s.opened }).length
-      cards.push(homeCard("실시간 개통·발송", "개통발송 연동", "누적 개통", op + "건", "#15803d", [["누적 총 발송 단말기", sp + "개"], ["발송 완료 · 개통 대기", wait + "건"]], "가맹점 기준 누적 집계 (개통일 기록 없음 — 기간 집계 불가)"))
+      cards.push(homeCard("실시간 개통·발송", "개통발송 연동", "누적 개통", op + "건", "#15803d", [["누적 총 발송 단말기", sp + "개"], ["발송 완료 · 개통 대기", wait + "건"]], "가맹점 기준 누적 집계 (개통일 기록 없음, 기간 집계 불가)"))
     }
     if (can("marketing")) {
       var m = adCounts(YM + "-01", TODAY)
@@ -675,7 +675,7 @@
     if (r.query.write) return worklogForm(tab)
     var list = S.worklogs.filter(function (w) { return w.tab === tab }).sort(function (a, b) { return a.date < b.date ? 1 : -1 })
     var h = '<div class="card p-2.5 flex flex-wrap gap-1.5 items-center mb-3">' + pills(S.wlTabs, tab, "wlTab") + '<a class="btn btn-p ml-auto" href="#/worklog?tab=' + encodeURIComponent(tab) + '&write=1">➜ 등록하기</a></div>'
-    h += '<p class="help mb-3">' + E(tab) + " — 전 직원이 작성·열람하는 업무 기록입니다. 수정·삭제 버튼은 본인 글에만 보입니다.</p>"
+    h += '<p class="help mb-3">' + E(tab) + ", 전 직원이 작성·열람하는 업무 기록입니다. 수정·삭제 버튼은 본인 글에만 보입니다.</p>"
     if (!list.length) return h + '<div class="card p-12 text-center text-gray-500 text-sm">아직 등록된 ' + E(tab) + "가 없습니다.</div>"
     h += '<div class="grid lg:grid-cols-2 gap-4">' + list.map(function (w) {
       var a = acc(w.by)
@@ -788,7 +788,7 @@
   })
   Demo.on("folderPerm", function (d) {
     var f = findIn(S.folders, d.id)
-    formModal("폴더 권한 — " + f.name, [{ n: "scope", l: "공개 범위", t: "select", o: ["전 직원", "CS·TM", "마케팅", "경영지원", "비공개"], full: 1 }], f, function (v) { f.scope = v.scope; toast("공개 범위를 바꿨습니다.") })
+    formModal("폴더 권한, " + f.name, [{ n: "scope", l: "공개 범위", t: "select", o: ["전 직원", "CS·TM", "마케팅", "경영지원", "비공개"], full: 1 }], f, function (v) { f.scope = v.scope; toast("공개 범위를 바꿨습니다.") })
   })
 
   /* ───────── 통합 상담대장 ───────── */
@@ -807,10 +807,10 @@
     var h = '<div class="card p-2.5 flex items-center mb-4"><span class="pill on">상담 대장</span><a class="btn btn-p ml-auto" href="#/consult?new=1">+ 상담 등록</a></div>'
     h += '<div class="card p-3 flex flex-wrap items-center gap-2 mb-3"><b class="text-[13px] mr-1">검색</b>' + sel("brand", "브랜드 전체", BRANDS, fb) + sel("route", "경로 전체", ROUTES, fr) + sel("by", "상담원 전체", counselors.map(function (u) { return [u, nm(u)] }), fc) +
       '<input class="inp inp-sm w-[220px]" placeholder="🔍 고객명 · 연락처 뒷 4자리" value="' + E(kw) + '" data-change="consultFilter" data-k="kw"></div>'
-    h += '<p class="help mb-3">전 브랜드 고객 상담 기록 — 연락처는 기본 마스킹, 열람 시 접속기록이 남습니다. 검색은 고객명 또는 <b>연락처 뒷 4자리</b>로 하세요(가운데 자리는 가려져 있어 검색되지 않습니다).</p>'
+    h += '<p class="help mb-3">전 브랜드 고객 상담 기록, 연락처는 기본 마스킹, 열람 시 접속기록이 남습니다. 검색은 고객명 또는 <b>연락처 뒷 4자리</b>로 하세요(가운데 자리는 가려져 있어 검색되지 않습니다).</p>'
     h += '<div class="card overflow-x-auto"><table class="tbl"><thead><tr><th>상담일</th><th>브랜드</th><th>고객명</th><th>연락처</th><th>경로</th><th>상담원</th><th>구매</th><th class="r">관리</th></tr></thead><tbody>' +
       (list.length ? list.map(function (c) {
-        return "<tr><td>" + dot(c.date) + "</td><td>" + E(c.brand) + '</td><td class="b"><button data-act="consultView" data-id="' + c.id + '">' + E(c.name) + "</button></td><td>" + masked("consult:" + c.id, c.phone, maskPhone(c.phone), "상담대장 연락처 — " + c.name) + "</td><td>" + E(c.route) + "</td><td>" + E(nm(c.by)) + "</td><td>" + buyBadge(c.buy) + '</td><td class="r">' + (mine(c) ? '<div class="flex justify-end gap-1.5"><a class="btn btn-x" href="#/consult?edit=' + c.id + '">수정</a><button class="btn btn-x btn-r" data-act="del" data-kind="consult" data-id="' + c.id + '">삭제</button></div>' : '<span class="text-gray-400">—</span>') + "</td></tr>"
+        return "<tr><td>" + dot(c.date) + "</td><td>" + E(c.brand) + '</td><td class="b"><button data-act="consultView" data-id="' + c.id + '">' + E(c.name) + "</button></td><td>" + masked("consult:" + c.id, c.phone, maskPhone(c.phone), "상담대장 연락처, " + c.name) + "</td><td>" + E(c.route) + "</td><td>" + E(nm(c.by)) + "</td><td>" + buyBadge(c.buy) + '</td><td class="r">' + (mine(c) ? '<div class="flex justify-end gap-1.5"><a class="btn btn-x" href="#/consult?edit=' + c.id + '">수정</a><button class="btn btn-x btn-r" data-act="del" data-kind="consult" data-id="' + c.id + '">삭제</button></div>' : '<span class="text-gray-400"></span>') + "</td></tr>"
       }).join("") : emptyRow(8, "조건에 맞는 상담이 없습니다.")) + "</tbody></table></div>"
     return h
   }
@@ -846,8 +846,8 @@
   })
   Demo.on("consultView", function (d) {
     var c = findIn(S.consults, d.id)
-    openModal("상담 상세 — " + c.name, '<div class="p-5 text-[13px] space-y-3">' + [["상담일", dot(c.date)], ["상담원", nm(c.by)], ["브랜드", c.brand], ["경로", c.route], ["구매여부", c.buy]].map(function (x) { return '<div class="flex gap-3"><span class="w-20 text-gray-500">' + x[0] + "</span><b>" + E(x[1]) + "</b></div>" }).join("") +
-      '<div class="flex gap-3"><span class="w-20 text-gray-500">연락처</span><span>' + masked("consult:" + c.id, c.phone, maskPhone(c.phone), "상담대장 연락처 — " + c.name) + '</span></div><div><div class="text-gray-500 mb-1">상담 내용 🔒</div><div class="bg-gray-50 rounded-lg p-3 whitespace-pre-wrap">' + E(c.content || "—") + '</div></div><div><div class="text-gray-500 mb-1">특이사항</div><div class="bg-gray-50 rounded-lg p-3">' + E(c.note || "—") + "</div></div></div>")
+    openModal("상담 상세, " + c.name, '<div class="p-5 text-[13px] space-y-3">' + [["상담일", dot(c.date)], ["상담원", nm(c.by)], ["브랜드", c.brand], ["경로", c.route], ["구매여부", c.buy]].map(function (x) { return '<div class="flex gap-3"><span class="w-20 text-gray-500">' + x[0] + "</span><b>" + E(x[1]) + "</b></div>" }).join("") +
+      '<div class="flex gap-3"><span class="w-20 text-gray-500">연락처</span><span>' + masked("consult:" + c.id, c.phone, maskPhone(c.phone), "상담대장 연락처, " + c.name) + '</span></div><div><div class="text-gray-500 mb-1">상담 내용 🔒</div><div class="bg-gray-50 rounded-lg p-3 whitespace-pre-wrap">' + E(c.content || "") + '</div></div><div><div class="text-gray-500 mb-1">특이사항</div><div class="bg-gray-50 rounded-lg p-3">' + E(c.note || "") + "</div></div></div>")
   })
 
   /* ───────── 상담템플릿 ───────── */
@@ -873,7 +873,7 @@
     Demo.update()
   })
   var TPL_F = [{ n: "title", l: "제목", req: 1, full: 1 }, { n: "body", l: "내용", t: "textarea", rows: 7, req: 1, full: 1, ph: "특정 고객 정보는 넣지 않습니다" }]
-  Demo.on("tplNew", function (d) { formModal("템플릿 등록 — " + d.brand, TPL_F, {}, function (v) { S.templates.push({ id: nid(), brand: d.brand, title: v.title, body: v.body, by: S.user }); toast("템플릿을 등록했습니다.") }) })
+  Demo.on("tplNew", function (d) { formModal("템플릿 등록, " + d.brand, TPL_F, {}, function (v) { S.templates.push({ id: nid(), brand: d.brand, title: v.title, body: v.body, by: S.user }); toast("템플릿을 등록했습니다.") }) })
   Demo.on("tplEdit", function (d) { var t = findIn(S.templates, d.id); formModal("템플릿 수정", TPL_F, t, function (v) { t.title = v.title; t.body = v.body; toast("수정했습니다.") }) })
 
   /* ───────── 가맹점관리 ───────── */
@@ -892,8 +892,8 @@
     var n = list.length
     h += '<div class="card overflow-x-auto"><table class="tbl sm"><thead><tr><th rowspan="2" class="c" style="vertical-align:middle">NO.</th><th colspan="2" class="c" style="border-left:1px solid #e5e7eb">지급보류</th><th colspan="7" class="c" style="border-left:1px solid #e5e7eb">가맹점 정보</th><th colspan="12" class="c" style="border-left:1px solid #e5e7eb">상위 영업라인</th></tr><tr><th style="border-left:1px solid #e5e7eb">보류 시작일</th><th>사유</th><th style="border-left:1px solid #e5e7eb">가맹점 TID</th><th>상호</th><th>상태</th><th>사업자명</th><th>가맹점 수수료</th><th>유보금</th><th>업종</th>' + LINES.map(function (l, i) { return "<th" + (i === 0 ? ' style="border-left:1px solid #e5e7eb"' : "") + ">" + l + "</th><th>수수료</th>" }).join("") + "</tr></thead><tbody>" +
       (n ? list.map(function (s, i) {
-        return '<tr><td class="c text-gray-500">' + (n - i) + "</td><td>" + (s.hold ? dot(s.hold.start) : "—") + '</td><td class="' + (s.hold ? "" : "text-red-400") + '">' + (s.hold ? E(s.hold.reason) : "—") + '</td><td class="mono text-[12px] text-gray-500">' + E(s.tid) + '</td><td><a class="text-[#3182f6] font-semibold" href="#/store?id=' + s.id + '">' + E(s.name) + "</a></td><td>" + badge(s.hold ? "보류" : s.status, s.hold ? "red" : s.status === "정상" ? "green" : "gray") + "</td><td>" + E(s.bizName) + "</td><td>" + s.fee + "%</td><td>" + (s.reserve ? won(s.reserve) : "—") + '</td><td class="text-gray-500">' + E(s.industry) + "</td>" +
-          s.lines.map(function (l) { return '<td class="text-gray-500">' + E(l.co || "—") + "</td><td>" + (l.rate != null && l.co ? l.rate + "%" : "—") + "</td>" }).join("") + "</tr>"
+        return '<tr><td class="c text-gray-500">' + (n - i) + "</td><td>" + (s.hold ? dot(s.hold.start) : "") + '</td><td class="' + (s.hold ? "" : "text-red-400") + '">' + (s.hold ? E(s.hold.reason) : "") + '</td><td class="mono text-[12px] text-gray-500">' + E(s.tid) + '</td><td><a class="text-[#3182f6] font-semibold" href="#/store?id=' + s.id + '">' + E(s.name) + "</a></td><td>" + badge(s.hold ? "보류" : s.status, s.hold ? "red" : s.status === "정상" ? "green" : "gray") + "</td><td>" + E(s.bizName) + "</td><td>" + s.fee + "%</td><td>" + (s.reserve ? won(s.reserve) : "") + '</td><td class="text-gray-500">' + E(s.industry) + "</td>" +
+          s.lines.map(function (l) { return '<td class="text-gray-500">' + E(l.co || "") + "</td><td>" + (l.rate != null && l.co ? l.rate + "%" : "") + "</td>" }).join("") + "</tr>"
       }).join("") : emptyRow(22, "등록된 가맹점이 없습니다.")) + "</tbody></table></div>"
     return h
   }
@@ -912,7 +912,7 @@
       var val = v[n] == null ? "" : v[n]
       if (opt.mask && !isNew) {
         var key = "store:" + s.id + ":" + n
-        if (!S.revealed[key]) return "<div>" + lab + '<div class="relative"><input class="inp pr-20" name="' + n + '" placeholder="' + E(opt.mask(val)) + '"><button type="button" class="eye absolute right-2 top-1/2 -translate-y-1/2" data-act="reveal" data-k="' + key + '" data-what="가맹점 ' + E(l) + " — " + E(s.name) + '">👁 보기</button></div></div>'
+        if (!S.revealed[key]) return "<div>" + lab + '<div class="relative"><input class="inp pr-20" name="' + n + '" placeholder="' + E(opt.mask(val)) + '"><button type="button" class="eye absolute right-2 top-1/2 -translate-y-1/2" data-act="reveal" data-k="' + key + '" data-what="가맹점 ' + E(l) + ", " + E(s.name) + '">👁 보기</button></div></div>'
         return "<div>" + lab + '<input class="inp" name="' + n + '" value="' + E(val) + '"></div>'
       }
       if (opt.o) return "<div>" + lab + '<select class="inp" name="' + n + '">' + opt.o.map(function (o) { return "<option" + (o === val ? " selected" : "") + ">" + o + "</option>" }).join("") + "</select></div>"
@@ -1121,15 +1121,15 @@
     var cols = blCols(line)
     h += '<div class="card overflow-x-auto"><table class="tbl"><thead><tr>' + cols.map(function (c) { return "<th>" + c[0] + "</th>" }).join("") + '<th>등록자</th><th>첨부</th><th class="r">관리</th></tr></thead><tbody>' +
       (rows.length ? rows.map(function (b) {
-        return "<tr>" + cols.map(function (c) { return "<td>" + c[1](b) + "</td>" }).join("") + "<td>" + E(nm(b.by)) + '</td><td class="text-gray-400">' + (b.file ? "📎" : "—") + '</td><td class="r"><div class="flex justify-end gap-1.5"><button class="btn btn-x" data-act="blEdit" data-id="' + b.id + '">수정</button>' + (mine(b) ? '<button class="btn btn-x btn-r" data-act="del" data-kind="blacklist" data-id="' + b.id + '">삭제</button>' : "") + "</div></td></tr>"
+        return "<tr>" + cols.map(function (c) { return "<td>" + c[1](b) + "</td>" }).join("") + "<td>" + E(nm(b.by)) + '</td><td class="text-gray-400">' + (b.file ? "📎" : "") + '</td><td class="r"><div class="flex justify-end gap-1.5"><button class="btn btn-x" data-act="blEdit" data-id="' + b.id + '">수정</button>' + (mine(b) ? '<button class="btn btn-x btn-r" data-act="del" data-kind="blacklist" data-id="' + b.id + '">삭제</button>' : "") + "</div></td></tr>"
       }).join("") : emptyRow(cols.length + 3, "등록된 건이 없습니다.")) + "</tbody></table></div>"
     return h
   }
   function blCols(line) {
     var dateC = ["날짜", function (b) { return dot(b.date) }]
-    if (line === S.blLines[0]) return [dateC, ["사업자번호", function (b) { return masked("bl:" + b.id, b.bizNo, maskBiz(b.bizNo), "블랙리스트 사업자번호 — " + b.bizName, "공개") }], ["사업자명", function (b) { return "<b>" + E(b.bizName) + "</b>" }], ["사유", function (b) { return E(b.reason) }]]
+    if (line === S.blLines[0]) return [dateC, ["사업자번호", function (b) { return masked("bl:" + b.id, b.bizNo, maskBiz(b.bizNo), "블랙리스트 사업자번호, " + b.bizName, "공개") }], ["사업자명", function (b) { return "<b>" + E(b.bizName) + "</b>" }], ["사유", function (b) { return E(b.reason) }]]
     if (line === S.blLines[1]) return [dateC, ["내용", function (b) { return E(b.content) }], ["비고", function (b) { return E(b.memo || "") }]]
-    return [dateC, ["핸드폰번호", function (b) { return masked("bl:" + b.id, b.phone, maskPhone(b.phone), "블랙리스트 핸드폰번호 — " + b.bizName, "공개") }], ["사업자명", function (b) { return "<b>" + E(b.bizName) + "</b>" }], ["사유", function (b) { return E(b.reason) }]]
+    return [dateC, ["핸드폰번호", function (b) { return masked("bl:" + b.id, b.phone, maskPhone(b.phone), "블랙리스트 핸드폰번호, " + b.bizName, "공개") }], ["사업자명", function (b) { return "<b>" + E(b.bizName) + "</b>" }], ["사유", function (b) { return E(b.reason) }]]
   }
   function blFields(line) {
     var f = [{ n: "date", l: "날짜", t: "date", req: 1, value: TODAY }]
@@ -1161,7 +1161,7 @@
     }, 900)
   })
   Demo.on("blNew", function (d) {
-    formModal("블랙리스트 등록 — " + d.line, blFields(d.line).concat([{ n: "file", l: "관련 서류 (사진·PDF)", t: "file", full: 1 }]), {}, function (v) {
+    formModal("블랙리스트 등록, " + d.line, blFields(d.line).concat([{ n: "file", l: "관련 서류 (사진·PDF)", t: "file", full: 1 }]), {}, function (v) {
       var x = { id: nid(), line: d.line, by: S.user }
       Object.keys(v).forEach(function (k) { if (k !== "file") x[k] = v[k] })
       x.file = v.file && v.file.name ? v.file.name : ""
@@ -1183,7 +1183,7 @@
     var h = '<div class="card p-2.5 flex flex-wrap gap-1.5 items-center mb-4">' + pills(["전체"].concat(S.inqCats), cat, "inqCat") + '<button class="pill ml-1' + (cat === "미콜만" ? " on" : "") + '" style="border:1px solid #d1d5db;background:' + (cat === "미콜만" ? "" : "#fff") + '" data-act="inqCat" data-v="미콜만">미콜만</button><button class="btn btn-p ml-auto" data-act="inqNew">+ 등록</button></div>'
     h += '<div class="card overflow-x-auto"><table class="tbl"><thead><tr><th>접수일</th><th>분류</th><th>고객명</th><th>전화번호</th><th>사업자유무</th><th>업종</th><th>문의 내용</th><th>진행 상황</th><th>담당</th><th class="r">관리</th></tr></thead><tbody>' +
       (list.length ? list.map(function (x) {
-        return "<tr><td>" + dot(x.date) + '</td><td class="text-gray-500">' + E(x.cat) + '</td><td class="b"><button data-act="inqView" data-id="' + x.id + '">' + E(x.name) + "</button></td><td>" + masked("inq:" + x.id, x.phone, maskPhone(x.phone), "고객문의 전화번호 — " + x.name) + "</td><td>" + badge(x.biz, "gray") + "</td><td>" + E(x.industry) + '</td><td class="max-w-[260px] truncate">' + E(x.body) + '</td><td><select class="inp inp-sm w-[92px]" data-change="inqSt" data-id="' + x.id + '">' + INQ_ST.map(function (o) { return "<option" + (o === x.status ? " selected" : "") + ">" + o + "</option>" }).join("") + "</select></td><td>" + E(nm(x.by)) + '</td><td class="r"><button class="btn btn-x btn-r" data-act="del" data-kind="inquiry" data-id="' + x.id + '">삭제</button></td></tr>'
+        return "<tr><td>" + dot(x.date) + '</td><td class="text-gray-500">' + E(x.cat) + '</td><td class="b"><button data-act="inqView" data-id="' + x.id + '">' + E(x.name) + "</button></td><td>" + masked("inq:" + x.id, x.phone, maskPhone(x.phone), "고객문의 전화번호, " + x.name) + "</td><td>" + badge(x.biz, "gray") + "</td><td>" + E(x.industry) + '</td><td class="max-w-[260px] truncate">' + E(x.body) + '</td><td><select class="inp inp-sm w-[92px]" data-change="inqSt" data-id="' + x.id + '">' + INQ_ST.map(function (o) { return "<option" + (o === x.status ? " selected" : "") + ">" + o + "</option>" }).join("") + "</select></td><td>" + E(nm(x.by)) + '</td><td class="r"><button class="btn btn-x btn-r" data-act="del" data-kind="inquiry" data-id="' + x.id + '">삭제</button></td></tr>'
       }).join("") : emptyRow(10, "문의가 없습니다.")) + "</tbody></table></div>"
     return h
   }
@@ -1207,7 +1207,7 @@
   Demo.on("inqView", function (d) { inqModal(d.id) })
   function inqModal(id) {
     var x = findIn(S.inquiries, id)
-    openModal("고객문의 상세 — " + x.name, '<div class="p-5 text-[13px]"><div class="grid grid-cols-2 gap-3 mb-4">' + [["접수일", dot(x.date)], ["최초문의일", x.first ? dot(x.first) : "—"], ["분류", x.cat], ["업종", x.industry], ["사업자유무", x.biz], ["진행 상황", x.status]].map(function (p) { return '<div><div class="text-gray-500">' + p[0] + '</div><b>' + E(p[1]) + "</b></div>" }).join("") + '</div><div class="text-gray-500 mb-1">전화번호</div><div class="mb-4">' + masked("inq:" + x.id, x.phone, maskPhone(x.phone), "고객문의 전화번호 — " + x.name) + '</div><div class="text-gray-500 mb-1">문의 내용</div><div class="bg-gray-50 rounded-lg p-3 mb-4">' + E(x.body) + '</div><div class="font-bold mb-2">통화 결과</div>' +
+    openModal("고객문의 상세, " + x.name, '<div class="p-5 text-[13px]"><div class="grid grid-cols-2 gap-3 mb-4">' + [["접수일", dot(x.date)], ["최초문의일", x.first ? dot(x.first) : ""], ["분류", x.cat], ["업종", x.industry], ["사업자유무", x.biz], ["진행 상황", x.status]].map(function (p) { return '<div><div class="text-gray-500">' + p[0] + '</div><b>' + E(p[1]) + "</b></div>" }).join("") + '</div><div class="text-gray-500 mb-1">전화번호</div><div class="mb-4">' + masked("inq:" + x.id, x.phone, maskPhone(x.phone), "고객문의 전화번호, " + x.name) + '</div><div class="text-gray-500 mb-1">문의 내용</div><div class="bg-gray-50 rounded-lg p-3 mb-4">' + E(x.body) + '</div><div class="font-bold mb-2">통화 결과</div>' +
       (x.calls.length ? x.calls.map(function (c) { return '<div class="border-b py-2"><span class="text-gray-500">' + E(c.at) + " · " + E(c.by) + "</span><br>" + E(c.t) + "</div>" }).join("") : '<div class="text-gray-400 mb-2">아직 기록이 없습니다.</div>') +
       '<form data-submit="callAdd" class="flex gap-2 mt-3"><input type="hidden" name="id" value="' + x.id + '"><input class="inp inp-sm" name="t" required placeholder="통화 결과를 남기세요"><button class="btn btn-p btn-x">기록</button></form></div>')
   }
@@ -1235,7 +1235,7 @@
     h += '<div class="card overflow-x-auto"><table class="tbl"><thead><tr><th>일자</th><th>유형</th><th>수량</th><th>잔량</th><th>단말기번호</th><th>담당/수령</th><th>메모</th><th>등록자</th><th class="r">관리</th></tr></thead><tbody>' +
       (hist.length ? hist.map(function (x) {
         var c = x.type === "출고" ? "red" : x.type === "입고" ? "blue" : "amber"
-        return "<tr><td>" + dot(x.date) + "</td><td>" + badge(x.type, c) + '</td><td class="b" style="color:' + (x.type === "출고" ? "#ef4444" : "#3182f6") + '">' + (x.type === "출고" ? "−" : "+") + x.qty + '</td><td class="b">' + x._bal + "</td><td>" + E(x.serial || "—") + "</td><td>" + E(x.partner || "—") + "</td><td>" + E(x.memo || "—") + "</td><td>" + E(nm(x.by)) + '</td><td class="r"><button class="text-[13px] text-gray-600 hover:text-red-500" data-act="del" data-kind="stockHist" data-id="' + x.id + '">삭제</button></td></tr>'
+        return "<tr><td>" + dot(x.date) + "</td><td>" + badge(x.type, c) + '</td><td class="b" style="color:' + (x.type === "출고" ? "#ef4444" : "#3182f6") + '">' + (x.type === "출고" ? "−" : "+") + x.qty + '</td><td class="b">' + x._bal + "</td><td>" + E(x.serial || "") + "</td><td>" + E(x.partner || "") + "</td><td>" + E(x.memo || "") + "</td><td>" + E(nm(x.by)) + '</td><td class="r"><button class="text-[13px] text-gray-600 hover:text-red-500" data-act="del" data-kind="stockHist" data-id="' + x.id + '">삭제</button></td></tr>'
       }).join("") : emptyRow(9, "이력이 없습니다.")) + "</tbody></table></div><p class=\"help mt-3\">잘못 넣은 이력은 수정할 수 없습니다. 지우고 다시 넣습니다. 단말기 번호는 메모용이라 중복 검사·검색이 되지 않습니다.</p>"
     return h
   }
@@ -1245,7 +1245,7 @@
     var r = Demo.route()
     var brand = r.query.brand || Object.keys(S.stockItems)[0]
     var item = r.query.item || S.stockItems[brand][0]
-    formModal((d.t === "입고" ? "📥 " : d.t === "출고" ? "📤 " : "↩ ") + d.t + " — " + item, [
+    formModal((d.t === "입고" ? "📥 " : d.t === "출고" ? "📤 " : "↩ ") + d.t + ", " + item, [
       { n: "date", l: "일자", t: "date", req: 1, value: TODAY }, { n: "qty", l: "수량", t: "number", req: 1 },
       { n: "partner", l: d.t === "입고" ? "입고처" : "상대처 (가맹점)" }, { n: "serial", l: "단말기 번호 (메모용)" }, { n: "memo", l: "메모", full: 1 },
     ], {}, function (v) {
@@ -1257,7 +1257,7 @@
     })
   })
   Demo.on("stAddBrand", function () { formModal("재고 브랜드 추가", [{ n: "b", l: "브랜드", req: 1, full: 1 }], {}, function (v) { S.stockItems[v.b] = S.stockItems[v.b] || []; toast("브랜드를 추가했습니다.") }) })
-  Demo.on("stAddItem", function (d) { formModal("품목 추가 — " + d.brand, [{ n: "i", l: "품목명", req: 1, full: 1 }], {}, function (v) { S.stockItems[d.brand].push(v.i); toast("품목을 추가했습니다.") }) })
+  Demo.on("stAddItem", function (d) { formModal("품목 추가, " + d.brand, [{ n: "i", l: "품목명", req: 1, full: 1 }], {}, function (v) { S.stockItems[d.brand].push(v.i); toast("품목을 추가했습니다.") }) })
   Demo.on("stDelItem", function (d) {
     if (!confirm("품목을 지우면 그 품목의 입출고 이력이 전부 함께 사라집니다. 계속할까요?")) return
     S.stockItems[d.brand] = S.stockItems[d.brand].filter(function (x) { return x !== d.item })
@@ -1294,7 +1294,7 @@
   Demo.on("newItem", function (d) {
     var sp = SPEC[d.kind]
     var base = d.ch ? { ch: d.ch } : {}
-    formModal(sp.title + " 등록" + (d.ch ? " — " + d.ch : ""), sp.fields(base), {}, function (v) {
+    formModal(sp.title + " 등록" + (d.ch ? ", " + d.ch : ""), sp.fields(base), {}, function (v) {
       if (v.amount != null && v.amount !== "" && +v.amount < 0) { toast("금액은 양수로 적습니다."); return false }
       var x = { id: nid(), by: S.user }
       if (d.ch) x.ch = d.ch
@@ -1361,12 +1361,12 @@
     var cpa = buy ? Math.round(spend / buy) : 0
     h += '<div class="grid sm:grid-cols-3 gap-3 mb-4">' +
       [[media + " 상담 건수", cnt + " 건", "#111827", "상담대장 자동 연동"], [media + " 구매전환", buy + " 건", "#15803d", "전환율 " + rate + "%"], [media + " 전환율", rate + "%", "#3182f6", "구매전환 ÷ 상담건수"]].map(function (c) { return '<div class="card p-4 flex items-start"><div><div class="text-[13px] font-semibold">' + c[0] + '</div><div class="text-[11px] text-gray-500 mt-2">' + c[3] + '</div></div><div class="ml-auto text-[22px] font-extrabold" style="color:' + c[2] + '">' + c[1] + "</div></div>" }).join("") + "</div>"
-    h += '<div class="grid sm:grid-cols-2 gap-3 max-w-[560px] mb-5"><div><label class="lbl">이 채널 광고비 ' + (media === "당근" ? "(직접 입력 · 저장되지 않음)" : "(" + media + " API 자동)") + "</label>" + (media === "당근" ? '<input class="inp" type="number" min="0" placeholder="광고비 입력" value="' + E(S.carrotSpend[p.key] || "") + '" data-change="carrotSpend" data-k="' + p.key + '">' : '<input class="inp" readonly value="이 기간 집행 광고비 ' + won(spend) + '">') + '</div><div><label class="lbl">건당 고객확보비용(CPA) 자동계산</label><input class="inp" readonly value="' + (buy ? won(cpa) : "구매전환 0건 — 계산 불가") + '"></div></div>'
+    h += '<div class="grid sm:grid-cols-2 gap-3 max-w-[560px] mb-5"><div><label class="lbl">이 채널 광고비 ' + (media === "당근" ? "(직접 입력 · 저장되지 않음)" : "(" + media + " API 자동)") + "</label>" + (media === "당근" ? '<input class="inp" type="number" min="0" placeholder="광고비 입력" value="' + E(S.carrotSpend[p.key] || "") + '" data-change="carrotSpend" data-k="' + p.key + '">' : '<input class="inp" readonly value="이 기간 집행 광고비 ' + won(spend) + '">') + '</div><div><label class="lbl">건당 고객확보비용(CPA) 자동계산</label><input class="inp" readonly value="' + (buy ? won(cpa) : "구매전환 0건, 계산 불가") + '"></div></div>'
     if (media === "네이버") h += '<div class="flex gap-1 mb-2"><span class="text-[12px] text-gray-500 mr-1 self-center">광고 계정</span>' + ["본계정", "브랜드계정"].map(function (a) { return '<a class="seg' + (a === acct ? " on" : "") + '" href="' + link({ acct: a }) + '">' + a + "</a>" }).join("") + '<span class="help self-center ml-2">표는 선택 계정만, 위 광고비·CPA는 계정 전체 합계</span></div>'
     h += '<div class="text-[14px] font-bold mb-2">캠페인별 상세 (당근/메타/네이버 동일 양식)</div>'
     var rows = media === "당근" ? [] : camps.map(function (c) {
       var sp2 = Math.round(c.spend * ratio), imp = Math.round(c.imp * ratio), clk = Math.round(c.clk * ratio)
-      return "<tr><td>" + p.label + "</td><td>" + media + '</td><td class="b">' + E(c.name) + "</td><td>" + E(c.target) + '</td><td class="r">' + won(sp2) + '</td><td class="r">' + N(imp) + '</td><td class="r">' + N(clk) + '</td><td class="r">' + (imp ? ((clk / imp) * 100).toFixed(2) : 0) + '%</td><td class="r">' + won(clk ? sp2 / clk : 0) + '</td><td class="c text-gray-400">—</td><td class="c text-gray-400">—</td><td class="c text-gray-400">—</td><td class="c text-gray-400">—</td><td></td></tr>'
+      return "<tr><td>" + p.label + "</td><td>" + media + '</td><td class="b">' + E(c.name) + "</td><td>" + E(c.target) + '</td><td class="r">' + won(sp2) + '</td><td class="r">' + N(imp) + '</td><td class="r">' + N(clk) + '</td><td class="r">' + (imp ? ((clk / imp) * 100).toFixed(2) : 0) + '%</td><td class="r">' + won(clk ? sp2 / clk : 0) + '</td><td class="c text-gray-400"></td><td class="c text-gray-400"></td><td class="c text-gray-400"></td><td class="c text-gray-400"></td><td></td></tr>'
     })
     h += tbl(["기간", "매체", "캠페인명", "타겟/키워드", ">광고비", ">노출수", ">클릭수", ">클릭률", ">평균클릭비용", "문의수", "구매전환", "전환율", "건당비용", "비고"], rows, 14, media === "당근" ? "당근 광고는 연동 준비중입니다. 광고비만 위에 직접 입력합니다." : "이 기간에 표시할 " + media + " 캠페인이 없습니다.")
     h += '<p class="help mt-2">* 문의수·구매전환·전환율·건당비용은 캠페인 단위가 아닌 채널 전체 기준으로 상단 카드에서 자동 집계됩니다.</p>'
@@ -1376,7 +1376,7 @@
   function mkLead() {
     var list = S.consults.slice().sort(function (a, b) { return a.date < b.date ? 1 : -1 }).slice(0, 200)
     return '<div class="note-blue mb-4">상담대장(CS)에 이미 입력된 데이터를 그대로 불러온 읽기 전용 화면입니다. 같은 고객을 다시 입력하지 않습니다. 최신 상담 200건까지 표시합니다.</div>' +
-      tbl(["유입일자", "유입경로", "가맹점/고객명", "상태", "특이사항", "영업담당자"], list.map(function (c) { return "<tr><td>" + dot(c.date) + "</td><td>" + E(c.route) + '</td><td class="b">' + E(c.name) + "</td><td>" + buyBadge(c.buy) + "</td><td>" + (c.note ? E(c.note) : '<span class="text-gray-400">—</span>') + "</td><td>" + E(nm(c.by)) + "</td></tr>" }))
+      tbl(["유입일자", "유입경로", "가맹점/고객명", "상태", "특이사항", "영업담당자"], list.map(function (c) { return "<tr><td>" + dot(c.date) + "</td><td>" + E(c.route) + '</td><td class="b">' + E(c.name) + "</td><td>" + buyBadge(c.buy) + "</td><td>" + (c.note ? E(c.note) : '<span class="text-gray-400"></span>') + "</td><td>" + E(nm(c.by)) + "</td></tr>" }))
   }
   function mkPromo() {
     return '<div class="note-blue mb-4">진행중 상태 중 가장 최근 등록 건이 홈 화면 메인 배너에 자동 노출되며, 종료 처리 시 배너에서 자동으로 내려갑니다. 기간이 지나도 상태는 자동으로 바뀌지 않습니다.</div>' + addBtn("promo", "+ 프로모션 등록") +
@@ -1427,7 +1427,7 @@
     h += '<div class="flex flex-wrap items-center gap-2"><span class="w-10 text-[13px] text-gray-600">몰</span>' + R.malls.map(function (k, i) { return '<span class="inline-flex items-center gap-1 border border-gray-200 rounded-full px-3 py-1 text-[13px]">' + E(k) + ' <button class="text-gray-400" data-act="rankDel" data-t="malls" data-i="' + i + '">✕</button></span>' }).join("") + '<form data-submit="rankAdd" class="flex gap-1"><input type="hidden" name="t" value="malls"><input class="inp inp-sm w-[140px]" name="v" placeholder="몰명 추가 (판매처 이름 그대로)" required><button class="btn btn-x">추가</button></form></div>'
     h += '<button class="btn ' + (ready ? "btn-p" : "") + '" data-act="rankRun"' + (ready ? "" : " disabled") + ">🔄 순위 갱신</button>" + (R.at ? '<span class="help ml-2">마지막 갱신 ' + E(R.at) + "</span>" : "") + "</div>"
     if (!R.result) return h + '<div class="card p-12 text-center text-gray-500 text-sm">추적할 <b>키워드</b>와 <b>몰</b>을 등록하고 <b>순위 갱신</b>을 눌러주세요.</div>'
-    return h + tbl(["키워드"].concat(R.malls), R.keywords.map(function (k) { return '<tr><td class="b">' + E(k) + "</td>" + R.malls.map(function (m) { var v = (R.result[k] || {})[m]; return "<td>" + (v == null ? '<span class="text-gray-400">—</span>' : v > 100 ? badge("미노출", "gray") : '<b class="text-[#3182f6]">' + v + "위</b>") + "</td>" }).join("") + "</tr>" })) + '<p class="help mt-2">자동으로 갱신되지 않습니다. 필요할 때 버튼을 누릅니다. 수정 기능은 없으니 지우고 다시 넣습니다.</p>'
+    return h + tbl(["키워드"].concat(R.malls), R.keywords.map(function (k) { return '<tr><td class="b">' + E(k) + "</td>" + R.malls.map(function (m) { var v = (R.result[k] || {})[m]; return "<td>" + (v == null ? '<span class="text-gray-400"></span>' : v > 100 ? badge("미노출", "gray") : '<b class="text-[#3182f6]">' + v + "위</b>") + "</td>" }).join("") + "</tr>" })) + '<p class="help mt-2">자동으로 갱신되지 않습니다. 필요할 때 버튼을 누릅니다. 수정 기능은 없으니 지우고 다시 넣습니다.</p>'
   }
   Demo.on("rankAdd", function (v) { if (S.rank[v.t].indexOf(v.v) < 0) S.rank[v.t].push(v.v); Demo.update() })
   Demo.on("rankDel", function (d) { S.rank[d.t].splice(+d.i, 1); Demo.update() })
@@ -1440,8 +1440,8 @@
     Demo.update()
   })
   function mkLogin() {
-    return '<div class="note-red mb-4">⚠️ <b>마케팅 책임자 외 열람 금지</b> — 비밀번호는 암호화 저장되며, 보기·복사를 누르면 열람 기록(감사)이 남습니다. 사내 공용 계정은 공용 계정 관리에서 관리합니다.</div>' + addBtn("login", "+ 로그인정보 등록") +
-      tbl(["채널", "구좌명", "ID", "비밀번호", "메모", ">관리"], S.logins.map(function (x) { return pwRow(x, "login", [E(x.ch), "<b>" + E(x.name) + "</b>"], "마케팅 로그인정보 — " + x.ch) + "<td>" + E(x.memo) + '</td><td class="r">' + manage("login", x) + "</td></tr>" }))
+    return '<div class="note-red mb-4">⚠️ <b>마케팅 책임자 외 열람 금지</b>, 비밀번호는 암호화 저장되며, 보기·복사를 누르면 열람 기록(감사)이 남습니다. 사내 공용 계정은 공용 계정 관리에서 관리합니다.</div>' + addBtn("login", "+ 로그인정보 등록") +
+      tbl(["채널", "구좌명", "ID", "비밀번호", "메모", ">관리"], S.logins.map(function (x) { return pwRow(x, "login", [E(x.ch), "<b>" + E(x.name) + "</b>"], "마케팅 로그인정보, " + x.ch) + "<td>" + E(x.memo) + '</td><td class="r">' + manage("login", x) + "</td></tr>" }))
   }
   function pwRow(x, kind, lead, what) {
     var k = kind + ":" + x.id
@@ -1509,7 +1509,7 @@
   Demo.on("payslip", function (d) {
     var s = findIn(S.staff, d.sid), p = S.payroll[d.ym].rows[d.sid], c = payCalc(p)
     var line = function (a, b, cl) { return '<div class="flex justify-between py-2 border-b border-gray-100"><span class="text-gray-600">' + a + '</span><b class="' + (cl || "") + '">' + b + "</b></div>" }
-    openModal("급여명세서 — " + d.ym.replace("-", "년 ") + "월", '<div class="p-6 text-[13px]"><div class="text-center mb-5"><div class="text-[18px] font-bold">급 여 명 세 서</div><div class="text-gray-500 mt-1">(가상) 주식회사 루미웍스 · ' + E(s.name) + " " + E(s.pos) + " · " + E(s.dept) + '</div></div><div class="grid sm:grid-cols-2 gap-6"><div><div class="font-bold mb-1">지급 내역</div>' + line("기본급", won(p.base)) + line("수당", won(p.allow)) + line("지급합계", won(c.gross)) + '</div><div><div class="font-bold mb-1">공제 내역</div>' + line("소득세 등", won(p.tax)) + line("4대보험", won(p.ins)) + line("공제합계", won(c.ded), "text-red-500") + '</div></div><div class="mt-5 p-4 rounded-xl bg-[#eef5ff] flex justify-between items-center"><span class="font-bold">실지급액</span><b class="text-[20px] text-[#3182f6]">' + won(c.net) + '</b></div><div class="flex justify-end mt-5"><button class="btn" data-act="print">🖨 인쇄</button></div></div>', { wide: 1 })
+    openModal("급여명세서, " + d.ym.replace("-", "년 ") + "월", '<div class="p-6 text-[13px]"><div class="text-center mb-5"><div class="text-[18px] font-bold">급 여 명 세 서</div><div class="text-gray-500 mt-1">(가상) 주식회사 루미웍스 · ' + E(s.name) + " " + E(s.pos) + " · " + E(s.dept) + '</div></div><div class="grid sm:grid-cols-2 gap-6"><div><div class="font-bold mb-1">지급 내역</div>' + line("기본급", won(p.base)) + line("수당", won(p.allow)) + line("지급합계", won(c.gross)) + '</div><div><div class="font-bold mb-1">공제 내역</div>' + line("소득세 등", won(p.tax)) + line("4대보험", won(p.ins)) + line("공제합계", won(c.ded), "text-red-500") + '</div></div><div class="mt-5 p-4 rounded-xl bg-[#eef5ff] flex justify-between items-center"><span class="font-bold">실지급액</span><b class="text-[20px] text-[#3182f6]">' + won(c.net) + '</b></div><div class="flex justify-end mt-5"><button class="btn" data-act="print">🖨 인쇄</button></div></div>', { wide: 1 })
   })
   function annualLeave(join, asOf) {
     var j = new Date(join + "T00:00:00"), a = new Date(asOf + "T00:00:00")
@@ -1578,17 +1578,17 @@
     var h = '<div class="card p-2.5 flex flex-wrap gap-1.5 items-center mb-3">' + pills([["in", "🟢 입사자 명부"], ["out", "🔴 퇴사자 명부"]], sub, "rosterSub") + (sub === "in" ? '<button class="btn btn-p ml-auto" data-act="rosterNew">＋ 명부 등록</button>' : "") + "</div>"
     h += '<p class="help mb-3">목록은 마스킹 값만 표시됩니다. 주민번호·연락처·계좌·주소·급여는 상세에서 열람 시 접속기록이 남습니다. 명부와 로그인 계정은 별개입니다.</p>'
     return h + tbl(["구분", "입사일"].concat(sub === "out" ? ["퇴사일"] : []).concat(["성명", "직급(직책)", "부서", "주민번호", "연락처", "은행", "계좌번호", "주소", "이메일", "월급", "첨부"]), list.map(function (s) {
-      return "<tr><td>" + E(s.brand) + '</td><td class="text-gray-500">' + dot(s.join) + "</td>" + (sub === "out" ? "<td>" + dot(s.out) + "</td>" : "") + '<td><button class="text-[#3182f6] font-semibold" data-act="staffView" data-id="' + s.id + '">' + E(s.name) + "</button></td><td>" + E(s.pos) + "</td><td>" + E(s.dept) + '</td><td class="mono text-[12px]">' + maskRrn(s.rrn) + '</td><td class="mono text-[12px]">' + maskPhone(s.phone) + "</td><td>" + E(s.bank) + '</td><td class="mono text-[12px]">' + maskAcct(s.acct) + '</td><td class="whitespace-nowrap">' + E(s.addr) + "</td><td>" + E(s.email || "-") + '</td><td class="text-gray-400">•••</td><td>' + (s.file ? '<span class="text-[#3182f6]">📎 ' + E(s.file) + "</span>" : '<span class="text-gray-400">—</span>') + "</td></tr>"
+      return "<tr><td>" + E(s.brand) + '</td><td class="text-gray-500">' + dot(s.join) + "</td>" + (sub === "out" ? "<td>" + dot(s.out) + "</td>" : "") + '<td><button class="text-[#3182f6] font-semibold" data-act="staffView" data-id="' + s.id + '">' + E(s.name) + "</button></td><td>" + E(s.pos) + "</td><td>" + E(s.dept) + '</td><td class="mono text-[12px]">' + maskRrn(s.rrn) + '</td><td class="mono text-[12px]">' + maskPhone(s.phone) + "</td><td>" + E(s.bank) + '</td><td class="mono text-[12px]">' + maskAcct(s.acct) + '</td><td class="whitespace-nowrap">' + E(s.addr) + "</td><td>" + E(s.email || "-") + '</td><td class="text-gray-400">•••</td><td>' + (s.file ? '<span class="text-[#3182f6]">📎 ' + E(s.file) + "</span>" : '<span class="text-gray-400"></span>') + "</td></tr>"
     }), 13, "명부가 비어 있습니다.")
   }
   Demo.on("rosterSub", function (d) { go("/hr?tab=roster&sub=" + d.v) })
   Demo.on("staffView", function (d) { staffModal(d.id) })
   function staffModal(id) {
     var s = findIn(S.staff, id)
-    var mk = function (f, real, m, label) { return '<div class="flex gap-3 py-2 border-b border-gray-100"><span class="w-24 text-gray-500 shrink-0">' + label + "</span><span>" + masked("staff:" + s.id + ":" + f, real, m, "인사 명부 " + label + " — " + s.name) + "</span></div>" }
+    var mk = function (f, real, m, label) { return '<div class="flex gap-3 py-2 border-b border-gray-100"><span class="w-24 text-gray-500 shrink-0">' + label + "</span><span>" + masked("staff:" + s.id + ":" + f, real, m, "인사 명부 " + label + ", " + s.name) + "</span></div>" }
     var plain = function (l, v) { return '<div class="flex gap-3 py-2 border-b border-gray-100"><span class="w-24 text-gray-500 shrink-0">' + l + "</span><b>" + E(v) + "</b></div>" }
     var canDel = isMaster()
-    openModal("인사 명부 — " + s.name, '<div class="p-5 text-[13px]">' + plain("구분 · 부서", s.brand + " · " + s.dept) + plain("직급", s.pos) + plain("입사일", dot(s.join)) + (s.out ? plain("퇴사일", dot(s.out)) : "") + mk("rrn", s.rrn, maskRrn(s.rrn), "주민번호") + mk("phone", s.phone, maskPhone(s.phone), "연락처") + mk("acct", s.bank + " " + s.acct, s.bank + " " + maskAcct(s.acct), "계좌") + mk("addr", s.addr.replace("***", "가상동 12-3"), s.addr, "주소") + mk("salary", won(s.salary), "•••", "월급") +
+    openModal("인사 명부, " + s.name, '<div class="p-5 text-[13px]">' + plain("구분 · 부서", s.brand + " · " + s.dept) + plain("직급", s.pos) + plain("입사일", dot(s.join)) + (s.out ? plain("퇴사일", dot(s.out)) : "") + mk("rrn", s.rrn, maskRrn(s.rrn), "주민번호") + mk("phone", s.phone, maskPhone(s.phone), "연락처") + mk("acct", s.bank + " " + s.acct, s.bank + " " + maskAcct(s.acct), "계좌") + mk("addr", s.addr.replace("***", "가상동 12-3"), s.addr, "주소") + mk("salary", won(s.salary), "•••", "월급") +
       '<div class="flex flex-wrap gap-2 mt-5">' + (s.status === "재직" ? '<button class="btn" data-act="retire" data-id="' + s.id + '">퇴사 처리</button>' : "") + (canDel ? '<button class="btn btn-r ml-auto" data-act="staffPurge" data-id="' + s.id + '">완전삭제 (마스터)</button>' : "") + '</div><p class="help mt-3">퇴사자는 삭제하지 않고 퇴사 처리합니다. 퇴사 처리는 되돌릴 수 없고, 연결된 로그인 계정도 함께 막힙니다.</p></div>')
   }
   Demo.on("retire", function (d) {
@@ -1640,8 +1640,8 @@
     var g = q(r, "g", "공용")
     if (groups.indexOf(g) < 0) g = "공용"
     var list = S.shared.filter(function (x) { return x.group === g })
-    return '<div class="card p-2.5 flex flex-wrap gap-1.5 mb-3">' + pills(groups, g, "sharedG") + '</div><p class="help mb-3">부서 공용 계정 — 패스워드는 기본 마스킹, 보기·복사 시 접속기록(감사)이 남습니다. 자기 부서 그룹과 공용만 보이며, 관리자 그룹은 마스터만 봅니다.</p><div class="flex justify-end mb-3"><button class="btn btn-p" data-act="newItem" data-kind="shared">＋ 계정 추가</button></div>' +
-      tbl(["플랫폼", "링크", "로그인 ID", "패스워드", "책임자", "메모", ">관리"], list.map(function (x) { return pwRow(x, "shared", ["<b>" + E(x.platform) + "</b>", x.link ? '<a class="text-[#3182f6] underline" href="#" data-act="fakeLink">바로가기</a>' : '<span class="text-gray-400">—</span>'], "공용 계정 — " + x.platform) + "<td>" + E(x.owner) + "</td><td>" + E(x.memo) + '</td><td class="r"><div class="flex justify-end gap-1.5"><button class="ico" data-act="editItem" data-kind="shared" data-id="' + x.id + '" title="수정">✎</button><button class="ico" data-act="del" data-kind="shared" data-id="' + x.id + '" title="삭제">🗑</button></div></td></tr>' }))
+    return '<div class="card p-2.5 flex flex-wrap gap-1.5 mb-3">' + pills(groups, g, "sharedG") + '</div><p class="help mb-3">부서 공용 계정, 패스워드는 기본 마스킹, 보기·복사 시 접속기록(감사)이 남습니다. 자기 부서 그룹과 공용만 보이며, 관리자 그룹은 마스터만 봅니다.</p><div class="flex justify-end mb-3"><button class="btn btn-p" data-act="newItem" data-kind="shared">＋ 계정 추가</button></div>' +
+      tbl(["플랫폼", "링크", "로그인 ID", "패스워드", "책임자", "메모", ">관리"], list.map(function (x) { return pwRow(x, "shared", ["<b>" + E(x.platform) + "</b>", x.link ? '<a class="text-[#3182f6] underline" href="#" data-act="fakeLink">바로가기</a>' : '<span class="text-gray-400"></span>'], "공용 계정, " + x.platform) + "<td>" + E(x.owner) + "</td><td>" + E(x.memo) + '</td><td class="r"><div class="flex justify-end gap-1.5"><button class="ico" data-act="editItem" data-kind="shared" data-id="' + x.id + '" title="수정">✎</button><button class="ico" data-act="del" data-kind="shared" data-id="' + x.id + '" title="삭제">🗑</button></div></td></tr>' }))
   }
   Demo.on("sharedG", function (d) { go("/shared?g=" + encodeURIComponent(d.v)) })
 
@@ -1654,7 +1654,7 @@
       var t = { sales: 0, buy: 0, fixed: 0, vari: 0 }
       var rows = list.map(function (x) { var net = x.sales - x.buy - x.fixed - x.vari; ["sales", "buy", "fixed", "vari"].forEach(function (k) { t[k] += x[k] }); return '<tr><td class="b">' + x.ym.replace("-", "년 ") + "월</td><td>" + won(x.sales) + "</td><td>" + won(x.buy) + "</td><td>" + won(x.fixed) + "</td><td>" + won(x.vari) + '</td><td class="b" style="color:' + (net < 0 ? "#2563eb" : "#ef4444") + '">' + won(net) + '</td><td class="r whitespace-nowrap"><button class="btn btn-x" data-act="annualEdit" data-id="' + x.id + '">수정</button> <button class="btn btn-x btn-r" data-act="del" data-kind="annual" data-id="' + x.id + '">삭제</button></td></tr>' })
       if (list.length) rows.push('<tr style="background:#f9fafb"><td class="b">합계</td><td class="b">' + won(t.sales) + '</td><td class="b">' + won(t.buy) + '</td><td class="b">' + won(t.fixed) + '</td><td class="b">' + won(t.vari) + '</td><td class="b text-red-500">' + won(t.sales - t.buy - t.fixed - t.vari) + "</td><td></td></tr>")
-      return h + '<div class="flex flex-wrap items-center gap-2 mb-3"><span class="text-[13px] text-gray-600">연간요약 — 회계월별 손익 (경리 월결산 수기 확정, 순손익 자동 계산)</span><button class="btn btn-p ml-auto" data-act="annualNew">+ 월 입력</button></div>' + tbl(["회계월", "총 매출", "총 매입", "고정비", "변동비", "순손익", ">관리"], rows)
+      return h + '<div class="flex flex-wrap items-center gap-2 mb-3"><span class="text-[13px] text-gray-600">연간요약, 회계월별 손익 (경리 월결산 수기 확정, 순손익 자동 계산)</span><button class="btn btn-p ml-auto" data-act="annualNew">+ 월 입력</button></div>' + tbl(["회계월", "총 매출", "총 매입", "고정비", "변동비", "순손익", ">관리"], rows)
     }
     if (tab === "ledger") {
       var lg = S.ledger.slice().sort(function (a, b) { return a.date < b.date ? -1 : a.date > b.date ? 1 : a.id - b.id })
@@ -1718,7 +1718,7 @@
       GROUPS.slice(0, 4).forEach(function (g, gi) {
         rows.push('<tr><td colspan="4" style="background:#f9fafb;font-size:11px;font-weight:700;color:#6b7280;padding:8px 14px">' + g + "</td></tr>")
         menus.filter(function (m) { return m.g === gi }).forEach(function (m) {
-          rows.push('<tr><td class="whitespace-nowrap"><span class="mr-1.5">' + m.i + "</span>" + E(m.t) + (m.pii ? ' <span class="bd bd-red" title="개인정보 메뉴">🛡</span>' : "") + "</td>" + DEPTS.map(function (d) { return '<td class="c">' + (m.lock ? '<span title="전 직원 공용 — 끌 수 없음">🔒</span>' : '<button data-act="deptToggle" data-d="' + d + '" data-k="' + m.k + '" class="p-1" aria-label="' + d + " " + m.t + '"><span class="' + (S.deptDefault[d][m.k] ? "dot-on" : "dot-off") + '"></span></button>') + "</td>" }).join("") + "</tr>")
+          rows.push('<tr><td class="whitespace-nowrap"><span class="mr-1.5">' + m.i + "</span>" + E(m.t) + (m.pii ? ' <span class="bd bd-red" title="개인정보 메뉴">🛡</span>' : "") + "</td>" + DEPTS.map(function (d) { return '<td class="c">' + (m.lock ? '<span title="전 직원 공용, 끌 수 없음">🔒</span>' : '<button data-act="deptToggle" data-d="' + d + '" data-k="' + m.k + '" class="p-1" aria-label="' + d + " " + m.t + '"><span class="' + (S.deptDefault[d][m.k] ? "dot-on" : "dot-off") + '"></span></button>') + "</td>" }).join("") + "</tr>")
         })
       })
       return h + '<p class="text-[13px] text-gray-600 mb-3">부서 단위 ON/OFF = 그 부서 전원의 <b>기본</b> 메뉴입니다. 개인별 예외는 「개인 예외」 탭에서. 🔒 공용 메뉴는 항상 노출, 🛡 개인정보 모듈입니다. 바꾸면 그 부서 사람의 왼쪽 메뉴가 바로 바뀝니다 (오른쪽 위 역할 배지로 전환해 확인).</p><div class="card overflow-x-auto"><table class="tbl"><thead><tr><th>메뉴 (' + menus.length + ")</th>" + DEPTS.map(function (d) { return '<th class="c">' + d + '<div class="font-normal text-gray-500">' + cnt(d) + "명</div></th>" }).join("") + "</tr></thead><tbody>" + rows.join("") + "</tbody></table></div>"
@@ -1749,7 +1749,7 @@
   Demo.on("deptToggle", function (d) {
     var m = S.deptDefault[d.d]
     if (m[d.k]) delete m[d.k]; else m[d.k] = 1
-    toast(d.d + " 부서 기본: " + menu(d.k).t + " " + (m[d.k] ? "켬" : "끔") + " — 해당 부서 화면에 바로 반영됩니다.")
+    toast(d.d + " 부서 기본: " + menu(d.k).t + " " + (m[d.k] ? "켬" : "끔") + ", 해당 부서 화면에 바로 반영됩니다.")
     Demo.update()
   })
   Demo.on("exSet", function (d) {
@@ -1795,7 +1795,7 @@
     var h = '<div class="mb-4"><h2 class="text-[22px] font-bold flex items-center gap-2">🗂️ 삭제 결재함 <span class="bd bd-blue">마스터 전용</span></h2><p class="text-[13px] text-gray-500 mt-1">직원의 삭제 요청은 여기서 승인해야 실제로 삭제됩니다. 승인 전까지 원본은 각 화면에 그대로 남아 있습니다. 마스터 본인의 삭제는 결재 없이 즉시 처리됩니다.</p></div>'
     h += '<div class="card overflow-hidden mb-4"><div class="card-h justify-start">결재 대기 <span class="bd bd-amber">' + S.approvals.length + '건</span></div><div class="overflow-x-auto"><table class="tbl"><thead><tr><th>요청 내용</th><th>요청자</th><th>요청 일시</th><th class="c">원본</th><th class="r">결재</th></tr></thead><tbody>' +
       (S.approvals.length ? S.approvals.map(function (a) { return '<tr><td class="b">' + E(a.label) + (a.err ? '<div class="text-[12px] text-red-500 font-normal mt-1">⚠ ' + E(a.err) + "</div>" : "") + "</td><td>" + E(nm(a.by)) + '</td><td class="text-gray-500">' + E(a.at) + '</td><td class="c"><button class="btn btn-x" data-act="apView" data-id="' + a.id + '">원본 보기</button></td><td class="r whitespace-nowrap"><button class="btn btn-x btn-g" data-act="apOk" data-id="' + a.id + '">승인</button> <button class="btn btn-x btn-r" data-act="apNo" data-id="' + a.id + '">반려</button></td></tr>' }).join("") : emptyRow(5, "결재 대기 중인 요청이 없습니다. 마스터가 아닌 계정으로 바꿔 무언가를 삭제해 보세요.")) + "</tbody></table></div></div>"
-    h += '<div class="card overflow-hidden mb-4"><div class="card-h block"><div>처리 이력</div><div class="text-[12px] font-normal text-gray-500 mt-1">최근 50건 — 처리 완료된 건은 원본 보기가 없습니다.</div></div><div class="overflow-x-auto"><table class="tbl"><thead><tr><th>결정</th><th>요청 내용</th><th>요청자</th><th>처리자</th><th>처리 일시</th></tr></thead><tbody>' +
+    h += '<div class="card overflow-hidden mb-4"><div class="card-h block"><div>처리 이력</div><div class="text-[12px] font-normal text-gray-500 mt-1">최근 50건, 처리 완료된 건은 원본 보기가 없습니다.</div></div><div class="overflow-x-auto"><table class="tbl"><thead><tr><th>결정</th><th>요청 내용</th><th>요청자</th><th>처리자</th><th>처리 일시</th></tr></thead><tbody>' +
       (S.history.length ? S.history.slice(0, 50).map(function (x) { return "<tr><td>" + badge(x.ok ? "승인" : "반려", x.ok ? "green" : "gray") + "</td><td>" + E(x.label) + "</td><td>" + E(nm(x.by)) + "</td><td>" + E(x.who) + '</td><td class="text-gray-500">' + E(x.at) + "</td></tr>" }).join("") : emptyRow(5, "처리한 요청이 없습니다.")) + "</tbody></table></div></div>"
     h += '<div class="card overflow-hidden"><div class="card-h block"><div>개인정보 열람 기록 (체험판 보기용)</div><div class="text-[12px] font-normal text-gray-500 mt-1">보기·공개·열람·복사를 누를 때마다 누른 사람과 시각이 남습니다.</div></div><div class="overflow-x-auto"><table class="tbl"><thead><tr><th>시각</th><th>열람자</th><th>대상</th></tr></thead><tbody>' +
       (S.logs.length ? S.logs.slice(0, 50).map(function (l) { return '<tr><td class="text-gray-500 whitespace-nowrap">' + E(l.at) + '</td><td class="b">' + E(l.who) + "</td><td>" + E(l.what) + "</td></tr>" }).join("") : emptyRow(3, "아직 열람 기록이 없습니다.")) + "</tbody></table></div></div>"

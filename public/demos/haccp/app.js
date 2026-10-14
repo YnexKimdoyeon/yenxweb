@@ -1,4 +1,4 @@
-/* (가상) 맛나식품 HACCP 업무관리 시스템 — 와이넥스 포트폴리오 체험판
+/* (가상) 맛나식품 HACCP 업무관리 시스템, 와이넥스 포트폴리오 체험판
  * 모든 회사·사람·제품·문서 내용은 지어낸 가상 데이터이며, 브라우저 메모리에만 있다.
  */
 ;(function () {
@@ -155,7 +155,7 @@
     hygiene: {
       title: "일반위생관리 점검표", sub: "(선행요건 관리기준)",
       info: [["작성일", "@date", "점 검 자", "@text"]],
-      crit: [["점검기준", "적합(○) / 부적합(×) — 부적합 항목은 하단 개선조치 란에 기록"]],
+      crit: [["점검기준", "적합(○) / 부적합(×), 부적합 항목은 하단 개선조치 란에 기록"]],
       grid: {
         cols: [{ h: "구분", w: 0.9, t: "label" }, { h: "점검 내용", w: 3.6, t: "label", al: "l" }, { h: "작업 전", sub: ["적", "부"], w: 0.5, t: "check" }, { h: "작업 후", sub: ["적", "부"], w: 0.5, t: "check" }, { h: "비고", w: 1.3, t: "text" }],
         rows: [["작업장", "바닥·배수로에 물고임과 잔재물이 없는가"], ["작업장", "작업대·칼·도마를 세척 후 소독하였는가"], ["작업장", "출입구 손세척기와 소독액이 비치되어 있는가"],
@@ -179,7 +179,7 @@
     pest: {
       title: "방충·방서 점검표", sub: "(주간 점검)",
       info: [["점검일", "@date", "점 검 자", "@text"]],
-      crit: [["관리기준", "포충등 주 10마리 이하, 쥐덫 포획 0건 — 초과 시 원인 조사 후 방제 실시"]],
+      crit: [["관리기준", "포충등 주 10마리 이하, 쥐덫 포획 0건, 초과 시 원인 조사 후 방제 실시"]],
       grid: {
         cols: [{ h: "구분", w: 0.9, t: "label" }, { h: "설치 위치", w: 2, t: "label", al: "l" }, { h: "포획수", w: 0.9, t: "number", gen: [0, 6, 0] }, { h: "이상 유무", sub: ["적", "부"], w: 0.55, t: "check" }, { h: "조치 내용", w: 2.4, t: "text" }],
         rows: [["포충등", "원료 입고실 출입구"], ["포충등", "전처리실"], ["포충등", "가열실"], ["포충등", "포장실"], ["쥐덫", "창고 외벽 A"], ["쥐덫", "창고 외벽 B"], ["쥐덫", "폐기물 보관장"], ["쥐덫", "부자재 창고"]],
@@ -808,7 +808,7 @@
       '<div class="min-w-[240px] flex-1">' + field("검색", '<input type="text" id="lf-q" data-input="lf-q" value="' + e(st.q) + '" placeholder="문서번호 또는 문서명" class="' + C.input + '">') + "</div>" +
       "</div>" + (st.overdue ? '<div class="mt-3 flex items-center gap-2 text-xs text-[var(--color-status-reject-fg)]">' + ic("alert", "h-3.5 w-3.5") + '기한이 지난 미작성 일지만 보고 있습니다. <button type="button" data-act="lf-clear-od" class="underline underline-offset-2">해제</button></div>' : "") + "</div>"
     var info = '<div class="mb-2 flex flex-wrap items-center justify-between gap-2 text-xs text-[var(--color-fg-muted)]"><span>총 <b class="text-[var(--color-fg)]">' + rows.length + "</b>건</span>" +
-      (odCount ? '<span class="inline-flex items-center gap-1 text-[var(--color-status-reject-fg)]">' + ic("alert", "h-3.5 w-3.5") + "기한 지난 미작성 " + odCount + "건 — 빨간 줄로 표시</span>" : "") + "</div>"
+      (odCount ? '<span class="inline-flex items-center gap-1 text-[var(--color-status-reject-fg)]">' + ic("alert", "h-3.5 w-3.5") + "기한 지난 미작성 " + odCount + "건, 빨간 줄로 표시</span>" : "") + "</div>"
     var body2 = rows.map(function (r, i) {
       var t = T(r.tplId), od = overdue(r)
       return '<tr class="' + (od ? "bg-[var(--color-status-reject-bg)]" : "hover:bg-[var(--color-surface-alt)]") + '">' +
@@ -906,7 +906,7 @@
     var overlay = tpl.fields.map(function (f) { return fillField(f, v, ro) }).join("")
     var od = overdue(rec)
     var notice = ""
-    if (rec.status === "반려") notice = '<div class="mb-4 flex items-start gap-2 rounded-md border border-[var(--color-status-reject-fg)]/40 bg-[var(--color-status-reject-bg)] px-4 py-3 text-sm text-[var(--color-status-reject-fg)]">' + ic("alert", "mt-0.5 h-4 w-4 shrink-0") + "<div><b>반려됨</b> — " + e(rec.reject) + "<div class=\"mt-0.5 text-xs\">내용을 고친 뒤 다시 결재 요청하세요.</div></div></div>"
+    if (rec.status === "반려") notice = '<div class="mb-4 flex items-start gap-2 rounded-md border border-[var(--color-status-reject-fg)]/40 bg-[var(--color-status-reject-bg)] px-4 py-3 text-sm text-[var(--color-status-reject-fg)]">' + ic("alert", "mt-0.5 h-4 w-4 shrink-0") + "<div><b>반려됨</b>, " + e(rec.reject) + "<div class=\"mt-0.5 text-xs\">내용을 고친 뒤 다시 결재 요청하세요.</div></div></div>"
     else if (od) notice = '<div class="mb-4 flex items-center gap-2 rounded-md border border-[var(--color-status-reject-fg)]/40 bg-[var(--color-status-reject-bg)] px-4 py-3 text-sm text-[var(--color-status-reject-fg)]">' + ic("alert", "h-4 w-4 shrink-0") + "기준일(" + e(rec.date) + ")이 지난 미작성 일지입니다. 작성 후 사유를 특이사항에 남겨 주세요.</div>"
     else if (ro) notice = '<div class="mb-4 flex items-center gap-2 rounded-md border border-[var(--color-accent)]/35 bg-[var(--color-accent-soft)] px-4 py-3 text-sm text-[var(--color-accent)]">' + ic("file", "h-4 w-4 shrink-0") + (rec.status === "완료" ? "결재가 끝난 일지입니다. 읽기 전용으로 표시됩니다." : "결재 대기 중인 일지입니다. 승인 또는 반려할 수 있습니다.") + "</div>"
     var infoRow = function (k, val) { return '<div class="grid grid-cols-[100px_1fr] gap-2 py-1.5 text-sm"><span class="text-[var(--color-fg-muted)]">' + e(k) + '</span><span class="min-w-0 text-[var(--color-fg)]">' + val + "</span></div>" }
@@ -1074,7 +1074,7 @@
       '<div class="w-40 space-y-1.5"><span class="block text-xs font-semibold text-[var(--color-fg)]">TO</span><input type="date" id="rp-to" data-change="rp-to" value="' + e(st.to) + '" class="' + C.input + '"></div>' +
       btn("pri", "md", ic("search", "h-4 w-4") + "조회", 'data-act="rp-search"') + "</div></div>"
     var head = th("발급일자", "issue", sk) + th("종류", "kind", sk) + th("업체명", "org", sk) + th("제품 종류", "ptype", sk) + th("제품명", "pname", sk) + th("다음 검사 예정", "due", sk) + th("상태") + th("첨부") + th("작업")
-    var summary = '<div class="mb-2 flex flex-wrap items-center gap-3 text-xs text-[var(--color-fg-muted)]"><span>총 <b class="text-[var(--color-fg)]">' + rows.length + "</b>건</span>" + (exp ? '<span class="text-[var(--color-status-writing-fg)]">만료·만료임박 ' + exp + "건 — 갱신이 필요합니다</span>" : "") + "</div>"
+    var summary = '<div class="mb-2 flex flex-wrap items-center gap-3 text-xs text-[var(--color-fg-muted)]"><span>총 <b class="text-[var(--color-fg)]">' + rows.length + "</b>건</span>" + (exp ? '<span class="text-[var(--color-status-writing-fg)]">만료·만료임박 ' + exp + "건, 갱신이 필요합니다</span>" : "") + "</div>"
     return pageHead(["성적서 관리", "성적서 조회"], "성적서 조회", "등록된 성적서를 종류·기간으로 조회합니다", btn("pri", "md", ic("plus", "h-4 w-4") + "성적서 등록", 'data-act="go" data-href="#/reports/register"')) +
       body(search + summary + tableWrap("min-w-[1040px]", head, body2))
   }
@@ -1177,7 +1177,7 @@
           return '<td class="' + C.td + ' text-center"><button type="button" data-act="nt-cycle" data-i="' + i + '" data-c="' + c + '" aria-label="' + e(n.name + " " + c) + '" class="inline-flex h-5 w-5 items-center justify-center rounded-full align-middle ' + (on ? "bg-[var(--color-accent)]" : "border border-[var(--color-border-strong)] bg-[var(--color-surface)] hover:border-[var(--color-accent)]") + '">' + (on ? '<span class="h-2 w-2 rounded-full bg-white"></span>' : "") + "</button></td>"
         }).join("") +
         '<td class="' + C.td + ' text-center"><button type="button" data-act="nt-on" data-i="' + i + '" class="font-semibold ' + (n.on ? "text-[var(--color-fg)]" : "text-[var(--color-fg-subtle)]") + '">' + (n.on ? "Y" : "N") + "</button></td>" +
-        '<td class="' + C.td + ' text-[var(--color-fg-muted)]">—</td></tr>'
+        '<td class="' + C.td + ' text-[var(--color-fg-muted)]"></td></tr>'
     }).join("")
     var head = th("관리 항목") + '<th class="' + C.th + ' text-center">시작일</th>' + cyc.map(function (c) { return '<th class="' + C.th + ' text-center">' + c + "</th>" }).join("") + '<th class="' + C.th + ' text-center">적용</th>' + th("비고")
     return pageHead(["설정 및 관리", "알림 설정 관리"], "알림 설정 관리", "HACCP 관리 항목별 알림 주기 설정") +
@@ -1410,7 +1410,7 @@
   on("cal-filter", function (v) { S.ui.calFilter = v; R() })
   on("cal-sel", function (d) { S.ui.calSel = S.ui.calSel === d.d ? null : d.d; R() })
   on("open-rec", function (d) { Demo.go("/journal/record/" + d.id) })
-  on("open-plan", function (d) { Demo.toast("예정 일지입니다 — " + d.d + " 당일부터 작성할 수 있습니다") })
+  on("open-plan", function (d) { Demo.toast("예정 일지입니다, " + d.d + " 당일부터 작성할 수 있습니다") })
 
   // 리스트 필터
   function LS() { return S.ui.list[S.ui.curList] }
@@ -1484,7 +1484,7 @@
     if (pr.done <= 1) { Demo.toast("입력된 내용이 없습니다. 점검 결과를 먼저 기록하세요"); return }
     rec.status = "승인대기"; v.sign_0 = rec.writer || ME
     rec.history.push({ at: TODAY + " " + nowTime(), who: ME, act: "결재 요청" })
-    Demo.toast("결재를 요청했습니다 — 결재 승인 메뉴에서 처리할 수 있습니다"); R()
+    Demo.toast("결재를 요청했습니다, 결재 승인 메뉴에서 처리할 수 있습니다"); R()
   })
   on("rec-recall", function (d) { var rec = REC(d.id); rec.status = "작성중"; rec.values.sign_0 = ""; rec.history.push({ at: TODAY + " " + nowTime(), who: ME, act: "결재 회수" }); Demo.toast("결재 요청을 회수했습니다"); R() })
   on("rec-approve", function (d) {
@@ -1492,7 +1492,7 @@
     var v = ensureValues(rec)
     rec.status = "완료"; v.sign_0 = v.sign_0 || rec.writer; v.sign_1 = "오민규"; v.sign_2 = ME
     rec.history.push({ at: TODAY + " " + nowTime(), who: ME, act: "승인" })
-    Demo.toast("승인했습니다 — " + T(rec.tplId).name + " (" + rec.date + ")"); R()
+    Demo.toast("승인했습니다, " + T(rec.tplId).name + " (" + rec.date + ")"); R()
   })
   on("rec-reject", function (d) { S.ui.modal = { type: "reject", id: d.id }; R() })
   on("rec-print", function () { Demo.toast("체험판에서는 인쇄 대신 화면으로 확인합니다 (실제는 A4 원본 양식 그대로 출력)") })
@@ -1513,7 +1513,7 @@
     var t = curTpl(), ed = S.ui.ed
     if (!ed.dirty) { Demo.toast("바뀐 내용이 없습니다"); return }
     t.version++; t.updated = TODAY; ed.dirty = false
-    Demo.toast("입력칸 " + t.fields.length + "개를 저장했습니다 (v" + t.version + ") — 이후 작성하는 일지에 바로 적용됩니다"); R()
+    Demo.toast("입력칸 " + t.fields.length + "개를 저장했습니다 (v" + t.version + "), 이후 작성하는 일지에 바로 적용됩니다"); R()
   })
   on("tpl-download", function () { Demo.toast("체험판: 원본 양식 PDF 다운로드는 비활성화되어 있습니다") })
   on("tpl-file", function () { Demo.toast("체험판: 양식 파일 교체는 비활성화되어 있습니다 (입력칸 위치는 그대로 유지됩니다)") })
@@ -1608,7 +1608,7 @@
     var nf = { id: nid("f"), type: type, label: TYPE_LABEL[type] + " " + n, x: Math.max(0, Math.min(PW - size[0], nx)), y: Math.max(0, Math.min(t.H - size[1], ny)), w: size[0], h: size[1], group: grp }
     if (type === "select") nf.opts = ["항목 1", "항목 2"]
     t.fields.push(nf); ed.sel = nf.id; ed.tool = "select"
-    Demo.toast("「" + TYPE_LABEL[type] + "」 입력칸을 추가했습니다 — 끌어서 위치를 맞추세요")
+    Demo.toast("「" + TYPE_LABEL[type] + "」 입력칸을 추가했습니다, 끌어서 위치를 맞추세요")
     R()
   })
   document.addEventListener("pointermove", function (ev) {
@@ -1674,7 +1674,7 @@
   on("nt-cycle", function (d) { S.notif[+d.i].cycle = d.c; R() })
   on("nt-on", function (d) { S.notif[+d.i].on = !S.notif[+d.i].on; R() })
   on("nt-start", function (v, el) { S.notif[+el.getAttribute("data-i")].start = v })
-  on("nt-save", function () { Demo.toast("알림 설정을 저장했습니다 — 성적서·보건증 만료 표시에 반영됩니다") })
+  on("nt-save", function () { Demo.toast("알림 설정을 저장했습니다, 성적서·보건증 만료 표시에 반영됩니다") })
 
   // 거래처·제품·사원·사용자
   on("partner-del", function (d) { var p = S.partners[+d.i]; S.ui.modal = { type: "confirm", title: "거래처 삭제", msg: "「" + p.name + "」을(를) 삭제할까요?", ok: "삭제", fn: function () { S.partners.splice(+d.i, 1); Demo.toast("삭제했습니다") } }; R() })
@@ -1708,7 +1708,7 @@
   })
 
   /* ───────── 폼 제출 ───────── */
-  on("login", function () { Demo.go("/"); Demo.toast("로그인했습니다 — 체험판 관리자 계정") })
+  on("login", function () { Demo.go("/"); Demo.toast("로그인했습니다, 체험판 관리자 계정") })
   on("new-rec", function (d, el) {
     // 버튼(data-act) 과 폼(data-submit) 이 같은 이름을 쓰므로 둘을 구분한다
     if (el && el.tagName === "FORM") {
@@ -1727,7 +1727,7 @@
     rec.status = "반려"; rec.reject = d.reason
     if (rec.values) rec.values.sign_0 = ""
     rec.history.push({ at: TODAY + " " + nowTime(), who: ME, act: "반려", note: d.reason })
-    S.ui.modal = null; Demo.toast("반려했습니다 — 작성자에게 사유가 전달됩니다"); R()
+    S.ui.modal = null; Demo.toast("반려했습니다, 작성자에게 사유가 전달됩니다"); R()
   })
   on("renew", function (d, el) {
     if (el.tagName !== "FORM") { S.ui.modal = { type: "renew", kind: d.kind, id: d.id }; S.ui.files.renew = []; R(); return }
@@ -1737,7 +1737,7 @@
     else doc.expire = addM(d.issue, months(kind))
     doc.files = doc.files.concat(S.ui.files.renew || [])
     S.ui.modal = null; S.ui.files.renew = []
-    Demo.toast("갱신했습니다 — " + (kind === "rep" ? "다음 검사 예정 " + repDue(doc) : "새 만료일 " + doc.expire)); R()
+    Demo.toast("갱신했습니다, " + (kind === "rep" ? "다음 검사 예정 " + repDue(doc) : "새 만료일 " + doc.expire)); R()
   })
   on("confirm", function () { var m = S.ui.modal; S.ui.modal = null; if (m && m.fn) m.fn(); R() })
   on("prompt", function (d) { var m = S.ui.modal; S.ui.modal = null; if (m && m.fn && d.v) m.fn(d.v.trim()); R() })
@@ -1756,7 +1756,7 @@
     if (kind === "edu") { rec.course = fm.course || "HACCP 교육"; rec.org = fm.org }
     ;(kind === "health" ? S.health : S.edu).push(rec)
     S.ui.hform[kind] = null; S.ui.files["cert-" + kind] = []
-    Demo.toast("등록했습니다 — 만료일 " + rec.expire); R()
+    Demo.toast("등록했습니다, 만료일 " + rec.expire); R()
   })
   on("tpl-new", function (d, el) {
     if (el.tagName !== "FORM") { S.ui.modal = { type: "tpl-new" }; S.ui.files.tpl = []; R(); return }
@@ -1766,7 +1766,7 @@
     S.templates.push(tpl)
     if (isScheduled(tpl, TODAY)) newRecord(tpl, TODAY, "미작성", ME)
     S.ui.modal = null; S.ui.files.tpl = []
-    Demo.toast("양식을 등록했습니다 — 위 도구로 입력칸을 올려 보세요"); Demo.go("/journal/template/" + tpl.id)
+    Demo.toast("양식을 등록했습니다, 위 도구로 입력칸을 올려 보세요"); Demo.go("/journal/template/" + tpl.id)
     S.ui.ed = null
   })
   on("tpl-info", function (d) {
@@ -1776,7 +1776,7 @@
   })
   on("company-save", function (d) { Object.assign(S.company, d); Demo.toast("회사 정보를 저장했습니다") })
   on("partner", function (d) { S.partners.push(d); S.ui.modal = null; Demo.toast("거래처를 등록했습니다"); R() })
-  on("product", function (d) { var id = "P-" + (100 + S.products.length + 1); S.products.push({ id: id, name: d.name, type: d.type, spec: d.spec, store: d.store, shelf: d.shelf, use: true }); S.recipes[id] = []; S.ui.modal = null; Demo.toast("제품을 등록했습니다 — 레시피 등록에서 배합비를 넣으세요"); R() })
+  on("product", function (d) { var id = "P-" + (100 + S.products.length + 1); S.products.push({ id: id, name: d.name, type: d.type, spec: d.spec, store: d.store, shelf: d.shelf, use: true }); S.recipes[id] = []; S.ui.modal = null; Demo.toast("제품을 등록했습니다, 레시피 등록에서 배합비를 넣으세요"); R() })
   on("staff", function (d) { var no = "M-" + String(S.staff.length + 1).padStart(3, "0"); S.staff.push({ no: no, name: d.name, dept: d.dept, pos: d.pos, join: d.join, tel: "010-0000-0000", active: true }); S.ui.modal = null; Demo.toast("사원을 등록했습니다 (" + no + ")"); R() })
 
   /* ───────── 시작 ───────── */

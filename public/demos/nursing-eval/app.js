@@ -1,4 +1,4 @@
-/* SIM ERP · 간호 시뮬레이션 실습 평가 — 포트폴리오 체험판
+/* SIM ERP · 간호 시뮬레이션 실습 평가, 포트폴리오 체험판
  * 화면 구성과 클래스는 실제 제품과 같고, 데이터는 모두 가상이다.
  * 상태는 브라우저 메모리에만 있으며 새로고침하면 처음으로 돌아간다.
  */
@@ -451,12 +451,12 @@
     return v >= 95 ? "A+" : v >= 90 ? "A" : v >= 85 ? "B+" : v >= 80 ? "B" : v >= 75 ? "C+" : v >= 70 ? "C" : v >= 60 ? "D" : "F"
   }
   function f1(v) {
-    if (v == null) return "—"
+    if (v == null) return ""
     var r = Math.round(v * 10) / 10
     return String(r)
   }
   function f2(v) {
-    return v == null ? "—" : v.toFixed(2)
+    return v == null ? "" : v.toFixed(2)
   }
   function semLabel() {
     for (var i = 0; i < S.semesters.length; i++) if (S.semesters[i].id === S.semId) return S.semesters[i].label
@@ -1026,7 +1026,7 @@
       vals.forEach(function (v) {
         t4 += '<td class="py-2 px-2 text-center tabular-nums"><span>' + f1(v) + '<span class="ml-0.5 text-[10px] text-muted-foreground">/30</span></span></td>'
       })
-      t4 += '<td class="py-2 pl-2 text-right font-semibold tabular-nums">' + (delta == null ? "—" : '<span class="' + (delta >= 0 ? "text-status-normal" : "text-status-danger") + '">' + (delta >= 0 ? "▲" : "▼") + Math.abs(delta) + "</span>") + "</td></tr>"
+      t4 += '<td class="py-2 pl-2 text-right font-semibold tabular-nums">' + (delta == null ? "" : '<span class="' + (delta >= 0 ? "text-status-normal" : "text-status-danger") + '">' + (delta >= 0 ? "▲" : "▼") + Math.abs(delta) + "</span>") + "</td></tr>"
     })
     t4 += "</tbody></table></div>"
     h += card("전체 평균 역량 증가표", "같은 학기 과목을 순서대로 · 역량마다 전체 학생 평균 점수(30점) 추이 · Δ = 첫 과목 대비 증가폭", t4, xlBtn("xlGrowth"), "mt-4")
@@ -1134,13 +1134,13 @@
         })
         var g = gradeRow(s.sid)
         if (g) {
-          ;[g.att, g.fin, g.hw, g.core, g.perf == null ? "—" : g.perf].forEach(function (v) {
+          ;[g.att, g.fin, g.hw, g.core, g.perf == null ? "" : g.perf].forEach(function (v) {
             r += '<td class="px-3 py-2 text-center tabular-nums text-muted-foreground">' + E(v) + "</td>"
           })
           r += '<td class="px-3 py-2 text-center font-semibold tabular-nums">' + E(g.sum) + '</td><td class="px-3 py-2 text-center"><span class="font-semibold text-primary">' + E(g.letter) + "</span></td>"
         } else {
-          for (var k = 0; k < 6; k++) r += '<td class="px-3 py-2 text-center tabular-nums text-muted-foreground">—</td>'
-          r += '<td class="px-3 py-2 text-center"><span class="text-muted-foreground">—</span></td>'
+          for (var k = 0; k < 6; k++) r += '<td class="px-3 py-2 text-center tabular-nums text-muted-foreground"></td>'
+          r += '<td class="px-3 py-2 text-center"><span class="text-muted-foreground"></span></td>'
         }
         var d = doneCount(s.sid)
         var M = S.modules.length || 1
@@ -1364,7 +1364,7 @@
       kpi("clipboard-check", "모듈 이수", doneCount(sid) + " / " + S.modules.length, stuState(sid) === "done" ? "이수완료" : stuState(sid) === "none" ? "미이수 (전 모듈 미참여)" : "진행중") +
       kpi("circle-gauge", "모듈 평균 총점", f1(avg) + " / " + MAX() + "점", avg == null ? "완료한 모듈 없음" : "전체 평균 " + f1(groupTotalAvg(allSids()).avg) + "점") +
       kpi("target", "역량 평균", f2(avgOf(comps.map(function (k) { return mine[k.id] }))), "2점 만점 루브릭 평균") +
-      kpi("graduation-cap", "학교 성적", g ? g.sum + "점" : "—", g ? "평점 " + g.letter + " · 업로드 성적과 매칭" : "성적 미업로드") + "</div>"
+      kpi("graduation-cap", "학교 성적", g ? g.sum + "점" : "", g ? "평점 " + g.letter + " · 업로드 성적과 매칭" : "성적 미업로드") + "</div>"
     var radar = '<div class="h-72 w-full">' + radarSvg(comps.map(function (k) { return k.name }), [
       { name: "전체", color: "#14b8a6", op: 0.08, values: comps.map(function (k) { return overall[k.id] }) },
       { name: s.name, color: "#0f766e", op: 0.16, values: comps.map(function (k) { return mine[k.id] }) },
@@ -1374,7 +1374,7 @@
         var st = modStatus(sid, m.id)
         var r = res(sid, m.id)
         var ti = teamOf(sid, m.id)
-        return '<tr class="border-b border-border/60 last:border-0"><td class="py-2 pr-2"><span class="font-medium">M' + (i + 1) + '</span> <span class="text-muted-foreground">' + E(m.name) + '</span></td><td class="py-2 pr-2 text-xs text-muted-foreground">' + (ti >= 0 ? E(s.cls + "-" + (ti + 1) + "조") : "—") + '</td><td class="py-2 pr-2">' + (st === "done" ? pill("이수", "accent") : st === "prog" ? pill("진행중", "warning") : pill("미이수", "danger")) + '</td><td class="py-2 text-right font-semibold tabular-nums">' + (r ? total(r) + '<span class="ml-0.5 text-[10px] text-muted-foreground">/' + MAX() + "</span>" : "—") + "</td></tr>"
+        return '<tr class="border-b border-border/60 last:border-0"><td class="py-2 pr-2"><span class="font-medium">M' + (i + 1) + '</span> <span class="text-muted-foreground">' + E(m.name) + '</span></td><td class="py-2 pr-2 text-xs text-muted-foreground">' + (ti >= 0 ? E(s.cls + "-" + (ti + 1) + "조") : "") + '</td><td class="py-2 pr-2">' + (st === "done" ? pill("이수", "accent") : st === "prog" ? pill("진행중", "warning") : pill("미이수", "danger")) + '</td><td class="py-2 text-right font-semibold tabular-nums">' + (r ? total(r) + '<span class="ml-0.5 text-[10px] text-muted-foreground">/' + MAX() + "</span>" : "") + "</td></tr>"
       }).join("") + "</tbody></table></div>"
     h += '<div class="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-2">' + card("역량 프로파일", "개인 · 전체 평균 비교 (2점 만점)", radar) + card("모듈별 결과", "완료 모듈 총점 (" + MAX() + "점 만점)", mt) + "</div>"
     var ia = itemAvg([sid])
@@ -1459,7 +1459,7 @@
     }).join("") + "</div>"
     var pool = S.compPool.filter(function (c) { return S.compOrder.indexOf(c.id) < 0 }).concat(S.comps.filter(function (c) { return S.compOrder.indexOf(c.id) < 0 }))
     cl += '<div class="mt-3 flex flex-col gap-2 rounded-md border border-dashed border-border p-3 sm:flex-row sm:items-end">' +
-      '<form data-submit="compAddExisting" class="flex-1"><span class="mb-1 block text-xs font-medium text-muted-foreground">기존 역량 추가</span><div class="flex gap-1.5"><select name="id" class="' + INPUT + ' h-9">' + opts([["", "— 역량 선택 —"]].concat(pool.map(function (c) { return [c.id, c.name] })), "") + '</select><button class="' + BTN_O + '">' + ic("plus", "h-4 w-4") + "추가</button></div></form>" +
+      '<form data-submit="compAddExisting" class="flex-1"><span class="mb-1 block text-xs font-medium text-muted-foreground">기존 역량 추가</span><div class="flex gap-1.5"><select name="id" class="' + INPUT + ' h-9">' + opts([["", "역량 선택"]].concat(pool.map(function (c) { return [c.id, c.name] })), "") + '</select><button class="' + BTN_O + '">' + ic("plus", "h-4 w-4") + "추가</button></div></form>" +
       '<form data-submit="compCreate" class="flex-1"><span class="mb-1 block text-xs font-medium text-muted-foreground">새 역량 생성 후 매핑</span><div class="flex gap-1.5"><input name="name" placeholder="예: 환자안전" class="' + INPUT + ' h-9"><button class="' + BTN_P + '">' + ic("plus", "h-4 w-4") + "생성</button></div></form></div>"
     h += card("역량", "이 과목에 매핑된 역량 · 위/아래로 순서를 조정합니다. 평가항목은 역량에 소속되어 학생별 성장 그래프로 집계됩니다.", cl)
     var ml = '<form data-submit="subModAdd" class="mb-3 flex flex-col gap-2 rounded-md border border-dashed border-border p-3 sm:flex-row sm:items-end">' +
@@ -1523,7 +1523,7 @@
       var n = S.students.filter(function (s) { return s.cls === c }).length
       var pid = S.classProf[c]
       return '<tr class="border-b border-border last:border-0 hover:bg-accent/30"><td class="px-4 py-3"><span class="flex items-center gap-2 font-medium" style="white-space:nowrap"><span class="flex h-7 w-7 items-center justify-center rounded-md bg-secondary text-xs font-semibold">' + E(c) + "</span>실습반 " + E(c) + '</span></td><td class="px-4 py-3 tabular-nums text-muted-foreground">' + n + '명</td><td class="px-4 py-3"><div class="relative inline-block"><select data-change="asProf" data-c="' + E(c) + '" class="h-9 appearance-none rounded-md border border-border bg-background pl-3 pr-8 text-sm outline-none focus:border-primary">' +
-        opts([["", "— 미배정 —"]].concat(activeProfs.map(function (p) { return [p.id, p.name] })), pid) + "</select>" + ic("chevron-down", "pointer-events-none absolute right-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground") + '</div></td><td class="px-4 py-3">' + (pid ? pill("배정 완료", "accent") : pill("미배정", "danger")) +
+        opts([["", "미배정"]].concat(activeProfs.map(function (p) { return [p.id, p.name] })), pid) + "</select>" + ic("chevron-down", "pointer-events-none absolute right-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground") + '</div></td><td class="px-4 py-3">' + (pid ? pill("배정 완료", "accent") : pill("미배정", "danger")) +
         '</td><td class="px-4 py-3 text-right"><button type="button" data-act="clsDelete" data-c="' + E(c) + '" title="' + (n ? "학생이 배정돼 있어 삭제할 수 없습니다" : "실습반 삭제") + '"' + (n ? " disabled" : "") + ' class="inline-flex h-7 w-7 items-center justify-center rounded-md border border-status-danger/30 text-status-danger hover:bg-status-danger/10 disabled:opacity-40" aria-label="삭제">' + ic("trash2", "h-3.5 w-3.5") + "</button></td></tr>"
     }).join("")
     var addForm = function (act, ph) {
@@ -1578,12 +1578,12 @@
     var h = pageHead("모듈 · 평가항목 관리", "시뮬레이션 모듈과 " + S.items.length + "개 평가 루브릭 항목을 편성합니다")
     var mrows = S.modules.map(function (m, i) {
       var c = comp(m.comp)
-      return '<tr class="border-b border-border last:border-0 align-top hover:bg-accent/30"><td class="px-4 py-3 tabular-nums text-muted-foreground">' + (i + 1) + '</td><td class="px-4 py-3 font-medium">' + E(m.name) + '</td><td class="px-4 py-3">' + (c ? pill(E(c.name)) : "—") + '</td><td class="px-4 py-3 text-muted-foreground" style="white-space:nowrap">' + E(profName(m.prof)) + '</td><td class="max-w-md px-4 py-3 text-xs text-muted-foreground">' + E(m.scenario || "") + '</td><td class="px-4 py-3">' + editBtns("modEdit", "modDelete", m.id) + "</td></tr>"
+      return '<tr class="border-b border-border last:border-0 align-top hover:bg-accent/30"><td class="px-4 py-3 tabular-nums text-muted-foreground">' + (i + 1) + '</td><td class="px-4 py-3 font-medium">' + E(m.name) + '</td><td class="px-4 py-3">' + (c ? pill(E(c.name)) : "") + '</td><td class="px-4 py-3 text-muted-foreground" style="white-space:nowrap">' + E(profName(m.prof)) + '</td><td class="max-w-md px-4 py-3 text-xs text-muted-foreground">' + E(m.scenario || "") + '</td><td class="px-4 py-3">' + editBtns("modEdit", "modDelete", m.id) + "</td></tr>"
     }).join("")
     h += card("시뮬레이션 모듈 " + S.modules.length + "개", "모듈명·담당 교수·시나리오를 관리합니다", '<div class="overflow-x-auto"><table class="w-full text-sm"><thead><tr class="border-b border-border bg-secondary/40 text-left text-xs text-muted-foreground"><th class="px-4 py-2.5 font-medium">#</th><th class="px-4 py-2.5 font-medium">모듈명</th><th class="px-4 py-2.5 font-medium">대응 역량</th><th class="px-4 py-2.5 font-medium">담당 교수</th><th class="px-4 py-2.5 font-medium">시나리오</th><th class="px-4 py-2.5 text-right font-medium">관리</th></tr></thead><tbody>' + mrows + "</tbody></table></div>", '<button data-act="modAdd" class="' + BTN_P + '">' + ic("plus", "h-4 w-4") + "모듈 추가</button>", null, "p-0")
     var irows = S.items.map(function (it, i) {
       var c = comp(it.comp)
-      return '<tr class="border-b border-border last:border-0 align-top hover:bg-accent/30"><td class="px-4 py-3 tabular-nums text-muted-foreground">' + (i + 1) + '</td><td class="px-4 py-3"><span class="inline-flex items-center gap-1.5 whitespace-nowrap">' + pill(it.step + "단계", "accent") + '<span class="text-xs">' + E(it.goal) + '</span></span></td><td class="px-4 py-3"><span class="whitespace-nowrap text-xs text-muted-foreground">' + E(c ? c.name : "—") + '</span></td><td class="px-4 py-3 font-medium">' + E(it.title) + '</td><td class="max-w-xs px-4 py-3 text-xs text-muted-foreground">' + E(it.rule) + '</td><td class="px-4 py-3">' + pill(E(it.type)) + '</td><td class="px-4 py-3">' + editBtns("itemEdit", "itemDelete", it.id) + "</td></tr>"
+      return '<tr class="border-b border-border last:border-0 align-top hover:bg-accent/30"><td class="px-4 py-3 tabular-nums text-muted-foreground">' + (i + 1) + '</td><td class="px-4 py-3"><span class="inline-flex items-center gap-1.5 whitespace-nowrap">' + pill(it.step + "단계", "accent") + '<span class="text-xs">' + E(it.goal) + '</span></span></td><td class="px-4 py-3"><span class="whitespace-nowrap text-xs text-muted-foreground">' + E(c ? c.name : "") + '</span></td><td class="px-4 py-3 font-medium">' + E(it.title) + '</td><td class="max-w-xs px-4 py-3 text-xs text-muted-foreground">' + E(it.rule) + '</td><td class="px-4 py-3">' + pill(E(it.type)) + '</td><td class="px-4 py-3">' + editBtns("itemEdit", "itemDelete", it.id) + "</td></tr>"
     }).join("")
     h += card("평가 항목 " + S.items.length + "개", "0·1·2점 루브릭 · 개인(P)/팀(T)/혼합(M) 유형", '<div class="overflow-x-auto"><table class="w-full text-sm"><thead><tr class="border-b border-border bg-secondary/40 text-left text-xs text-muted-foreground"><th class="px-4 py-2.5 font-medium">No</th><th class="px-4 py-2.5 font-medium">단계 · 수행목표</th><th class="px-4 py-2.5 font-medium">영역</th><th class="px-4 py-2.5 font-medium">평가 항목</th><th class="px-4 py-2.5 font-medium">배점 기준</th><th class="px-4 py-2.5 font-medium">유형</th><th class="px-4 py-2.5 text-right font-medium">관리</th></tr></thead><tbody>' + irows + "</tbody></table></div>", '<button data-act="itemAdd" class="' + BTN_P + '">' + ic("plus", "h-4 w-4") + "항목 추가</button>", "mt-4", "p-0")
     return h

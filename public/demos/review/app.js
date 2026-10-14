@@ -730,7 +730,7 @@
               '</select><span class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">' + ic("chevDown") + "</span></div>" +
               '<button type="button" data-act="match" data-i="' + i + '" class="' + BTN + ' h-9 px-3 bg-primary text-primary-foreground hover:bg-primary/90">매칭</button></div></div>'
           }).join("") + "</div>" : "") +
-          (unkeyed.length ? '<p class="text-xs text-amber-900">매칭키가 없는 명의: ' + unkeyed.map(function (o) { return "<b>" + e(o.r.name + " › " + o.a.name) + "</b>" }).join(", ") + " — 리뷰어 행의 [명의 관리]에서 직접 지정할 수도 있습니다.</p>" : "") +
+          (unkeyed.length ? '<p class="text-xs text-amber-900">매칭키가 없는 명의: ' + unkeyed.map(function (o) { return "<b>" + e(o.r.name + " › " + o.a.name) + "</b>" }).join(", ") + ", 리뷰어 행의 [명의 관리]에서 직접 지정할 수도 있습니다.</p>" : "") +
           "</div>"
         : '<div class="rounded-2xl border bg-card p-4 text-sm text-muted-foreground flex items-center gap-2">' + ic("checkCircle", "size-4 shrink-0 text-emerald-600") + "모든 명의가 시트 구매자 값과 매칭되어 있습니다.</div>"
     var body =

@@ -1,4 +1,4 @@
-/* (가상) 굿카 중고차 조회 — 와이넥스 포트폴리오 체험판
+/* (가상) 굿카 중고차 조회, 와이넥스 포트폴리오 체험판
  * 화면 구성과 클래스는 실제 납품 화면을 따르고, 차량·번호판·명의 등 데이터는 모두 지어낸 가상 값이다.
  * 크롤링은 흉내만 내며 외부 사이트에 접속하지 않는다. 새로고침하면 처음 상태로 돌아간다.
  */
@@ -280,7 +280,7 @@
       '<button id="sheetBtn" class="btn btn-ghost" title="시세 매핑 시트 보기" data-act="open" data-to="/sheet"><span>📋</span><span>시트</span></button>' +
       '<button id="settingsBtn" class="btn btn-ghost" title="크롤링 조건 설정" data-act="open" data-to="/settings"><span>⚙️</span><span>설정</span></button>' +
       '<button id="chutchaSettingsBtn" class="btn btn-ghost" title="첫차 로그인 정보" data-act="open" data-to="/chutcha"><span>🚗</span><span>첫차</span></button>' +
-      '<button id="chutchaQueueBtn" class="btn btn-ghost" title="첫차 등록 대기열 — 자동 등록 워커가 올릴 순서" data-act="open" data-to="/queue"><span>📜</span><span>대기열</span></button>' +
+      '<button id="chutchaQueueBtn" class="btn btn-ghost" title="첫차 등록 대기열, 자동 등록 워커가 올릴 순서" data-act="open" data-to="/queue"><span>📜</span><span>대기열</span></button>' +
       '<button id="videoSetMgrBtn" class="btn btn-ghost" title="영상 세트 관리 (유튜브 업로드용 · 일자별)" data-act="open" data-to="/videoset"><span>🎬</span><span>영상세트</span></button>' +
       '<button id="deleteAllBtn" class="btn btn-danger" title="모든 차량 및 사진 삭제" data-act="deleteAll"' + (S.crawling ? " disabled" : "") + "><span>🗑️</span><span>전체 삭제</span></button>" +
       '<button id="crawlBtn" class="btn btn-primary' + (S.crawling ? " loading" : "") + '" data-act="crawl"' + (S.crawling ? " disabled" : "") + '><span class="btn-icon">⟳</span><span>' + (S.crawling ? "크롤링 중..." : "크롤링 시작") + "</span></button>" +
@@ -320,7 +320,7 @@
       '<section class="auto-enqueue-bar">' +
       '<span class="auto-enqueue-label" title="시세대비 &lt; 0 + 국산 + 1차 통과(Y) 매칭 행의 체크박스를 자동 선택">🔁 자동 체크 (음수×국산×1차통과)</span>' +
       '<label class="auto-enqueue-chk"><input id="autoCheckToggle" type="checkbox"' + (S.autoCheck ? " checked" : "") + ' data-change="autoCheck" /><span>체크</span></label>' +
-      '<span class="auto-enqueue-status" id="autoEnqueueStatus">' + esc(S.autoCheck ? S.autoMsg : "비활성 — 체크 시 조건 매칭 행이 자동 체크됨") + "</span>" +
+      '<span class="auto-enqueue-status" id="autoEnqueueStatus">' + esc(S.autoCheck ? S.autoMsg : "비활성, 체크 시 조건 매칭 행이 자동 체크됨") + "</span>" +
       "</section>"
     )
   }
@@ -337,7 +337,7 @@
       var lock = locked(c)
       var cls = (S.sel[c.id] ? "selected " : "") + (c.cheotcha === "등록완료" ? "row-locked-success " : "") + (S.newIds[c.id] ? "demo-new" : "")
       var chk = lock
-        ? '<span class="chk-locked" title="' + (c.cheotcha === "등록완료" ? "첫차 등록 완료 — 선택 불가" : "명의 미매핑 — 선택 불가") + '">🔒</span>'
+        ? '<span class="chk-locked" title="' + (c.cheotcha === "등록완료" ? "첫차 등록 완료, 선택 불가" : "명의 미매핑, 선택 불가") + '">🔒</span>'
         : '<input type="checkbox" class="chk" data-act="toggleRow" data-id="' + c.id + '"' + (S.sel[c.id] ? " checked" : "") + ' aria-label="선택" />'
       var hot = c.regAgo <= 1 ? " hot" : ""
       return (
@@ -461,7 +461,7 @@
       spec("당근 · 첫차", esc((c.danggn || "-") + " · " + (c.cheotcha || "-"))) + spec("사진", esc(c.photos) + "장") +
       "</div>" +
       '<div class="detail-section"><h3>1차 여과 판정</h3><p>' +
-      esc(c.stage1 === "Y" ? "통과 — 시세 이하 가격, 성능기록부 확인, 등급 양호." : "보류 — " + (c.diff == null ? "시세 매칭 실패" : c.diff > 30 ? "시세보다 비쌈" : c.perf !== "Y" ? "성능기록부 없음" : "성능 등급 B")) +
+      esc(c.stage1 === "Y" ? "통과, 시세 이하 가격, 성능기록부 확인, 등급 양호." : "보류, " + (c.diff == null ? "시세 매칭 실패" : c.diff > 30 ? "시세보다 비쌈" : c.perf !== "Y" ? "성능기록부 없음" : "성능 등급 B")) +
       "</p></div>" +
       '<div class="detail-section"><h3>판매 설명</h3><p>' +
       esc("(가상 매물 설명)\n" + c.color[0] + " " + c.model + " " + c.trim + ", 1인 소유 차량입니다.\n정기 점검 이력이 있으며 실내 상태 양호합니다.\n상사: " + c.dealer) +
@@ -498,13 +498,13 @@
     var d = S.draft.chutcha || (S.draft.chutcha = { email: chutcha.email, pw: "", template: chutcha.template, auto: chutcha.auto })
     var status = chutcha.auto
       ? "● 자동 등록 켜짐 · 최근 실행 " + chutcha.lastRun + " (" + chutcha.lastCount + "대 등록) · 다음 실행 약 " + (10 - (new Date().getMinutes() % 10)) + "분 뒤"
-      : "○ 자동 등록 꺼짐 — 대기열은 '지금 실행' 으로만 처리됩니다."
+      : "○ 자동 등록 꺼짐, 대기열은 '지금 실행' 으로만 처리됩니다."
     return modalShell(
       '<div class="settings-body"><h2 class="settings-title">첫차 설정</h2>' +
       '<p class="settings-sub">첫차 딜러 사이트 로그인 정보와 글 등록 멘트 템플릿을 관리합니다.</p>' +
       '<h3 class="settings-section">자동 등록</h3>' +
       '<label class="auto-toggle"><input id="cfgChutchaAuto" type="checkbox"' + (d.auto ? " checked" : "") + ' data-change="chAuto" />' +
-      "<span><b>10분마다 자동 등록</b> — 첫차 한도가 빈 만큼 대기열의 차량을 제시일 최근순으로 자동 등록. 세션 만료 시 자동 재로그인.</span></label>" +
+      "<span><b>10분마다 자동 등록</b>, 첫차 한도가 빈 만큼 대기열의 차량을 제시일 최근순으로 자동 등록. 세션 만료 시 자동 재로그인.</span></label>" +
       '<p class="settings-sub auto-status" id="chutchaAutoStatusLine">' + esc(status) + "</p>" +
       '<div class="auto-status-actions"><button id="chutchaRunNowBtn" class="btn btn-ghost btn-sm" type="button" title="다음 10분 기다리지 않고 즉시 1회 실행" data-act="runNow">⚡ 지금 실행</button>' +
       '<button id="chutchaRefreshStatusBtn" class="btn btn-ghost btn-sm" type="button" title="상태 새로고침" data-act="statusRefresh">↻</button></div>' +
@@ -611,7 +611,7 @@
     return modalShell(
       '<div class="settings-body"><h2 class="settings-title">🎬 영상 세트</h2>' +
       '<p class="settings-sub">유튜브 업로드용 세트입니다. 차량을 선택하고 세트에 담으면, 업로드 프로그램이 <b>일자별</b>로 불러가 영상을 만듭니다.</p>' +
-      '<p class="settings-sub" id="vsSelInfo">' + (n ? "선택된 차량 <b>" + esc(n) + "대</b> — 아래 세트의 '담기'를 누르거나 새 세트를 만들면서 담을 수 있습니다." : "") + "</p>" +
+      '<p class="settings-sub" id="vsSelInfo">' + (n ? "선택된 차량 <b>" + esc(n) + "대</b>, 아래 세트의 '담기'를 누르거나 새 세트를 만들면서 담을 수 있습니다." : "") + "</p>" +
       '<h3 class="settings-section">새 세트 만들기</h3><div class="settings-grid">' +
       '<label class="settings-field"><span>세트 이름</span><input id="vsName" type="text" placeholder="예: 1세트" value="' + esc(d.name) + '" data-input="vs" data-k="name" /></label>' +
       '<label class="settings-field"><span>일자</span><input id="vsDate" type="date" value="' + esc(d.date) + '" data-input="vs" data-k="date" /></label>' +
@@ -714,7 +714,7 @@
   function applyAutoCheck() {
     var m = filtered().filter(autoMatch)
     m.forEach(function (c) { S.sel[c.id] = true })
-    S.autoMsg = "활성 — 매칭 " + m.length + "대 자동 체크됨"
+    S.autoMsg = "활성, 매칭 " + m.length + "대 자동 체크됨"
     return m.length
   }
   Demo.on("autoCheck", function (v, el) {
@@ -877,7 +877,7 @@
   Demo.on("cfgReset", function () {
     S.draft.settings = { minPrice: 500, maxPrice: 6000, maxMileage: 150000, maxRegDays: 14, sign: "-", abs: 50 }
     paint()
-    Demo.toast("기본값을 불러왔습니다 — 저장을 눌러야 반영됩니다")
+    Demo.toast("기본값을 불러왔습니다, 저장을 눌러야 반영됩니다")
   })
   Demo.on("cfgSave", function () {
     var d = S.draft.settings
@@ -991,7 +991,7 @@
     paint()
   })
 
-  // 크롤링 시뮬레이션 (외부 접속 없음 — 가상 매물을 차례로 만든다)
+  // 크롤링 시뮬레이션 (외부 접속 없음, 가상 매물을 차례로 만든다)
   Demo.on("crawl", function () {
     if (S.crawling) return
     S.crawling = true
@@ -1016,7 +1016,7 @@
             saved++
           } else skipped++
         }
-        S.crawlMsg = (step % 3 === 2 ? "상세 · 성능기록부 확인 중" : "시세 매칭 · 사진 저장 중") + " — 페이지 " + page + "/" + pages + " (저장 " + saved + "대 · 제외 " + skipped + "대)"
+        S.crawlMsg = (step % 3 === 2 ? "상세 · 성능기록부 확인 중" : "시세 매칭 · 사진 저장 중") + ", 페이지 " + page + "/" + pages + " (저장 " + saved + "대 · 제외 " + skipped + "대)"
         if (S.autoCheck) applyAutoCheck()
       }
       S.crawlPct = Math.min(100, Math.round((step / (pages * 3)) * 100))
@@ -1027,7 +1027,7 @@
         S.updated = Demo.day(0) + " " + String(d.getHours()).padStart(2, "0") + ":" + String(d.getMinutes()).padStart(2, "0")
         paint()
         setTimeout(function () { S.newIds = {} }, 1700)
-        Demo.toast("크롤링 완료 — 신규 " + saved + "대 저장 · 조건 미달 " + skipped + "대 제외")
+        Demo.toast("크롤링 완료, 신규 " + saved + "대 저장 · 조건 미달 " + skipped + "대 제외")
         return
       }
       paint()

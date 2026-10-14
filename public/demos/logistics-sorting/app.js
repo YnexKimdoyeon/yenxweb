@@ -155,7 +155,7 @@
     notifs: [
       { id: 3, title: "선출 요청", msg: "BK-102 바구니 주문을 먼저 포장해 주세요", at: stamp(0, 10, 2), seen: false },
       { id: 2, title: "출고보류", msg: "770012450059 · 수령인 주소 확인 필요", at: stamp(0, 9, 20), seen: false },
-      { id: 1, title: "댓글", msg: "[재고] 데님 와이드 팬츠 28 재고 확인 — 정유나 님 댓글", at: stamp(0, 10, 41), seen: true },
+      { id: 1, title: "댓글", msg: "[재고] 데님 와이드 팬츠 28 재고 확인, 정유나 님 댓글", at: stamp(0, 10, 41), seen: true },
     ],
     dialog: null,
     settingsOpen: false,
@@ -364,13 +364,13 @@
   function actionHints() {
     var sc = S.scan, o = cur()
     if (S.mode !== 4 && o && sc.step === "product") {
-      return hint("이 주문의 상품 바코드 — 눌러서 스캔",
+      return hint("이 주문의 상품 바코드, 눌러서 스캔",
         o.items.map(function (it) { return chip(it.code, pName(it.code).slice(0, 10) + " ×" + it.qty) }).join(""),
         "스캔수량 숫자를 누르면 직접 입력할 수도 있어요.")
     }
-    if (S.mode !== 4 && o && sc.step === "invoice2") return hint("운송장 재스캔 — 눌러서 스캔", chip(o.inv, "같은 운송장"))
+    if (S.mode !== 4 && o && sc.step === "invoice2") return hint("운송장 재스캔, 눌러서 스캔", chip(o.inv, "같은 운송장"))
     if (S.mode === 4) {
-      return hint("체험용 바코드 — 재고를 조회해 보세요",
+      return hint("체험용 바코드, 재고를 조회해 보세요",
         ["A1001", "C3001", "E5001"].map(function (c) { return chip(c, pName(c).slice(0, 8)) }).join("") + chip("770012450042", "합포장 운송장"))
     }
     var ready = ORDERS.filter(function (x) { return x.status === "ready" })
@@ -379,7 +379,7 @@
     var hold = ORDERS.filter(function (x) { return x.status === "hold" })[0]
     if (done) chips += chip(done.inv, "출고완료 · 중복 차단")
     if (hold) chips += chip(hold.inv, "출고보류 건")
-    return hint("체험용 운송장 번호 — 눌러서 스캔해 보세요", chips,
+    return hint("체험용 운송장 번호, 눌러서 스캔해 보세요", chips,
       ready.length ? "운송장 → 상품 순서로 스캔하면 자동으로 출고완료됩니다." : "대기 중인 운송장을 모두 출고했어요. 출고완료 탭에서 취소하면 다시 스캔할 수 있습니다.")
   }
 
@@ -503,7 +503,7 @@
         }).join("") + "</div>" : "") +
       '<div class="inc-scan-card"><form data-submit="incScan" autocomplete="off"><input class="inc-input" id="incInput" name="code" placeholder="상품 바코드 스캔" autocomplete="off" enterkeyhint="done"' + (b.status === "ready" ? " disabled" : "") + "></form>" +
       (st.info ? '<div class="s-step-info ' + st.info.cls + '">' + esc(st.info.text) + "</div>" : "") + "</div>" +
-      hint("체험용 상품 바코드 — 눌러서 입고 스캔", b.items.map(function (p) { return chip(p.code, pName(p.code).slice(0, 8) + (pOpt(p.code) ? " " + pOpt(p.code) : ""), "incCode") }).join(""),
+      hint("체험용 상품 바코드, 눌러서 입고 스캔", b.items.map(function (p) { return chip(p.code, pName(p.code).slice(0, 8) + (pOpt(p.code) ? " " + pOpt(p.code) : ""), "incCode") }).join(""),
         "주문 수량까지는 출고 대상, 넘치는 수량은 창고 보관으로 자동 분류됩니다.") +
       '<div class="inc-recent"><div class="inc-sec-title">최근 스캔</div>' +
       (recent.length ? '<table class="inc-tbl">' + head + "<tbody>" + recent.map(function (p) { return row(p) }).join("") + "</tbody></table>" : '<div class="s-empty">스캔 내역이 없습니다.</div>') + "</div>" +
@@ -523,7 +523,7 @@
     if (b.status === "ready") { st.info = { cls: "ng", text: "아직 시작되지 않은 입고 차수입니다." }; return }
     var it = b.items.filter(function (x) { return x.code === code })[0]
     if (!it) { st.info = { cls: "ng", text: "이 차수에 없는 상품입니다: " + code }; toast("입고 예정에 없는 상품"); return }
-    if (it.scanned >= it.expected) { st.info = { cls: "ng", text: pName(code) + " — 예정 수량(" + it.expected + ")을 모두 입고했습니다." }; toast("입고 수량 초과"); return }
+    if (it.scanned >= it.expected) { st.info = { cls: "ng", text: pName(code) + ", 예정 수량(" + it.expected + ")을 모두 입고했습니다." }; toast("입고 수량 초과"); return }
     it.scanned++
     var toWh = it.scanned > it.order
     st.info = { cls: "ok", text: pName(code) + " " + it.scanned + "/" + it.expected + " → " + (toWh ? "창고 보관" : "출고 대상 (소팅으로)") }
@@ -556,7 +556,7 @@
       if (s.basket) return sortInfo("ng", s.code + " 앵글에는 이미 " + s.basket + " 바구니가 연결되어 있습니다.")
       st.slot = s.code
       st.step = 2
-      return sortInfo("ok", "앵글 " + s.code + " 선택됨 — 바구니를 스캔하세요")
+      return sortInfo("ok", "앵글 " + s.code + " 선택됨, 바구니를 스캔하세요")
     }
     if (needBasketNew) {
       var b = basketBy(code)
@@ -568,7 +568,7 @@
       st.my++
       sortDone("", "<span><b>" + esc(sl.code) + "</b> ↔ <b>" + esc(b.bc) + "</b> 연결</span><span>" + hm() + "</span>")
       toast("앵글-바구니 연결 완료")
-      if (t === "U") { st.basket = b.bc; st.step = 3; return sortInfo("ok", b.bc + " 연결 완료 — 이 바구니에 담을 송장을 스캔하세요") }
+      if (t === "U") { st.basket = b.bc; st.step = 3; return sortInfo("ok", b.bc + " 연결 완료, 이 바구니에 담을 송장을 스캔하세요") }
       st.step = 1
       st.slot = null
       return sortInfo("ok", sl.code + " ↔ " + b.bc + " 연결 완료")
@@ -579,7 +579,7 @@
       if (!b2.slot) return sortInfo("ng", b2.bc + " 바구니는 아직 앵글에 연결되지 않았습니다.")
       st.basket = b2.bc
       st.step = 2
-      return sortInfo("ok", b2.bc + " (" + b2.slot + ") 선택됨 — 송장을 스캔하세요")
+      return sortInfo("ok", b2.bc + " (" + b2.slot + ") 선택됨, 송장을 스캔하세요")
     }
     if (needInv) {
       var o = wfBy(code)
@@ -623,7 +623,7 @@
       (st.info ? '<div class="s-step-info ' + st.info.cls + '">' + esc(st.info.text) + "</div>" : '<div class="s-step-info"></div>') + ctx +
       (st.done.length ? '<div class="s-completed">' + st.done.map(function (d) { return '<div class="s-done-card ' + d.kind + '">' + d.html + "</div>" }).join("") + "</div>" : "") +
       "</div></div>" +
-      (chips ? hint(wantInv ? "배정 대기 송장 — 눌러서 스캔" : "연결된 바구니 — 눌러서 스캔", chips) :
+      (chips ? hint(wantInv ? "배정 대기 송장, 눌러서 스캔" : "연결된 바구니, 눌러서 스캔", chips) :
         hint("아래 목록의 앵글·바구니를 누르면 바로 스캔됩니다", "", "통합: 앵글 → 바구니 → 송장 순서로 스캔해 주문을 앵글 칸에 배치합니다.")) +
       '<div class="s-lists">' +
       '<div class="s-list-card' + (st.open.slot ? "" : " close") + '"><div class="s-list-head orange" data-act="sortList" data-k="slot"><span>미연결 앵글 <span>(' + unSlots.length + ')</span></span><span class="s-caret">▾</span></div><div class="s-list-body">' +
@@ -680,7 +680,7 @@
           '<div style="text-align:right"><div><span class="s-badge">' + esc(slotOfBasket(f.basket)) + '</span></div><div style="margin-top:4px"><span class="s-badge basket">' + esc(f.basket) + "</span></div>" +
           '<button class="btn-act" style="background:var(--pri);color:#fff;border-color:var(--pri);padding:3px 8px;font-size:11px;margin-top:4px" data-act="pickMark" data-inv="' + esc(f.inv) + '" data-code="' + esc(f.code) + '">완료</button></div></div></div>' : "") +
         "</div>" +
-        hint("피킹 대기 상품 — 눌러서 스캔", rows.filter(function (p) { return p.picked < p.total }).map(function (p) { return chip(p.code, pName(p.code).slice(0, 8) + " " + (p.total - p.picked) + "개", "pickCode") }).join("") || '<span class="demo-hint-note">피킹할 상품이 없습니다. 소팅 작업에서 송장을 바구니에 배정해 보세요.</span>')
+        hint("피킹 대기 상품, 눌러서 스캔", rows.filter(function (p) { return p.picked < p.total }).map(function (p) { return chip(p.code, pName(p.code).slice(0, 8) + " " + (p.total - p.picked) + "개", "pickCode") }).join("") || '<span class="demo-hint-note">피킹할 상품이 없습니다. 소팅 작업에서 송장을 바구니에 배정해 보세요.</span>')
     }
     var h = '<div class="sorting-root">' +
       '<div class="s-stats"><div class="s-stat"><div class="s-stat-v pri">' + wait + '</div><div class="s-stat-l">피킹 대기</div></div>' +
@@ -699,14 +699,14 @@
     if (!PRODUCTS[code]) { st.info = { cls: "ng", text: "없는 상품 바코드입니다: " + code }; return }
     var hit = null
     pickTargets().forEach(function (o) { o.items.forEach(function (it) { if (!hit && it.code === code && it.picked < it.qty) hit = { inv: o.inv, basket: o.basket, code: code } }) })
-    if (!hit) { st.info = { cls: "ng", text: pName(code) + " — 피킹할 주문이 없습니다." }; toast("피킹 대상 없음"); return }
+    if (!hit) { st.info = { cls: "ng", text: pName(code) + ", 피킹할 주문이 없습니다." }; toast("피킹 대상 없음"); return }
     st.found = hit
     st.info = { cls: "ok", text: "찾았습니다: " + slotOfBasket(hit.basket) + " 앵글 / " + hit.basket + " 바구니에 담으세요" }
   }
   function pickMark(inv, code) {
     var o = wfBy(inv)
     o.items.forEach(function (it) { if (it.code === code) it.picked = Math.min(it.qty, it.picked + (S.pick.view === "scan" ? 1 : it.qty)) })
-    if (S.pick.found && S.pick.found.inv === inv) { S.pick.found = null; S.pick.info = { cls: "ok", text: "피킹 완료 — 다음 상품을 스캔하세요" } }
+    if (S.pick.found && S.pick.found.inv === inv) { S.pick.found = null; S.pick.info = { cls: "ok", text: "피킹 완료, 다음 상품을 스캔하세요" } }
     toast("피킹 완료")
   }
 
@@ -731,7 +731,7 @@
         return '<div class="s-done-card" style="cursor:pointer" data-act="packOpen" data-inv="' + esc(o.inv) + '"><div><b>' + esc(o.inv) + '</b><div style="font-size:11px;color:var(--sub)">' + esc(o.to) + " · " + o.items.length + "품목 · 피킹 " + p + "/" + n + "</div>" +
           (o.hold ? '<div style="font-size:11px;color:#B91C1C">보류: ' + esc(o.hold) + "</div>" : "") + '</div><span class="s-badge" style="' + packStatusStyle(o.pack) + '">' + esc(o.pack) + "</span></div>"
       }).join("") : '<div class="s-empty">처리할 주문이 없습니다.</div>') : "") + "</div></div>" +
-      hint("배치된 바구니 — 눌러서 스캔", BASKETS.filter(function (b) { return b.slot }).map(function (b) {
+      hint("배치된 바구니, 눌러서 스캔", BASKETS.filter(function (b) { return b.slot }).map(function (b) {
         return chip(b.bc, b.slot + " · " + WF.filter(function (o) { return o.basket === b.bc }).length + "건", "packCode")
       }).join(""), "피킹이 모두 끝난 주문만 포장 완료할 수 있습니다.") + "</div>"
     var modal = ""
@@ -763,7 +763,7 @@
     if (b) {
       if (!b.slot) { st.info = { cls: "ng", text: b.bc + " 바구니는 배치되지 않았습니다." }; st.list = []; return }
       st.list = WF.filter(function (o) { return o.basket === b.bc }).map(function (o) { return o.inv })
-      st.info = { cls: "ok", text: "바구니 " + b.bc + " — 주문 " + st.list.length + "건" }
+      st.info = { cls: "ok", text: "바구니 " + b.bc + ", 주문 " + st.list.length + "건" }
       return
     }
     var o = wfBy(code)
@@ -957,8 +957,9 @@
   function roomOf(key) {
     if (key.charAt(0) === "d") {
       var uid = Number(key.slice(1))
-      if (!CHAT.direct[uid]) CHAT.direct[uid] = { unread: 0, msgs: [] }
       var u = staff(uid)
+      if (!u) return null // 없는 사람 주소면 채팅 목록으로
+      if (!CHAT.direct[uid]) CHAT.direct[uid] = { unread: 0, msgs: [] }
       return { key: key, title: u.name, sub: u.online ? "접속 중" : "미접속", data: CHAT.direct[uid], members: [uid] }
     }
     var g = CHAT.groups.filter(function (x) { return "g" + x.id === key })[0]
@@ -1123,7 +1124,7 @@
     if (!o) return
     o.status = "ready"
     o.hold = null
-    S.scan.result = { cls: "success", status: "보류 해제 — 다시 스캔하세요", ok: true, rows: [["운송장번호", o.inv]] }
+    S.scan.result = { cls: "success", status: "보류 해제, 다시 스캔하세요", ok: true, rows: [["운송장번호", o.inv]] }
     toast("보류 해제됨")
     R()
   })
@@ -1253,7 +1254,7 @@
     var o = wfBy(S.pack.open)
     if (d.a === "complete") {
       var miss = o.items.filter(function (it) { return it.picked < it.qty })
-      if (miss.length) { toast("피킹 미완료 상품 " + miss.length + "종 — 피킹 작업에서 먼저 완료하세요"); return }
+      if (miss.length) { toast("피킹 미완료 상품 " + miss.length + "종, 피킹 작업에서 먼저 완료하세요"); return }
       o.pack = "완료"; o.hold = null; S.pack.open = null; toast("패킹 완료"); R()
     } else if (d.a === "hold") {
       promptD("포장 보류", "보류 사유를 입력하세요.", "", function (v) { o.pack = "보류"; o.hold = v.trim() || "사유 미입력"; notify("포장 보류", o.inv + " · " + o.hold); toast("보류 처리") })
@@ -1338,7 +1339,7 @@
       if (!p) return
       p.comments.push({ id: Date.now(), author: "정유나", body: "확인했습니다. 처리 후 상태 바꿔 둘게요.", at: nowStamp() })
       p.reads.push("정유나")
-      notify("댓글", "[" + catName(p.cat) + "] " + p.title.slice(0, 20) + " — 정유나 님 댓글")
+      notify("댓글", "[" + catName(p.cat) + "] " + p.title.slice(0, 20) + ", 정유나 님 댓글")
       Rbg()
     }, 2500)
   })

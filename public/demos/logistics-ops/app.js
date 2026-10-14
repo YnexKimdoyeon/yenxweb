@@ -1,4 +1,4 @@
-/* Pack-Ops · (가상) 동해수출포장 수출포장 운영 관리 — 와이넥스 포트폴리오 체험판
+/* Pack-Ops · (가상) 동해수출포장 수출포장 운영 관리, 와이넥스 포트폴리오 체험판
  * 화면 배치와 클래스는 실제 납품 화면을 따르고, 업체·작업자·차량·수치는 모두 지어낸 가상 값이다.
  * 데이터는 브라우저 메모리에만 있으며 새로고침하면 처음 상태로 돌아간다.
  */
@@ -90,7 +90,7 @@
     { id: "c3", name: "세진중공업", contact: "구본혁 차장", sites: [{ id: "s31", name: "울산 본사", addr: "울산 남구 가상공단길 9" }, { id: "s32", name: "온산 야드", addr: "울산 울주군 온산읍 가상해안로 210" }] },
     { id: "c4", name: "우림플랜트", contact: "하은솔 주임", sites: [{ id: "s41", name: "광양 사업장", addr: "전남 광양시 가상제철로 33" }] },
     { id: "c5", name: "청우전자", contact: "민경호 과장", sites: [{ id: "s51", name: "당진 2공장", addr: "충남 당진시 가상테크로 58" }] },
-    { id: "c6", name: "태성모터스", contact: "봉수정 대리", sites: [{ id: "s61", name: "화성 출하장", addr: "경기 화성시 가상자동차로 140" }] },
+    { id: "c6", name: "태성모터스", contact: "봉수정 대리", sites: [{ id: "s61", name: "가람 출하장", addr: "경기 가람시 가상자동차로 140" }] },
     { id: "c7", name: "미래에너지(주)", contact: "탁성민 부장", sites: [{ id: "s71", name: "군산 공장", addr: "전북 군산시 가상새만금로 21" }] },
     { id: "c8", name: "서진산업", contact: "여지훈 과장", sites: [{ id: "s81", name: "부산 신항 센터", addr: "부산 강서구 가상신항로 300" }] },
   ]
@@ -117,7 +117,7 @@
   var SPECS = ["진공포장 + 목상자 + 볼트 체결", "방청유 도포 + 스키드", "VCI 필름 + 크레이트", "1차 랩핑 + 팔레트 결속", "건조제 + 진공 + 목상자", "스키드 + 상부 덮개", "-"]
   var PREPS = ["진공팩, 건조제", "결속밴드 2롤", "방청유 2통", "전동드릴, 피스", "-", "지게차 요청", "마킹 스텐실", "-"]
   var BOXTYPES = ["목상자 (밀폐형)", "스키드형", "크레이트 (투시형)", "합판 BOX"]
-  var MEMOS = ["상차 전 사진 3장 남겨 주세요", "고객사 입회 예정 (오전)", "목재 재고 확인 필요", "중량물 — 크레인 대기"]
+  var MEMOS = ["상차 전 사진 3장 남겨 주세요", "고객사 입회 예정 (오전)", "목재 재고 확인 필요", "중량물, 크레인 대기"]
   var SLOTS = ["07:30", "08:00", "08:00", "08:30", "09:00", "09:00", "09:30", "10:00", "10:30", "13:00", "13:30", "14:00", "15:00"]
   var EVENT_TITLES = ["작업 전 안전 점검 회의 (2층 회의실)", "지게차 정기 점검", "포장재 입고 검수", "신규 거래처 현장 미팅", "월간 운영 회의", "목재 재고 실사", "방청유 납품 수령", "외부 인력 교육 (신규 3명)"]
 
@@ -650,7 +650,7 @@
       '<button type="button" class="' + BTN_P + '" data-act="dl-sheet" data-id="' + e(o.id) + '">' + ic("download") + "엑셀 다운로드</button></div>"
     var cols = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
     return (
-      head("제함지시서", e(c.name) + " · " + e(o.project) + " — 오더에서 자동으로 만든 엑셀 양식입니다.", right, "#/orders/" + o.id) +
+      head("제함지시서", e(c.name) + " · " + e(o.project) + ", 오더에서 자동으로 만든 엑셀 양식입니다.", right, "#/orders/" + o.id) +
       '<div class="p-4"><div class="flex items-center gap-2 mb-2 text-xs text-slate-500">' + ic("file-spreadsheet", "w-4 h-4 text-green-600") + "제함지시서_" + e(c.name) + "_" + e(o.project) + ".xlsx</div>" +
       '<div class="overflow-x-auto border border-slate-300 bg-white shadow-sm"><table class="demo-sheet min-w-[860px] w-full"><colgroup><col style="width:32px"><col style="width:44px"><col style="width:170px"><col style="width:62px"><col style="width:62px"><col style="width:62px"><col style="width:56px"><col style="width:170px"><col style="width:150px"><col style="width:64px"><col style="width:70px"></colgroup>' +
       '<thead><tr><th></th>' + cols.map(function (x) { return "<th>" + x + "</th>" }).join("") + "</tr></thead><tbody>" + h + "</tbody></table></div></div>"
@@ -683,7 +683,7 @@
   }
   function viewForm(editId) {
     var d = S.draft, c = client(d.clientId)
-    var title = editId ? '작업 지시서 수정 <span class="text-sm font-normal text-slate-500">— ' + e(c ? c.name : "") + "</span>" : "표준제함지시서"
+    var title = editId ? '작업 지시서 수정 <span class="text-sm font-normal text-slate-500">' + e(c ? c.name : "") + "</span>" : "표준제함지시서"
     var back = editId ? "#/orders/" + editId : "#/orders"
     var form = c ? formCard(d, c, editId) : clientPicker()
     if (editId) return head(title, "", "", back) + '<div class="p-4"><div class="max-w-2xl mx-auto">' + form + "</div></div>"
@@ -730,7 +730,7 @@
     var h = '<div class="' + CARD + ' shadow-sm"><div class="px-5 py-4 border-b border-slate-100"><h2 class="font-semibold text-slate-900">표준제함지시서 작성</h2></div><div class="p-5 space-y-4">'
     h += f("업체명", '<input value="' + e(c.name) + '" readonly class="' + INP + ' bg-slate-100 text-slate-700">')
     h += '<div><label class="' + LBL + ' flex items-center gap-1">' + ic("map-pin", "w-3.5 h-3.5") + '사업장 <span class="text-red-500">*</span></label><select data-change="draft-site" class="' + INP + '"><option value="">사업장을 선택하세요</option>' +
-      c.sites.map(function (s) { return '<option value="' + s.id + '"' + (d.siteId === s.id ? " selected" : "") + ">" + e(s.name + " — " + s.addr.split(" ").slice(-2).join(" ")) + "</option>" }).join("") + "</select></div>"
+      c.sites.map(function (s) { return '<option value="' + s.id + '"' + (d.siteId === s.id ? " selected" : "") + ">" + e(s.name + ", " + s.addr.split(" ").slice(-2).join(" ")) + "</option>" }).join("") + "</select></div>"
     h += f("프로젝트 (PJT)", inp("project", d.project, "예: 감속기 2차 선적분"), true)
     h += '<div><div class="flex items-center justify-between mb-1.5"><span class="text-xs font-medium text-slate-700">일정 및 시간</span><label class="flex items-center gap-1.5 text-xs text-slate-600 cursor-pointer"><input type="checkbox" class="accent-blue-600" data-change="draft-allday"' + (d.allDay ? " checked" : "") + ">하루종일</label></div>" +
       '<p class="text-[11px] text-slate-500 mb-1">시작</p><div class="flex gap-2"><input type="date" name="date" data-change="draft-field" value="' + e(d.date) + '" class="' + INP + '">' + (d.allDay ? "" : '<input type="time" name="start" data-change="draft-field" value="' + e(d.start) + '" class="' + INP + ' w-36">') + "</div>" +
@@ -944,7 +944,7 @@
       '<div id="pool-list" class="flex-1 overflow-y-auto p-4 pt-3">' + poolList() + "</div></div>"
     var main =
       '<div class="p-5 min-w-0"><div class="flex flex-wrap items-start justify-between gap-3 mb-4"><div><h2 class="text-lg font-bold text-slate-900">작업 지시서</h2><p class="text-xs text-slate-500 mt-0.5">' + e(d) + ' 날짜의 작업 지시서</p>' +
-      (u.edit ? '<p class="inline-flex items-center gap-1.5 mt-2 px-2.5 py-1 rounded-full bg-blue-50 text-[11px] text-blue-700">' + ic("pen-line", "w-3 h-3") + "수정 중 — 작업자를 끌어다 놓으세요. 다 했으면 '완료'</p>" : '<p class="inline-flex items-center gap-1.5 mt-2 px-2.5 py-1 rounded-full bg-slate-100 text-[11px] text-slate-500">' + ic("lock", "w-3 h-3") + "읽기 전용 — '수정'을 눌러 배정을 변경하세요</p>") + "</div>" +
+      (u.edit ? '<p class="inline-flex items-center gap-1.5 mt-2 px-2.5 py-1 rounded-full bg-blue-50 text-[11px] text-blue-700">' + ic("pen-line", "w-3 h-3") + "수정 중, 작업자를 끌어다 놓으세요. 다 했으면 '완료'</p>" : '<p class="inline-flex items-center gap-1.5 mt-2 px-2.5 py-1 rounded-full bg-slate-100 text-[11px] text-slate-500">' + ic("lock", "w-3 h-3") + "읽기 전용, '수정'을 눌러 배정을 변경하세요</p>") + "</div>" +
       '<div class="flex flex-col items-end gap-2"><div class="flex items-center gap-2"><div class="relative"><span class="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400">' + ic("search", "w-3.5 h-3.5") + '</span><input data-input="card-q" value="' + e(u.cardQ) + '" placeholder="회사명, 프로젝트명, ID 검색..." class="' + SINP + ' pl-8 py-2 w-full sm:w-64"></div>' +
       '<span class="px-3 py-2 rounded-lg border border-slate-200 bg-white text-xs text-slate-600 whitespace-nowrap">총 <b class="text-slate-900">' + ordersOn(d).length + "</b>건</span></div>" +
       '<button type="button" data-act="assign-edit" class="' + BTN_P + '">' + ic(u.edit ? "check" : "pencil", "w-3.5 h-3.5") + (u.edit ? "완료" : "수정") + "</button></div></div>" +
@@ -1143,10 +1143,10 @@
         '<div class="px-6 py-5 bg-slate-50 border-b border-slate-100 flex flex-wrap items-start justify-between gap-3"><div><h3 class="text-lg font-bold text-slate-900">엑셀 파싱 결과</h3><p class="text-xs text-slate-500 mt-0.5">' + e(m.file) + "</p></div>" +
         '<div class="flex gap-1.5"><span class="px-2 py-1 rounded text-xs bg-green-100 text-green-700">성공 ' + m.ok.length + '건</span><span class="px-2 py-1 rounded text-xs bg-red-100 text-red-700">오류 ' + m.errs.length + '건</span><span class="px-2 py-1 rounded text-xs bg-amber-100 text-amber-700">경고 ' + m.warns.length + "건</span></div></div>" +
         '<div class="px-6 py-5 space-y-5">' +
-        (m.errs.length ? '<div><p class="text-sm font-semibold text-red-700 mb-2">오류 (' + m.errs.length + "행) — 적용에서 제외됩니다</p>" +
+        (m.errs.length ? '<div><p class="text-sm font-semibold text-red-700 mb-2">오류 (' + m.errs.length + "행), 적용에서 제외됩니다</p>" +
           '<div class="border border-red-200 rounded-lg overflow-x-auto"><table class="w-full min-w-[600px] text-xs"><thead class="bg-red-50 text-red-700"><tr><th class="px-3 py-2 text-left w-10">행</th><th class="px-3 py-2 text-left">품명</th><th class="px-3 py-2">L</th><th class="px-3 py-2">W</th><th class="px-3 py-2">H</th><th class="px-3 py-2">CASE</th></tr></thead><tbody>' + errRows + "</tbody></table></div>" +
           '<div class="mt-2 text-xs text-red-600 space-y-0.5">' + errMsgs + "</div></div>" : "") +
-        (m.warns.length ? '<div><p class="text-sm font-semibold text-amber-700 mb-2">경고 (' + m.warns.length + "건) — 적용되지만 확인 필요</p>" + m.warns.map(function (w) { return '<div class="flex gap-3 px-3 py-2.5 mb-1.5 rounded-lg bg-amber-50 border border-amber-300 text-xs text-amber-800"><b>' + w.row + "행</b>" + e(w.msg) + "</div>" }).join("") + "</div>" : "") +
+        (m.warns.length ? '<div><p class="text-sm font-semibold text-amber-700 mb-2">경고 (' + m.warns.length + "건), 적용되지만 확인 필요</p>" + m.warns.map(function (w) { return '<div class="flex gap-3 px-3 py-2.5 mb-1.5 rounded-lg bg-amber-50 border border-amber-300 text-xs text-amber-800"><b>' + w.row + "행</b>" + e(w.msg) + "</div>" }).join("") + "</div>" : "") +
         '<div><p class="text-sm font-semibold text-slate-800 mb-2">적용될 물품 (' + m.ok.length + "건)</p>" +
         (m.ok.length ? '<div class="border border-slate-200 rounded-lg overflow-x-auto"><table class="w-full min-w-[600px] text-xs"><thead class="bg-slate-50 text-slate-600"><tr><th class="px-3 py-2 text-left w-10">행</th><th class="px-3 py-2 text-left">품명</th><th class="px-3 py-2 text-right">수량</th><th class="px-3 py-2 text-center">L × W × H</th><th class="px-3 py-2 text-left">사양</th></tr></thead><tbody>' +
           m.ok.map(function (x) { return '<tr class="border-t border-slate-100"><td class="px-3 py-2 text-slate-500">' + x.row + '</td><td class="px-3 py-2">' + e(x.item.name) + '</td><td class="px-3 py-2 text-right">' + x.item.qty + '</td><td class="px-3 py-2 text-center font-mono">' + x.item.L + " × " + x.item.W + " × " + x.item.H + '</td><td class="px-3 py-2">' + e(x.item.spec) + "</td></tr>" }).join("") + "</tbody></table></div>" : '<p class="text-xs text-slate-400">적용할 물품이 없습니다</p>') +

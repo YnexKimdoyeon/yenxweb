@@ -29,7 +29,8 @@ export function PortfolioList() {
         <ol className="space-y-4">
           {cases.map((item, i) => {
             const Icon = item.icon
-            const color = item.color
+            // 목록 순서대로 파랑·보라 번갈아 (사례 순서를 바꿔도 리듬 유지)
+            const color = i % 2 === 0 ? "#2563EB" : "#7C3AED"
             const stats = [
               item.improvement && { label: "업무 효율", value: `${item.improvement}↑`, accent: true },
               item.cost && { label: "개발 금액", value: item.cost },

@@ -1,4 +1,4 @@
-/* 루미 필름(가상) 촬영 관리 시스템 체험판 — 아이콘은 lucide(ISC) */
+/* 루미 필름(가상) 촬영 관리 시스템 체험판, 아이콘은 lucide(ISC) */
 ;(function () {
 var ICONS = {
 "bell": [
@@ -808,7 +808,7 @@ var ICONS = {
           '</td><td class="whitespace-nowrap px-3 py-2.5 text-foreground">' + esc(r.bride) +
           '</td><td class="whitespace-nowrap px-3 py-2.5 text-muted-foreground">' + esc(r.venue) +
           '</td><td class="whitespace-nowrap px-3 py-2.5 tabular-nums text-muted-foreground">' + esc(r.date + " " + r.time) +
-          '</td><td class="whitespace-nowrap px-3 py-2.5 text-foreground">' + esc(staffName(r.dir) || "—") + "</td></tr>"
+          '</td><td class="whitespace-nowrap px-3 py-2.5 text-foreground">' + esc(staffName(r.dir) || "") + "</td></tr>"
         )
       }).join("") +
       "</tbody></table></div></div>" +
@@ -917,7 +917,7 @@ var ICONS = {
         '<td class="whitespace-nowrap px-3 py-2.5"><span class="font-medium tabular-nums text-foreground">' + esc(r.date) + '</span><span class="block text-[11px] tabular-nums text-muted-foreground">' + esc(r.no) + "</span></td>" +
         '<td class="whitespace-nowrap px-3 py-2.5 tabular-nums text-muted-foreground">' + esc(r.time) + "</td>" +
         '<td class="max-w-[180px] truncate px-3 py-2.5 text-muted-foreground" title="' + esc(r.venue) + '">' + esc(r.venue) + "</td>" +
-        '<td class="whitespace-nowrap px-3 py-2.5 text-foreground">' + (r.dir ? esc(staffName(r.dir)) : '<span class="text-muted-foreground">—</span>') + "</td>" +
+        '<td class="whitespace-nowrap px-3 py-2.5 text-foreground">' + (r.dir ? esc(staffName(r.dir)) : '<span class="text-muted-foreground"></span>') + "</td>" +
         '<td class="whitespace-nowrap px-3 py-2.5"><span class="block text-foreground">' + esc(r.bride) + '</span><span class="block text-[11px] text-muted-foreground">신랑 ' + esc(r.groom) + " · 신부 " + esc(r.bride) + "</span></td>" +
         '<td class="whitespace-nowrap px-3 py-2.5 tabular-nums text-muted-foreground">' + esc(r.phone) + "</td>" +
         '<td class="whitespace-nowrap px-3 py-2.5">' + badge(esc(r.pay), PAY_TONE[r.pay]) + "</td>" +
@@ -1477,7 +1477,7 @@ var ICONS = {
             '</td><td class="px-4 py-3 tabular-nums text-muted-foreground">' + esc(r.date) + '</td><td class="px-4 py-3 text-muted-foreground">' + esc((state.contracts[0] || { name: "기본 계약서" }).name) +
             '</td><td class="px-4 py-3">' + (w ? badge("서명 대기", "warn") : badge("서명 완료", "success")) + '</td><td class="px-4 py-3"><div class="flex items-center gap-1.5">' +
             (w ? '<button type="button" data-act="ct-resend" data-id="' + r.id + '" class="' + B(V_OUT, SZ_SM) + '">' + I("send", "", ' data-icon="inline-start"') + "재발송</button>" +
-              '<button type="button" data-act="ct-sign" data-id="' + r.id + '" class="' + B(V_PRI, SZ_SM) + '">' + I("circle-check", "", ' data-icon="inline-start"') + "서명 완료 처리</button>" : '<span class="text-xs text-muted-foreground">—</span>') +
+              '<button type="button" data-act="ct-sign" data-id="' + r.id + '" class="' + B(V_PRI, SZ_SM) + '">' + I("circle-check", "", ' data-icon="inline-start"') + "서명 완료 처리</button>" : '<span class="text-xs text-muted-foreground"></span>') +
             "</div></td></tr>"
           )
         }).join("") +
@@ -1705,7 +1705,7 @@ var ICONS = {
     function kcard(inner) {
       return '<div data-slot="card" data-size="default" class="' + CARD + '"><div data-slot="card-content" class="flex flex-col gap-1 p-4">' + inner + "</div></div>"
     }
-    var dash = '<span class="text-muted-foreground/50">—</span>'
+    var dash = '<span class="text-muted-foreground/50"></span>'
     return (
       '<div class="flex flex-col gap-4"><div class="flex flex-col gap-1"><h1 class="text-xl font-semibold text-foreground">정산 · 주급</h1><p class="text-sm text-muted-foreground">주 단위(월~일)로 감독 촬영 수당과 편집자 편집 수당을 집계해 한눈에 보고 입금 처리합니다.</p></div>' +
       '<div data-slot="card" data-size="default" class="' + CARD + '"><div data-slot="card-content" class="flex flex-wrap items-center gap-3 p-3">' +
@@ -2064,7 +2064,7 @@ var ICONS = {
     var dup = Object.keys(by).filter(function (k) {
       return by[k] > 1
     })
-    Demo.toast(dup.length ? "동명이인 " + dup.length + "명: " + dup.slice(0, 3).join(", ") + " — 입금 전 확인하세요" : "입금 대기 중 동명이인이 없습니다")
+    Demo.toast(dup.length ? "동명이인 " + dup.length + "명: " + dup.slice(0, 3).join(", ") + ", 입금 전 확인하세요" : "입금 대기 중 동명이인이 없습니다")
   })
   Demo.on("r-detail", function () {
     var sel = Object.keys(state.r.sel).filter(function (k) {
@@ -2075,7 +2075,7 @@ var ICONS = {
     rerender()
   })
   Demo.on("r-excel", function () {
-    Demo.toast("엑셀 " + filteredRes().length + "건 — 체험판에서는 파일을 만들지 않습니다")
+    Demo.toast("엑셀 " + filteredRes().length + "건, 체험판에서는 파일을 만들지 않습니다")
   })
   Demo.on("r-new", function () {
     state.modal = { type: "res", id: null }
@@ -2133,7 +2133,7 @@ var ICONS = {
   Demo.on("res-paid", function (d) {
     var r = resById(+d.id)
     r.pay = "완납"
-    Demo.toast(r.no + " 입금 확인 — 완납 처리했습니다")
+    Demo.toast(r.no + " 입금 확인, 완납 처리했습니다")
     rerender()
   })
 
@@ -2349,7 +2349,7 @@ var ICONS = {
     var r = resById(+d.id)
     r.status = "계약완료"
     r.pay = "잔금 대기"
-    Demo.toast(r.no + " 서명 완료 — 계약완료로 바뀌었습니다")
+    Demo.toast(r.no + " 서명 완료, 계약완료로 바뀌었습니다")
     rerender()
   })
 
@@ -2434,7 +2434,7 @@ var ICONS = {
     r.link = link
     r.deliveredAt = TODAY
     if (!r.editor) r.editor = editors()[0] ? editors()[0].id : null
-    Demo.toast(r.bride + "님께 납품 메일 발송 — 납품완료로 기록했습니다 (실제 발송 없음)")
+    Demo.toast(r.bride + "님께 납품 메일 발송, 납품완료로 기록했습니다 (실제 발송 없음)")
     rerender()
   })
 
@@ -2516,7 +2516,7 @@ var ICONS = {
   })
   Demo.on("cfg-default", function (d) {
     state.settings.defaultProduct = +d.id
-    Demo.toast("기본상품을 바꿨습니다 — 새 예약 금액에 적용됩니다")
+    Demo.toast("기본상품을 바꿨습니다, 새 예약 금액에 적용됩니다")
     rerender()
   })
   function dcById(id) {
@@ -2563,7 +2563,7 @@ var ICONS = {
     REGIONS.forEach(function (rg) {
       S.travel[rg] = toInt(v["t_" + rg])
     })
-    Demo.toast("수당·교통비를 저장했습니다 — 정산 화면에 바로 반영됩니다")
+    Demo.toast("수당·교통비를 저장했습니다, 정산 화면에 바로 반영됩니다")
     rerender()
   })
   Demo.on("cfg-bank", function (v) {

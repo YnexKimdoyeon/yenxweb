@@ -1,8 +1,8 @@
-/* (가상) 오성 풀필먼트 바코드 출고 체험판 — 원본 화면의 스타일 */
+/* (가상) 오성 풀필먼트 바코드 출고 체험판: 원본 화면의 스타일 */
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{--pri:#2563EB;--pri-d:#1D4ED8;--red:#DC2626;--grn:#16A34A;--org:#EA580C;--bg:#F1F5F9;--card:#fff;--txt:#1E293B;--sub:#64748B;--bdr:#E2E8F0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--txt);font-size:16px}
-/* iOS 키패드 자동 확대 방지 — 모바일에서는 모든 입력요소 최소 16px */
+/* iOS 키패드 자동 확대 방지: 모바일에서는 모든 입력요소 최소 16px */
 @media (max-width:767px){
   input:not([type=checkbox]):not([type=radio]):not([type=file]),
   select, textarea{font-size:16px!important}
@@ -119,13 +119,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .app-icon-img{width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:28px;box-shadow:0 4px 10px rgba(37,99,235,.25);position:relative}
 .icon-badge{display:none;position:absolute;top:-3px;right:-3px;min-width:14px;height:14px;padding:0 4px;border-radius:8px;background:#DC2626;border:2px solid #fff;color:#fff;font-size:10px;font-weight:700;line-height:10px;align-items:center;justify-content:center}
 .icon-badge.on{display:flex}
-/* 부가기능 탭의 작은 알림 아이콘 — SVG currentColor 로 컬러 적용 */
+/* 부가기능 탭의 작은 알림 아이콘: SVG currentColor 로 컬러 적용 */
 .tab-notif-icon{display:none;width:14px;height:14px;margin-right:2px;vertical-align:middle;animation:notifPulse 1.6s ease-in-out infinite}
 .tab-notif-icon svg{width:100%;height:100%;display:block}
 .tab-notif-icon.on{display:inline-block}
 .tab-notif-icon.chat{color:#10B981}
 .tab-notif-icon.board{color:#DC2626}
-/* 피킹 알림 — 부가기능 옆 별도 탭, 클릭 시 팝업 */
+/* 피킹 알림: 부가기능 옆 별도 탭, 클릭 시 팝업 */
 .tab-pick-notif{flex:0 0 auto;position:relative;display:inline-flex;align-items:center;justify-content:center;gap:3px;color:#F59E0B;padding-left:10px;padding-right:12px}
 .tab-pick-notif.on{color:#D97706;border-bottom-color:#F59E0B}
 .tab-bell-svg{width:19px;height:19px;display:inline-block;vertical-align:middle}
@@ -199,7 +199,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .status-select.status-done{background-color:#DCFCE7;color:#15803D;border-color:#BBF7D0}
 /* option 은 상태별 색을 상속받지 못하므로 흰 배경 + 검정 텍스트로 통일 */
 .status-select option{background:#fff;color:var(--txt);font-weight:500}
-/* Kebab (⋮) 메뉴 — 게시글/댓글 수정·삭제 */
+/* Kebab (⋮) 메뉴: 게시글/댓글 수정·삭제 */
 .kebab-wrap{position:relative;display:inline-block}
 .kebab-btn{background:none;border:none;color:var(--sub);width:28px;height:28px;border-radius:14px;font-size:18px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0;line-height:1;flex-shrink:0}
 .kebab-btn:hover{background:#F1F5F9;color:var(--txt)}
@@ -241,12 +241,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 @keyframes slideIn{from{transform:translateX(20px);opacity:0}to{transform:translateX(0);opacity:1}}
 @keyframes slideDown{from{transform:translateY(-20px);opacity:0}to{transform:translateY(0);opacity:1}}
 
-/* PC 최적화 — 넓은 화면에서 콘텐츠 중앙 정렬 + 최대 폭 제한 */
+/* PC 최적화: 넓은 화면에서 콘텐츠 중앙 정렬 + 최대 폭 제한 */
 @media (min-width: 768px) {
   body{background:#E2E8F0}
   .tabs{max-width:1600px;margin:0 auto}
   .tab-body{max-width:1600px;margin:0 auto}
-  /* 소팅 탭(iframe)은 전체 폭 사용 — 원본 페이지가 내부에서 자체 레이아웃 관리 */
+  /* 소팅 탭(iframe)은 전체 폭 사용: 원본 페이지가 내부에서 자체 레이아웃 관리 */
   #tabWorker{max-width:none !important;width:100%;padding:0}
   #workerFrame{max-width:none;width:100%}
   .in-app-body{padding:0}

@@ -252,7 +252,7 @@ a { color: inherit; text-decoration: none; }
 }
 .filter-count b { color: var(--primary, #2563eb); font-weight: 700; }
 
-/* 자동 대기열 토글 바 — 필터바 아래 */
+/* 자동 대기열 토글 바: 필터바 아래 */
 .auto-enqueue-bar {
   display: flex;
   align-items: center;
@@ -1069,7 +1069,7 @@ a { color: inherit; text-decoration: none; }
 
 /* ───────── 반응형: 초소형 ───────── */
 @media (max-width: 420px) {
-  /* 주행거리도 숨김 — 가격/차량번호/명의/시세대비/1차만 표시 */
+  /* 주행거리도 숨김: 가격/차량번호/명의/시세대비/1차만 표시 */
   .car-table th:nth-child(8),
   .car-table td:nth-child(8) { display: none; }
   .car-table th, .car-table td { padding: 6px 4px; }
@@ -1210,7 +1210,7 @@ a { color: inherit; text-decoration: none; }
   flex: 1;
 }
 
-/* ── 첫차 설정 모달 — 자동 등록 / 템플릿 영역 ── */
+/* ── 첫차 설정 모달: 자동 등록 / 템플릿 영역 ── */
 .auto-toggle {
   display: flex;
   align-items: flex-start;
@@ -1411,10 +1411,10 @@ a { color: inherit; text-decoration: none; }
   opacity: 0.7;
 }
 
-/* 소유주 미매핑 락 — 색칠 없이 체크박스 자리에 자물쇠만 */
+/* 소유주 미매핑 락: 색칠 없이 체크박스 자리에 자물쇠만 */
 /* (행 배경/텍스트 변화 없음) */
 
-/* 성공 처리 — 행 전체 회색 */
+/* 성공 처리: 행 전체 회색 */
 .car-table tbody tr.row-locked-success {
   background: #e9eaee;
 }

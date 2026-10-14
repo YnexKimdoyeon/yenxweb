@@ -32,7 +32,6 @@ export interface CaseDetail {
 export interface CaseItem {
   slug: string
   category: string
-  color: string
   icon: LucideIcon
   featured?: boolean
   title: string
@@ -54,7 +53,6 @@ export const cases: CaseItem[] = [
     slug: "one-erp",
     demoUrl: "/demos/one-erp/index.html",
     category: "통합 ERP",
-    color: "#7C3AED",
     icon: ShoppingBag,
     title: "주문·제작·재고 통합 ERP 구축",
     description:
@@ -82,7 +80,6 @@ export const cases: CaseItem[] = [
     slug: "haccp",
     demoUrl: "/demos/haccp/index.html",
     category: "HACCP 관리",
-    color: "#7C3AED",
     icon: ClipboardCheck,
     featured: true,
     title: "식품 HACCP 관리 시스템 구축",
@@ -118,7 +115,6 @@ export const cases: CaseItem[] = [
   {
     slug: "maison-intranet",
     category: "그룹웨어",
-    color: "#7C3AED",
     icon: Building2,
     demoUrl: "/demos/maison-intranet/index.html",
     title: "복지시설 통합 인트라넷·ERP 구축",
@@ -146,7 +142,6 @@ export const cases: CaseItem[] = [
   {
     slug: "ariworks",
     category: "사내 인트라넷",
-    color: "#2563EB",
     icon: LayoutGrid,
     demoUrl: "/demos/ariworks/index.html",
     title: "사내 통합 인트라넷 구축 (상담·가맹점·마케팅·인사)",
@@ -175,7 +170,6 @@ export const cases: CaseItem[] = [
     slug: "logistics-ops",
     demoUrl: "/demos/logistics-ops/index.html",
     category: "운영 관리",
-    color: "#2563EB",
     icon: ClipboardList,
     featured: true,
     title: "물류 운영 시스템 구축",
@@ -207,7 +201,6 @@ export const cases: CaseItem[] = [
     slug: "inventory",
     demoUrl: "/demos/inventory/index.html",
     category: "재고 관리",
-    color: "#7C3AED",
     icon: Boxes,
     title: "상품 재고관리 시스템 구축",
     description:
@@ -237,7 +230,6 @@ export const cases: CaseItem[] = [
     slug: "admin-system",
     demoUrl: "/demos/admin-system/index.html",
     category: "관리자 시스템",
-    color: "#2563EB",
     icon: LayoutDashboard,
     title: "관리자 시스템 구축",
     description:
@@ -266,7 +258,6 @@ export const cases: CaseItem[] = [
   {
     slug: "tire-b2b",
     category: "B2B 유통",
-    color: "#2563EB",
     icon: CircleDot,
     demoUrl: "/demos/tire-b2b/index.html",
     title: "타이어 B2B 주문·재고 통합 시스템 구축",
@@ -295,7 +286,6 @@ export const cases: CaseItem[] = [
     slug: "logistics-sorting",
     demoUrl: "/demos/logistics-sorting/index.html",
     category: "물류 자동화",
-    color: "#7C3AED",
     icon: Truck,
     title: "물류 출고·소팅 관리 시스템",
     description:
@@ -326,7 +316,6 @@ export const cases: CaseItem[] = [
     slug: "payflow",
     demoUrl: "/demos/payflow/index.html",
     category: "수금 자동화",
-    color: "#7C3AED",
     icon: Send,
     title: "입금 알림 문자 자동발송 시스템 구축",
     description:
@@ -359,7 +348,6 @@ export const cases: CaseItem[] = [
     slug: "review",
     demoUrl: "/demos/review/index.html",
     category: "리뷰 관리",
-    color: "#2563EB",
     icon: Star,
     title: "체험단·리뷰 관리 ERP 구축",
     description:
@@ -390,7 +378,6 @@ export const cases: CaseItem[] = [
     slug: "film-schedule",
     demoUrl: "/demos/film-schedule/index.html",
     category: "촬영 관리",
-    color: "#7C3AED",
     icon: Clapperboard,
     title: "촬영 일정·감독 관리 시스템 구축",
     description:
@@ -418,7 +405,6 @@ export const cases: CaseItem[] = [
     slug: "export-car",
     demoUrl: "/demos/export-car/index.html",
     category: "수출 중고차",
-    color: "#2563EB",
     icon: CarFront,
     title: "수출 중고차 운영 관리 ERP 구축",
     description:
@@ -446,7 +432,6 @@ export const cases: CaseItem[] = [
     slug: "procurement",
     demoUrl: "/demos/procurement/index.html",
     category: "조달 관리",
-    color: "#7C3AED",
     icon: FileSpreadsheet,
     title: "나라장터 조달 주문 관리 시스템 구축",
     description:
@@ -474,7 +459,6 @@ export const cases: CaseItem[] = [
     slug: "event",
     demoUrl: "/demos/event/index.html",
     category: "행사 운영",
-    color: "#2563EB",
     icon: PartyPopper,
     featured: true,
     title: "소개팅·파티 행사 운영 시스템 구축",
@@ -510,7 +494,6 @@ export const cases: CaseItem[] = [
     slug: "nursing-eval",
     demoUrl: "/demos/nursing-eval/index.html",
     category: "교육 평가",
-    color: "#2563EB",
     icon: GraduationCap,
     title: "간호 시뮬레이션 실습 평가 ERP 구축",
     description:
@@ -538,7 +521,6 @@ export const cases: CaseItem[] = [
     slug: "usedcar-crawl",
     demoUrl: "/demos/usedcar-crawl/index.html",
     category: "데이터 크롤링",
-    color: "#2563EB",
     icon: Car,
     title: "중고차 매물 크롤링 관리 시스템",
     description:
@@ -569,7 +551,6 @@ export const cases: CaseItem[] = [
     slug: "contract-farming",
     demoUrl: "/demos/contract-farming/index.html",
     category: "농업 ERP",
-    color: "#7C3AED",
     icon: Sprout,
     title: "쌀 계약재배 농가·필지 관리 ERP 구축",
     description:

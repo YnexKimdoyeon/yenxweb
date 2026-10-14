@@ -492,7 +492,7 @@
         '<td class="num">' + e(c.code) + '</td><td class="!text-left text-gray-600">' + e(c.region) + '</td><td class="num">' + N(cnt) + '개</td><td class="num font-semibold text-[#1a5fd8]">' + N(sum) + "</td>" +
         '<td><button class="btn btn-sm btn-danger" data-act="delCenter" data-id="' + e(c.id) + '">삭제</button></td></tr>'
     }).join("")
-    return shell(header("창고 설정", "센터 추가·이름 변경 — 대시보드 열에 바로 반영됩니다", '<button class="btn" data-act="nav" data-to="/">' + ic("grid") + "대시보드에서 보기</button>", "/warehouses") +
+    return shell(header("창고 설정", "센터 추가·이름 변경, 대시보드 열에 바로 반영됩니다", '<button class="btn" data-act="nav" data-to="/">' + ic("grid") + "대시보드에서 보기</button>", "/warehouses") +
       '<div class="px-3 sm:px-5 pt-5 space-y-6"><section><h2 class="text-[17px] font-bold mb-3">센터 목록</h2><div class="card overflow-x-auto"><table class="grid-t" style="min-width:820px"><thead><tr><th>순서</th><th class="!text-left">센터명</th><th>코드</th><th class="!text-left">지역</th><th>보유 품목</th><th>재고 합계</th><th>관리</th></tr></thead><tbody>' + rows + "</tbody></table></div>" +
       '<p class="text-[13px] text-gray-500 mt-2">재고가 남아 있는 센터는 삭제할 수 없습니다. 먼저 출고하거나 다른 센터로 옮겨 주세요.</p></section>' +
       '<section><h2 class="text-[17px] font-bold mb-3">새 센터 추가</h2><form class="card p-4 sm:p-5 grid gap-3 sm:grid-cols-[1fr_140px_1.4fr_auto] items-end" data-submit="addCenter">' +

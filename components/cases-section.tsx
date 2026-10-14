@@ -50,7 +50,8 @@ export function CasesSection({
           {list.map((item, index) => {
             const reversed = index % 2 === 1
             const portrait = (item as { portrait?: boolean }).portrait
-            const color = item.color
+            // 목록 순서대로 파랑·보라 번갈아
+            const color = index % 2 === 0 ? "#2563EB" : "#7C3AED"
             const Icon = item.icon
             return (
               <motion.article
