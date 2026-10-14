@@ -172,6 +172,7 @@ export const cases: CaseItem[] = [
   },
   {
     slug: "usedcar-crawl",
+    demoUrl: "/demos/usedcar-crawl/index.html",
     category: "데이터 크롤링",
     color: "#2563EB",
     icon: Car,

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>(가상) 굿카 중고차 조회</title>
+  <meta name="description" content="와이넥스 포트폴리오 체험판 · 중고차 매물 크롤링 관리 도구 (가상 데이터)">
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* 체험판 전용 보정 — 하단 체험판 막대와 겹치지 않게 */
+    .selection-bar { bottom: 72px; flex-wrap: wrap; }
+    #demo-toast { pointer-events: none; }
+    body:has(#selectionBar:not(.hidden)) #demo-toast { bottom: 150px !important; }
+    .modal-content.no-anim, .selection-bar.no-anim { animation: none; }
+    .car-table .row-badge, .car-table .row-ext, .car-table td:nth-child(6) { white-space: nowrap; }
+    .car-table tbody tr.demo-new td { animation: demoNew 1.6s ease-out; }
+    @keyframes demoNew { from { background: rgba(37, 99, 235, 0.16); } to { background: transparent; } }
+    svg.row-thumb { object-fit: initial; }
+    .detail-gallery svg { width: 100%; height: 100%; display: block; }
+    .detail-thumbs svg { width: 80px; height: 60px; border-radius: 6px; cursor: pointer; border: 2px solid transparent; flex-shrink: 0; }
+    .detail-thumbs svg.active { border-color: var(--primary); box-shadow: 0 0 0 2px var(--primary-soft); }
+    @media (max-width: 720px) {
+      .selection-bar { bottom: 68px !important; gap: 10px; transform: none !important; animation: none; }
+      .sel-actions { flex-wrap: wrap; }
+      .car-table .row-title { min-width: 130px; -webkit-line-clamp: 2; }
+      .sheet-actions, #sheetSearch { min-width: 0; flex-wrap: wrap; }
+      #sheetSearch { flex: 1 1 160px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <script src="/demos/_shared/demo.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
