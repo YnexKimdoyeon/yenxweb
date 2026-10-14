@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#131b29">
+<title>ONE ERP 체험판</title>
+<meta name="description" content="와이넥스 포트폴리오 체험판 · 의류 회사 통합 ERP (주문 · 재고 · 발주 · 제작 · 정산, 가상 데이터)">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Cousine:wght@400;700&display=swap">
+<link rel="stylesheet" href="app.css">
+<style>
+  /* 원본 글꼴 변수(Next.js 글꼴 모듈)를 Google Fonts 로 대체 */
+  :root { --font-noto-sans-kr: "Noto Sans KR"; --font-geist-mono: "Cousine", "Liberation Mono", "Courier New"; }
+  /* 캡처된 화면의 색 테마(네이비) — 원본 CSS 의 기본 색을 덮어쓴다 */
+  :root {
+    --color-black: #000; --background: #f5f6f7; --foreground: #15171e; --card: #fff; --card-foreground: #15171e; --popover: #fff; --popover-foreground: #15171e;
+    --primary: #2b3679; --primary-foreground: #f9fbff; --accent: #eceef6; --accent-foreground: #2b3679;
+    --muted: #eff2f5; --muted-foreground: #595e69; --border: #dadde1; --input: #dadde1; --ring: #395fbf;
+    --chart-1: #2b3679; --chart-2: #3463b7; --chart-3: #4f96c9; --chart-4: #4e9fa1; --chart-5: #747a8d;
+    --sidebar: #161824; --sidebar-foreground: #ced2d9; --sidebar-primary: #395fbf; --sidebar-primary-foreground: #f9fbff;
+    --sidebar-accent: #252836; --sidebar-accent-foreground: #f6f7fa; --sidebar-border: #282c3a; --sidebar-ring: #395fbf;
+  }
+  html, body { background: var(--background); }
+  /* 원본 CSS 에 없는 보조 클래스 (체험판의 대화상자 · 모바일 메뉴용) */
+  .my-8 { margin-block: 2rem; } .p-8 { padding: 2rem; } .h-28 { height: 7rem; }
+  .size-10 { width: 2.5rem; height: 2.5rem; } .size-24 { width: 6rem; height: 6rem; }
+  .gap-x-3 { column-gap: .75rem; } .gap-y-2 { row-gap: .5rem; } .grid-cols-\[96px_1fr\] { grid-template-columns: 96px 1fr; }
+  .rotate-180 { transform: rotate(180deg); }
+  @media (min-width: 40rem) { .sm\:col-span-2 { grid-column: span 2 / span 2; } }
+  @media (min-width: 48rem) { .md\:hidden { display: none; } .md\:items-center { align-items: center; } }
+</style>
+</head>
+<body class="font-sans antialiased">
+<div id="app"></div>
+<script src="/demos/_shared/demo.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
