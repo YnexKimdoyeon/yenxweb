@@ -5,7 +5,7 @@ import './globals.css'
 
 const siteUrl = 'https://ynex.kr'
 const siteTitle = '주식회사 와이넥스(YNEX) | 중소기업 DX·AX 디지털전환·AI 업무자동화·ERP 개발'
-const siteDescription = '주식회사 와이넥스(YNEX)는 중소기업의 디지털 전환(DX)과 AI 전환(AX)을 현장에서 만듭니다. 영업사원이 아닌 개발자가 직접 방문해 업무를 분석하고, ERP·업무자동화부터 AI 자동화까지 100% 맞춤 개발합니다. 전국 무료 현장 방문 — 고민하지 마세요, 저희가 직접 찾아갑니다.'
+const siteDescription = '주식회사 와이넥스(YNEX)는 중소기업의 디지털 전환(DX)과 AI 전환(AX)을 현장에서 만듭니다. 영업사원이 아닌 개발자가 직접 방문해 업무를 분석하고, ERP·업무자동화부터 AI 자동화까지 100% 맞춤 개발합니다. 전국 무료 현장 방문. 고민하지 마세요, 저희가 직접 찾아갑니다.'
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
         url: '/og.png',
         width: 1200,
         height: 630,
-        alt: '와이넥스 YNEX — 현장을 아는 개발자가 직접 찾아갑니다',
+        alt: '와이넥스 YNEX, 현장을 아는 개발자가 직접 찾아갑니다',
       },
     ],
   },

@@ -97,7 +97,7 @@ export function ProcessSection() {
           viewport={{ once: true, margin: "-100px" }}
           className="relative mx-auto max-w-3xl"
         >
-          {/* Vertical line — passes through center of step circles (left-6 = 24px = half of w-12) */}
+          {/* Vertical line: passes through center of step circles (left-6 = 24px = half of w-12) */}
           <div
             aria-hidden
             className="absolute left-6 top-6 bottom-6 w-px bg-border sm:left-8"
@@ -134,7 +134,7 @@ export function ProcessSection() {
                   {step.description}
                 </p>
 
-                {/* Detail — revealed on hover (card grows ~2x) */}
+                {/* Detail: revealed on hover (card grows ~2x) */}
                 <div className="grid grid-rows-[0fr] opacity-0 transition-all duration-300 ease-out group-hover:mt-3 group-hover:grid-rows-[1fr] group-hover:opacity-100">
                   <div className="overflow-hidden">
                     <p className="border-t border-border pt-3 text-sm leading-relaxed text-muted-foreground">

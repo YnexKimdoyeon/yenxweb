@@ -1,4 +1,4 @@
-// 도입 프로세스 6단계 — 단일 출처
+// 도입 프로세스 6단계: 단일 출처
 // 포트폴리오 프로세스 섹션(화면 표시)과 HowTo 구조화 데이터(SEO/GEO)가 공유
 export interface ProcessStep {
   number: string
@@ -13,7 +13,7 @@ export const processFlow: ProcessStep[] = [
     title: "문제인식",
     summary: "현장의 진짜 불편함을 찾아냅니다.",
     detail:
-      "반복되는 수작업, 엑셀 이중 입력, 사람이 몰려서 생기는 병목까지 — 어디서 시간이 새고 있는지부터 정확히 짚어냅니다.",
+      "반복되는 수작업, 엑셀 이중 입력, 사람이 몰려서 생기는 병목까지, 어디서 시간이 새고 있는지부터 정확히 짚어냅니다.",
   },
   {
     number: "02",

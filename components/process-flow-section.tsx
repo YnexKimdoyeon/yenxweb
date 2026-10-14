@@ -63,7 +63,7 @@ export function ProcessFlowSection() {
             aria-hidden
             className="absolute left-6 top-6 bottom-6 w-0.5 bg-border sm:left-8"
           />
-          {/* Progress fill line — grows as you scroll */}
+          {/* Progress fill line: grows as you scroll */}
           <motion.div
             aria-hidden
             style={{ height: lineHeight }}

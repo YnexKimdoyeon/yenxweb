@@ -1,4 +1,4 @@
-// 홈페이지 FAQ 단일 출처 — 화면 렌더링(faq-section)과 FAQ 구조화 데이터가 공유
+// 홈페이지 FAQ 단일 출처: 화면 렌더링(faq-section)과 FAQ 구조화 데이터가 공유
 export const faqs = [
   {
     question: "현장 방문은 정말 무료인가요?",

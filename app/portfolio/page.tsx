@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
-import { CasesSection } from "@/components/cases-section"
+import { PortfolioList } from "@/components/portfolio-list"
 import { ProcessFlowSection } from "@/components/process-flow-section"
 import { VisitCtaBand } from "@/components/visit-cta-band"
 import { FloatingKakao } from "@/components/floating-kakao"
@@ -55,14 +55,14 @@ const jsonLd = graph(
           name: c.title,
           about: c.category,
           url: `${SITE_URL}/portfolio#${c.slug}`,
-          image: `${SITE_URL}${c.images[0]}`,
+          ...(c.images[0] && { image: `${SITE_URL}${c.images[0]}` }),
           // GEO: 문제→해결→성과를 한 문단으로 합쳐 AI가 사례 맥락을 통째로 읽게 함
           description: `${c.description} ${c.detail.problem} ${c.detail.approach} ${c.detail.result}`,
         },
       })),
     },
   },
-  // 도입 프로세스 6단계 — 절차형 구조화 데이터 (검색·AI 답변엔진 노출)
+  // 도입 프로세스 6단계: 절차형 구조화 데이터 (검색·AI 답변엔진 노출)
   howToSchema({
     name: "와이넥스 업무자동화 시스템 도입 프로세스",
     description:
@@ -97,13 +97,13 @@ export default function PortfolioPage() {
             <p className="mx-auto max-w-2xl text-lg leading-relaxed text-muted-foreground">
               와이넥스가 직접 만든 업무자동화·ERP·물류·재고관리·크롤링 시스템 도입사례 모음.
               <br className="hidden sm:block" />{" "}
-              업무 효율·개발 금액·소요 기간까지 실제 결과를 공개합니다.
+              모든 시스템을 체험판으로 직접 눌러 볼 수 있습니다.
             </p>
           </div>
         </section>
 
+        <PortfolioList />
         <ProcessFlowSection />
-        <CasesSection showHeader={false} />
         <VisitCtaBand />
       </main>
       <Footer />

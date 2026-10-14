@@ -99,7 +99,7 @@ export function Navigation() {
                 </Link>
               )
             })}
-            {/* 프로그램샵(ynexshop.kr) — 완성형 프로그램 구독 스토어 */}
+            {/* 프로그램샵(ynexshop.kr): 완성형 프로그램 구독 스토어 */}
             <a
               href="https://ynexshop.kr"
               target="_blank"

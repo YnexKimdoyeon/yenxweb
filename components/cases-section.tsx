@@ -1,17 +1,10 @@
 "use client"
 
-import { AnimatePresence, motion } from "framer-motion"
-import {
-  ArrowRight,
-  Check,
-  ChevronDown,
-  ChevronLeft,
-  ChevronRight,
-  X,
-  ZoomIn,
-} from "lucide-react"
+import { motion } from "framer-motion"
+import { ArrowRight, Check, ChevronDown, MousePointerClick, ZoomIn } from "lucide-react"
 import Link from "next/link"
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useState } from "react"
+import { CaseGallery, type GalleryData } from "@/components/case-gallery"
 import { cases } from "@/lib/cases-data"
 
 export function CasesSection({
@@ -22,44 +15,15 @@ export function CasesSection({
   featured?: boolean
 }) {
   const list = featured ? cases.filter((c) => c.featured) : cases
-  const [gallery, setGallery] = useState<{
-    images: string[]
-    title: string
-    portrait?: boolean
-  } | null>(null)
-  const [index, setIndex] = useState(0)
+  const [gallery, setGallery] = useState<GalleryData | null>(null)
   // 사례별 "자세히 보기" 펼침 상태 (slug 기준). 내용은 항상 DOM에 렌더 → CSS로만 접힘
   const [openDetails, setOpenDetails] = useState<Record<string, boolean>>({})
   const toggleDetail = (slug: string) =>
     setOpenDetails((prev) => ({ ...prev, [slug]: !prev[slug] }))
 
-  const openGallery = (images: string[], title: string, portrait = false) => {
-    setIndex(0)
+  const openGallery = (images: string[], title: string, portrait = false) =>
     setGallery({ images, title, portrait })
-  }
   const close = useCallback(() => setGallery(null), [])
-  const go = useCallback(
-    (dir: number) =>
-      setIndex((i) =>
-        gallery ? (i + dir + gallery.images.length) % gallery.images.length : i,
-      ),
-    [gallery],
-  )
-
-  useEffect(() => {
-    if (!gallery) return
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") close()
-      else if (e.key === "ArrowRight") go(1)
-      else if (e.key === "ArrowLeft") go(-1)
-    }
-    window.addEventListener("keydown", onKey)
-    document.body.style.overflow = "hidden"
-    return () => {
-      window.removeEventListener("keydown", onKey)
-      document.body.style.overflow = ""
-    }
-  }, [gallery, close, go])
 
   return (
     <section id="cases" className="overflow-hidden bg-muted/30 py-24">
@@ -98,7 +62,7 @@ export function CasesSection({
                 transition={{ duration: 0.6 }}
                 className="grid scroll-mt-24 items-start gap-10 md:grid-cols-2 lg:gap-16"
               >
-                {/* Project screenshot — hover/click to open gallery */}
+                {/* Project screenshot: hover/click to open gallery */}
                 <div className={reversed ? "md:order-2" : ""}>
                   <button
                     type="button"
@@ -178,8 +142,15 @@ export function CasesSection({
                     </div>
                   </dl>
 
-                  {/* 자세히 보기 — 문제→해결→성과 상세 (내용은 항상 렌더, 접힘만 CSS) */}
+                  {/* 자세히 보기: 문제→해결→성과 상세 (내용은 항상 렌더, 접힘만 CSS) */}
                   <div className="mt-6">
+                    <Link
+                      href={`/portfolio/demo/${item.slug}`}
+                      className="mr-2 inline-flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+                    >
+                      <MousePointerClick className="h-4 w-4" />
+                      체험해보기
+                    </Link>
                     <button
                       type="button"
                       onClick={() => toggleDetail(item.slug)}
@@ -210,7 +181,7 @@ export function CasesSection({
                               className="mb-1 text-sm font-bold"
                               style={{ color }}
                             >
-                              문제인식 — 도입 전
+                              문제인식 · 도입 전
                             </h4>
                             <p className="text-sm leading-relaxed text-muted-foreground">
                               {item.detail.problem}
@@ -221,7 +192,7 @@ export function CasesSection({
                               className="mb-1 text-sm font-bold"
                               style={{ color }}
                             >
-                              업무 분석 · 설계 — 어떻게 만들었나
+                              업무 분석 · 설계
                             </h4>
                             <p className="text-sm leading-relaxed text-muted-foreground">
                               {item.detail.approach}
@@ -232,7 +203,7 @@ export function CasesSection({
                               className="mb-1 text-sm font-bold"
                               style={{ color }}
                             >
-                              성과 도출 — 도입 후
+                              성과 도출 · 도입 후
                             </h4>
                             <p className="text-sm leading-relaxed text-muted-foreground">
                               {item.detail.result}
@@ -264,103 +235,7 @@ export function CasesSection({
         )}
       </div>
 
-      <AnimatePresence>
-        {gallery && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            onClick={close}
-            className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black/80 p-4 backdrop-blur-sm sm:p-8"
-          >
-            <button
-              type="button"
-              onClick={close}
-              aria-label="닫기"
-              className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20 sm:right-6 sm:top-6"
-            >
-              <X className="h-5 w-5" />
-            </button>
-
-            {/* Horizontal slide carousel */}
-            <div
-              onClick={(e) => e.stopPropagation()}
-              className={`relative w-full overflow-hidden rounded-xl shadow-2xl ${
-                gallery.portrait ? "max-w-[420px]" : "max-w-5xl"
-              }`}
-            >
-              <div
-                className="flex transition-transform duration-500 ease-out"
-                style={{ transform: `translateX(-${index * 100}%)` }}
-              >
-                {gallery.images.map((src, i) => (
-                  /* eslint-disable-next-line @next/next/no-img-element */
-                  <img
-                    key={src}
-                    src={src}
-                    alt={`${gallery.title} 화면 ${i + 1}`}
-                    className="max-h-[82vh] w-full shrink-0 object-contain"
-                    draggable={false}
-                  />
-                ))}
-              </div>
-            </div>
-
-            {gallery.images.length > 1 && (
-              <>
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    go(-1)
-                  }}
-                  aria-label="이전 화면"
-                  className="absolute left-2 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/25 sm:left-6"
-                >
-                  <ChevronLeft className="h-6 w-6" />
-                </button>
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    go(1)
-                  }}
-                  aria-label="다음 화면"
-                  className="absolute right-2 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/25 sm:right-6"
-                >
-                  <ChevronRight className="h-6 w-6" />
-                </button>
-
-                <div
-                  className="mt-5 flex items-center gap-3"
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <span className="text-sm font-medium text-white/90">
-                    {index + 1} / {gallery.images.length}
-                  </span>
-                  <div className="flex gap-1.5">
-                    {gallery.images.map((_, i) => (
-                      <button
-                        key={i}
-                        type="button"
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          setIndex(i)
-                        }}
-                        aria-label={`${i + 1}번째 화면`}
-                        className={`h-2 rounded-full transition-all ${
-                          i === index ? "w-6 bg-white" : "w-2 bg-white/40 hover:bg-white/60"
-                        }`}
-                      />
-                    ))}
-                  </div>
-                </div>
-              </>
-            )}
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <CaseGallery gallery={gallery} onClose={close} />
     </section>
   )
 }

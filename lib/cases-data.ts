@@ -1,23 +1,26 @@
-// 도입사례(포트폴리오) 단일 출처 — 홈 도입사례 섹션과 /portfolio 페이지가 공유
+// 도입사례(포트폴리오) 단일 출처: 홈 도입사례 섹션과 /portfolio 페이지가 공유
 import {
   Boxes,
   Car,
   ClipboardCheck,
   ClipboardList,
+  Clapperboard,
   LayoutDashboard,
+  Megaphone,
   PartyPopper,
   Send,
+  Sprout,
   Star,
   Truck,
   type LucideIcon,
 } from "lucide-react"
 
-// 사례별 상세 — "자세히 보기"로 펼쳐지는 문제→해결→성과 서사
+// 사례별 상세: "자세히 보기"로 펼쳐지는 문제→해결→성과 서사
 // (SEO/GEO: 클릭 뒤 숨김이 아니라 HTML에 항상 렌더링되어 크롤러·AI가 읽음)
 export interface CaseDetail {
-  problem: string // 문제인식 — 도입 전 상황
-  approach: string // 업무 분석 · 설계 — 어떻게 만들었나
-  result: string // 성과 도출 — 도입 후 변화
+  problem: string // 문제인식: 도입 전 상황
+  approach: string // 업무 분석 · 설계: 어떻게 만들었나
+  result: string // 성과 도출: 도입 후 변화
 }
 
 export interface CaseItem {
@@ -31,9 +34,10 @@ export interface CaseItem {
   features: string[]
   images: string[]
   portrait?: boolean
-  improvement: string
-  cost: string
-  duration: string
+  // 아래 세 값은 공개 확정된 사례에만 표시
+  improvement?: string
+  cost?: string
+  duration?: string
   detail: CaseDetail
 }
 
@@ -318,6 +322,75 @@ export const cases: CaseItem[] = [
         "진행자별 설문 폼과 구글 시트를 자동 연동하고, 리뷰어·부계정을 매칭키로 자동 연결했으며, 구매·리뷰 인증 사진을 리뷰어별로 모아 한 화면에서 검수·정산 추적하도록 구축했습니다.",
       result:
         "체험단 운영·검수 업무가 85% 줄었고, 응답부터 정산까지 자동으로 이어져 진행 규모가 커져도 손이 덜 가게 됐습니다.",
+    },
+  },
+  {
+    slug: "contract-farming",
+    category: "농업 ERP",
+    color: "#7C3AED",
+    icon: Sprout,
+    title: "쌀 계약재배 농가·필지 관리 ERP 구축",
+    description:
+      "사업장 20곳이 엑셀로 따로 받던 계약재배 신청을 하나의 시스템으로 모았습니다. 같은 논이 두 번 신청되면 등록 단계에서 막고, 종자량·포수는 면적으로 자동 계산합니다.",
+    features: [
+      "사업장별 농가·필지(논) 등록, 종자량·포수 자동 계산",
+      "전 사업장 필지 중복 자동 차단·본부 예외 승인",
+      "수매·출하 회차 관리와 본부 집계·자료 제출",
+    ],
+    images: [],
+    detail: {
+      problem:
+        "사업장마다 양식이 조금씩 다른 엑셀로 신청을 받다 보니, 같은 논을 두 사업장에서 중복으로 신청해도 알 수 없었고 본부는 파일 20개를 손으로 합쳐 집계해야 했습니다.",
+      approach:
+        "기존 엑셀 약 5,700농가·3만 9천 필지를 정리해 옮기고, 지번을 넣는 순간 전체 사업장에서 중복을 확인하도록 했습니다. 공동 경작처럼 사정이 있는 논은 사업장이 예외 신청을 올리고 본부가 승인하는 흐름으로 설계했습니다.",
+      result:
+        "사업장은 쓰던 엑셀 양식 그대로 올리거나 화면에서 바로 입력하고, 본부는 대시보드에서 사업장별 접수 현황과 중복·예외 건을 한 번에 확인합니다.",
+    },
+  },
+  {
+    slug: "sales-ops",
+    category: "영업 관리",
+    color: "#2563EB",
+    icon: Megaphone,
+    title: "영업·광고·정산 통합 ERP 구축",
+    description:
+      "광고 랜딩에서 들어온 상담 신청, 매체별 광고비, 매출·마진 장부를 한 시스템에 모았습니다. 직원마다 볼 수 있는 메뉴를 나눠 권한도 관리합니다.",
+    features: [
+      "상담 신청(리드폼) 자동 접수·유입 경로 추적",
+      "매체별 광고비 대비 신청 건당 비용 계산",
+      "매출·마진 정산 장부와 직원별 메뉴 권한",
+    ],
+    images: [],
+    detail: {
+      problem:
+        "상담 신청은 메신저로, 광고비는 매체별 관리 화면에서, 매출은 엑셀 장부로 따로 보다 보니 어느 광고가 실제 매출로 이어지는지 판단하기 어려웠습니다.",
+      approach:
+        "신청서가 들어오는 순간 유입 경로와 함께 자동으로 쌓이게 하고, 광고비와 신청 건수를 묶어 건당 비용을 계산했습니다. 정산 장부와 직원별 접근 메뉴 설정까지 한 화면 구조로 만들었습니다.",
+      result:
+        "신청 접수부터 상담·정산까지 한 흐름으로 이어져, 미처리 신청을 놓치지 않고 광고 매체별 효율을 숫자로 바로 비교하게 됐습니다.",
+    },
+  },
+  {
+    slug: "film-schedule",
+    category: "촬영 관리",
+    color: "#7C3AED",
+    icon: Clapperboard,
+    title: "촬영 일정·감독 관리 시스템 구축",
+    description:
+      "웨딩·행사 촬영 예약과 감독 배정을 한 화면에서 관리합니다. 최종관리자는 전체 일정을, 촬영감독은 본인 계정으로 자기 일정만 봅니다.",
+    features: [
+      "촬영 예약·감독 배정 일정 관리",
+      "최종관리자·촬영감독 권한 분리 로그인",
+      "촬영→편집→납품 진행 추적",
+    ],
+    images: [],
+    detail: {
+      problem:
+        "촬영 예약과 감독 배정을 메신저와 달력에 나눠 적다 보니, 일정이 겹치거나 편집·납품이 어디까지 됐는지 매번 물어봐야 했습니다.",
+      approach:
+        "예약 한 건이 촬영·편집·납품 단계를 차례로 지나가도록 만들고, 최종관리자와 촬영감독 계정을 분리해 감독은 자기 일정만 확인하도록 설계했습니다.",
+      result:
+        "예약부터 납품까지 진행 상황이 한 화면에 남아, 감독별 일정과 밀린 편집 건을 바로 확인할 수 있게 됐습니다.",
     },
   },
 ]

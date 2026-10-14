@@ -1,4 +1,4 @@
-// /llms.txt — 생성형 AI(ChatGPT·Perplexity·Gemini·Claude 등)가 사이트를 정확히
+// /llms.txt: 생성형 AI(ChatGPT·Perplexity·Gemini·Claude 등)가 사이트를 정확히
 // 이해·인용하도록 제공하는 요약 문서(llmstxt.org 표준). 서비스·FAQ 데이터에서
 // 자동 생성되어 본문과 항상 동기화됩니다.
 import { services } from "@/lib/services-data"

@@ -148,7 +148,7 @@ export function serviceSchema(service: ServiceDetail) {
   }
 }
 
-// 단계형 안내 (HowTo) — AI 답변엔진·검색 리치 결과에 절차로 노출 (GEO)
+// 단계형 안내 (HowTo): AI 답변엔진·검색 리치 결과에 절차로 노출 (GEO)
 export function howToSchema(input: {
   name: string
   description: string
