@@ -142,6 +142,7 @@ export const cases: CaseItem[] = [
   },
   {
     slug: "inventory",
+    demoUrl: "/demos/inventory/index.html",
     category: "재고 관리",
     color: "#7C3AED",
     icon: Boxes,

@@ -113,7 +113,7 @@
         "style",
         "position:fixed;left:50%;bottom:76px;transform:translateX(-50%);z-index:2147483646;" +
           "background:#111827;color:#fff;padding:10px 18px;border-radius:12px;font:600 14px/1.4 Pretendard,system-ui,sans-serif;" +
-          "box-shadow:0 10px 30px rgba(0,0,0,.25);max-width:calc(100vw - 32px);text-align:center;transition:opacity .2s",
+          "box-shadow:0 10px 30px rgba(0,0,0,.25);max-width:calc(100vw - 32px);text-align:center;transition:opacity .2s;pointer-events:none",
       )
       document.body.appendChild(t)
     }
