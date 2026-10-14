@@ -309,6 +309,7 @@ export const cases: CaseItem[] = [
   },
   {
     slug: "review",
+    demoUrl: "/demos/review/index.html",
     category: "리뷰 관리",
     color: "#2563EB",
     icon: Star,
