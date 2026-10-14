@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ko" class="bg-background">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>간호 시뮬레이션 실습 평가 ERP (가상)</title>
+<meta name="description" content="와이넥스 포트폴리오 체험판 · 간호학과 시뮬레이션 실습 평가·이수 관리 (가상 데이터)">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0f766e">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="app.css">
+<style>
+  /* 원본 CSS 에 없는 몇 가지 보조 규칙 (체험판 전용) */
+  .demo-mnav { display: flex; }
+  @media (min-width: 48rem) { .demo-mnav { display: none; } }
+  @media (max-width: 39.99rem) {
+    .demo-tb .truncate { max-width: 76px; }
+    .demo-tb-hide { display: none !important; }
+  }
+  .demo-drawer { position: fixed; top: 0; bottom: 0; left: 0; width: 15rem; z-index: 60; overflow-y: auto; }
+  .demo-modal { max-height: calc(100vh - 32px); overflow-y: auto; }
+  .demo-na { background-image: repeating-linear-gradient(135deg, #e2e8f0 0 6px, #f8fafc 6px 12px); }
+  .demo-scorebtn { min-width: 2rem; }
+  .demo-row-done td { background: transparent; }
+</style>
+</head>
+<body class="font-sans antialiased">
+<div id="app"></div>
+<script src="/demos/_shared/demo.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
