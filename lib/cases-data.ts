@@ -273,6 +273,7 @@ export const cases: CaseItem[] = [
   },
   {
     slug: "payflow",
+    demoUrl: "/demos/payflow/index.html",
     category: "수금 자동화",
     color: "#7C3AED",
     icon: Send,

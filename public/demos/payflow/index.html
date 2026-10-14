@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PayFlow - 입금 알림 관리 체험판</title>
+<meta name="description" content="(가상) 늘봄렌탈 정기 수금·입금 알림 문자 관리 체험판 (모든 데이터는 가상)">
+<link rel="stylesheet" as="style" crossorigin="anonymous" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="app.css">
+<style>
+  /* 체험판 전용 보정: 좁은 화면에서만 적용 (데스크톱 화면은 원본 그대로) */
+  @media (max-width: 640px) {
+    .pf-main .p-6 { padding: 12px; }
+    .pf-main header { padding-left: 12px; padding-right: 12px; }
+    .pf-main .text-3xl { font-size: 1.25rem; }
+    .pf-wrap { flex-wrap: wrap; gap: 8px; }
+    .pf-cal .h-24 { height: 4.5rem; }
+    .pf-cal .text-\[10px\] { font-size: 8px; }
+  }
+</style>
+</head>
+<body class="bg-[#f8f9fc] min-h-screen">
+<div id="app"></div>
+<script src="/demos/_shared/demo.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
