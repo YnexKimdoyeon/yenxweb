@@ -194,10 +194,10 @@
   S.blNotice = "허위 매출·명의 도용이 확인된 사업자는 승인 요청이 와도 진행하지 않습니다. 등록은 선로사 탭별로 나눠서 합니다."
   S.blLines = ["코어밴", "이음넷", "케이링크"]
   S.blacklist = [
-    { id: nid(), line: "코어밴", date: ago(16), bizNo: "137-08-41552", bizName: "(가상) 미담유통", reason: "허위 매출 의심 신고 접수", by: "u4" },
-    { id: nid(), line: "코어밴", date: ago(31), bizNo: "220-15-77310", bizName: "(가상) 한결상사", reason: "타인 명의 카드 결제 반복", by: "u2" },
+    { id: nid(), line: "코어밴", date: ago(16), bizNo: "000-00-00052", bizName: "(가상) 미담유통", reason: "허위 매출 의심 신고 접수", by: "u4" },
+    { id: nid(), line: "코어밴", date: ago(31), bizNo: "000-00-00010", bizName: "(가상) 한결상사", reason: "타인 명의 카드 결제 반복", by: "u2" },
     { id: nid(), line: "이음넷", date: ago(12), content: "동일 단말기로 다수 사업자 승인 시도", memo: "선로사 통보 완료", by: "u2" },
-    { id: nid(), line: "케이링크", date: ago(9), phone: "010-7714-2290", bizName: "(가상) 별숲마켓", reason: "분할 결제 반복", by: "u4" },
+    { id: nid(), line: "케이링크", date: ago(9), phone: "010-0000-2290", bizName: "(가상) 별숲마켓", reason: "분할 결제 반복", by: "u4" },
   ]
   // 고객문의
   S.inqCats = ["단말기 오류", "정산 문의", "가맹 문의", "기타"]
@@ -314,14 +314,14 @@
 
   // 인사
   S.staff = [
-    { id: "s1", acc: "u2", brand: "본사", join: "2024-03-04", name: "서지안", pos: "주임", dept: "CS·TM", rrn: "930215-2048117", phone: "010-4821-1104", bank: "가람은행", acct: "6102045893293", addr: "서울특별시 가상구 ***", email: "cs1@lumiworks.example", salary: 3100000, status: "재직", grade: "3호봉", gmemo: "" },
-    { id: "s2", acc: "u4", brand: "본사", join: ago(75), name: "문태오", pos: "사원", dept: "CS·TM", rrn: "990808-1067345", phone: "010-7230-2280", bank: "누리은행", acct: "3330918204047", addr: "경기도 가상시 ***", email: "cs2@lumiworks.example", salary: 2650000, status: "재직", grade: "1호봉", gmemo: "" },
-    { id: "s3", acc: "u3", brand: "본사", join: "2023-07-17", name: "윤다온", pos: "대리", dept: "마케팅", rrn: "910430-2015524", phone: "010-6612-3301", bank: "하나로은행", acct: "1172003471714", addr: "서울특별시 가상구 ***", email: "mkt@lumiworks.example", salary: 3500000, status: "재직", grade: "5호봉", gmemo: "" },
-    { id: "s4", acc: "u1", brand: "본사", join: "2022-01-10", name: "한예린", pos: "과장", dept: "경영지원", rrn: "870619-2033810", phone: "010-9145-4478", bank: "별빛은행", acct: "2951100453027", addr: "서울특별시 가상구 ***", email: "mgmt@lumiworks.example", salary: 4100000, status: "재직", grade: "7호봉", gmemo: "" },
-    { id: "s5", acc: "u5", brand: "본사", join: ago(40), name: "백시우", pos: "사원", dept: "마케팅", rrn: "000512-3051172", phone: "010-3390-7742", bank: "누리은행", acct: "3550281933109", addr: "인천광역시 가상구 ***", email: "mkt2@lumiworks.example", salary: 2600000, status: "재직", grade: "1호봉", gmemo: "" },
-    { id: "s6", acc: "", brand: "본사", join: "2025-11-17", name: "오나래", pos: "사원", dept: "마케팅", rrn: "990921-2084420", phone: "010-2287-8820", bank: "가람은행", acct: "1044098101720", addr: "서울특별시 가상구 ***", email: "narae@lumiworks.example", salary: 2700000, status: "재직", grade: "2호봉", gmemo: "" },
-    { id: "s7", acc: "", brand: "본사", join: "2024-08-19", name: "강도윤", pos: "사원", dept: "CS·TM", rrn: "960117-1022931", phone: "010-5521-0981", bank: "별빛은행", acct: "2203391827710", addr: "경기도 가상시 ***", email: "", salary: 2700000, status: "퇴사", out: ago(105), grade: "2호봉", gmemo: "" },
-    { id: "s8", acc: "", brand: "본사", join: "2023-05-08", name: "임채아", pos: "주임", dept: "CS·TM", rrn: "940702-2011820", phone: "010-8873-4102", bank: "하나로은행", acct: "1180034719925", addr: "서울특별시 가상구 ***", email: "", salary: 3000000, status: "퇴사", out: ago(46), grade: "3호봉", gmemo: "" },
+    { id: "s1", acc: "u2", brand: "본사", join: "2024-03-04", name: "서지안", pos: "주임", dept: "CS·TM", rrn: "930215-2000000", phone: "010-0000-1104", bank: "가람은행", acct: "6102045893293", addr: "서울특별시 가상구 ***", email: "cs1@lumiworks.example", salary: 3100000, status: "재직", grade: "3호봉", gmemo: "" },
+    { id: "s2", acc: "u4", brand: "본사", join: ago(75), name: "문태오", pos: "사원", dept: "CS·TM", rrn: "990808-1000000", phone: "010-0000-2280", bank: "누리은행", acct: "3330918204047", addr: "경기도 가상시 ***", email: "cs2@lumiworks.example", salary: 2650000, status: "재직", grade: "1호봉", gmemo: "" },
+    { id: "s3", acc: "u3", brand: "본사", join: "2023-07-17", name: "윤다온", pos: "대리", dept: "마케팅", rrn: "910430-2000000", phone: "010-0000-3301", bank: "하나로은행", acct: "1172003471714", addr: "서울특별시 가상구 ***", email: "mkt@lumiworks.example", salary: 3500000, status: "재직", grade: "5호봉", gmemo: "" },
+    { id: "s4", acc: "u1", brand: "본사", join: "2022-01-10", name: "한예린", pos: "과장", dept: "경영지원", rrn: "870619-2000000", phone: "010-0000-4478", bank: "별빛은행", acct: "2951100453027", addr: "서울특별시 가상구 ***", email: "mgmt@lumiworks.example", salary: 4100000, status: "재직", grade: "7호봉", gmemo: "" },
+    { id: "s5", acc: "u5", brand: "본사", join: ago(40), name: "백시우", pos: "사원", dept: "마케팅", rrn: "000512-3000000", phone: "010-0000-7742", bank: "누리은행", acct: "3550281933109", addr: "인천광역시 가상구 ***", email: "mkt2@lumiworks.example", salary: 2600000, status: "재직", grade: "1호봉", gmemo: "" },
+    { id: "s6", acc: "", brand: "본사", join: "2025-11-17", name: "오나래", pos: "사원", dept: "마케팅", rrn: "990921-2000000", phone: "010-0000-8820", bank: "가람은행", acct: "1044098101720", addr: "서울특별시 가상구 ***", email: "narae@lumiworks.example", salary: 2700000, status: "재직", grade: "2호봉", gmemo: "" },
+    { id: "s7", acc: "", brand: "본사", join: "2024-08-19", name: "강도윤", pos: "사원", dept: "CS·TM", rrn: "960117-1000000", phone: "010-0000-0981", bank: "별빛은행", acct: "2203391827710", addr: "경기도 가상시 ***", email: "", salary: 2700000, status: "퇴사", out: ago(105), grade: "2호봉", gmemo: "" },
+    { id: "s8", acc: "", brand: "본사", join: "2023-05-08", name: "임채아", pos: "주임", dept: "CS·TM", rrn: "940702-2000000", phone: "010-0000-4102", bank: "하나로은행", acct: "1180034719925", addr: "서울특별시 가상구 ***", email: "", salary: 3000000, status: "퇴사", out: ago(46), grade: "3호봉", gmemo: "" },
   ]
   S.severance = {}
   S.payroll = {}
@@ -929,7 +929,7 @@
       F("tid", "가맹점 TID", 1, { ph: "선로사 발급 TID" }) + F("name", "가맹점 상호", 1, { ari: ari }) + F("industry", "업종", 1) + F("ceo", "대표자명", 1, { ari: ari }) + F("ceoPhone", "대표자 연락처", 1, { ari: ari, ph: "010-0000-0000", mask: maskPhone }) +
       '<div class="sm:col-span-2"><label class="lbl">주소 *' + tg(ari) + '</label><div class="flex flex-wrap gap-2 mb-2"><input class="inp w-[120px]" name="zip" value="' + E(v.zip || "") + '" placeholder="우편번호"' + (S.manualAddr ? "" : " readonly") + '><button type="button" class="btn" data-act="zipSearch">🔍 우편번호 검색</button><button type="button" class="text-[13px] text-gray-600" data-act="manualAddr">✏️ ' + (S.manualAddr ? "검색으로 입력" : "직접 입력") + '</button></div><input class="inp mb-2" name="addr" value="' + E(v.addr || "") + '" placeholder="주소 검색 버튼을 눌러 주소를 선택하세요"' + (S.manualAddr ? "" : " readonly") + '><input class="inp" name="addr2" value="' + E(v.addr2 || "") + '" placeholder="상세주소 (동·층·호 등)"></div>' +
       '<div><label class="lbl">사업자구분</label><div class="flex gap-4 py-2 text-[13px]">' + ["개인", "법인", "비사업자"].map(function (t) { return '<label class="flex items-center gap-1.5"><input type="radio" name="bizType" value="' + t + '"' + (v.bizType === t ? " checked" : "") + "> " + t + "</label>" }).join("") + "</div></div>" +
-      F("rrn", "주민(법인)등록번호", ari || v.bizType === "비사업자", { ari: ari, ph: "901231-1234567", mask: maskRrn }) + F("bizNo", "사업자번호", 0, { ari: ari, ph: "000-00-00000", mask: maskBiz }) + F("bizName", "사업자명", 0) +
+      F("rrn", "주민(법인)등록번호", ari || v.bizType === "비사업자", { ari: ari, ph: "901231-1000000", mask: maskRrn }) + F("bizNo", "사업자번호", 0, { ari: ari, ph: "000-00-00000", mask: maskBiz }) + F("bizName", "사업자명", 0) +
       F("payType", "사용 결제유형", 1, { o: ["무선단말기", "블루투스단말기", "유선단말기", "키오스크", "온라인결제"] }) + F("status", "가맹점 상태", 1, { ari: ari, o: ["정상", "해지", "대기"] }) + F("taxType", "사업자 유형", 0, { o: ["과세", "면세", "간이"] }) + F("email", "이메일", 0, { ari: ari }) + "</div></div>"
     if (ari) h += '<div class="card p-5"><div class="flex justify-between pb-3 border-b mb-4"><b class="text-[14px]">루미페이 연동</b><span class="help">루미페이 등록 필수값</span></div><div class="grid sm:grid-cols-2 gap-4">' + F("agency", "소속 영업사", 1, { ari: 1, ph: "영업사명·FR코드 검색" }) + F("pg", "PG 정산코드", 1, { ari: 1, ph: "예: PG102" }) + "</div></div>"
     h += '<div class="card p-5"><div class="pb-3 border-b mb-4"><b class="text-[14px]">은행정보</b></div><div class="grid sm:grid-cols-2 gap-4">' + F("acct", "계좌번호", 1, { ari: ari, mask: maskAcct }) + F("bank", "은행", 1, { ari: ari, o: ["가람은행", "누리은행", "하나로은행", "별빛은행"] }) + F("holder", "예금주", 1, { full: 1 }) + "</div></div>"
