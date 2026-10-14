@@ -4,7 +4,7 @@ import { ChevronDown, Images, MousePointerClick, Play } from "lucide-react"
 import Link from "next/link"
 import { useCallback, useState } from "react"
 import { CaseGallery, type GalleryData } from "@/components/case-gallery"
-import { cases } from "@/lib/cases-data"
+import { cases, demoHref } from "@/lib/cases-data"
 
 // /portfolio 목록형: 한 줄에 사례 하나, 모든 사례에 체험판 버튼
 export function PortfolioList() {
@@ -68,7 +68,7 @@ export function PortfolioList() {
                     </button>
                   ) : (
                     <Link
-                      href={`/portfolio/demo/${item.slug}`}
+                      href={demoHref(item)}
                       className="group relative flex aspect-[16/10] flex-col items-center justify-center gap-2 overflow-hidden rounded-xl border border-border"
                       style={{ backgroundColor: `${color}12` }}
                     >
@@ -124,7 +124,7 @@ export function PortfolioList() {
                     )}
                     <div className="grid grid-cols-2 gap-2 lg:grid-cols-1">
                       <Link
-                        href={`/portfolio/demo/${item.slug}`}
+                        href={demoHref(item)}
                         className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
                       >
                         <Play className="h-4 w-4" />
@@ -166,7 +166,7 @@ export function PortfolioList() {
                         </div>
                       ))}
                       <Link
-                        href={`/portfolio/demo/${item.slug}`}
+                        href={demoHref(item)}
                         className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline md:col-span-3"
                       >
                         <MousePointerClick className="h-4 w-4" />

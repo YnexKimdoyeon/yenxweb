@@ -1,110 +1,70 @@
 import type { Metadata } from "next"
+import Link from "next/link"
+import { ArrowRight, Monitor, MousePointerClick } from "lucide-react"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
-import { PortfolioList } from "@/components/portfolio-list"
-import { ProcessFlowSection } from "@/components/process-flow-section"
-import { VisitCtaBand } from "@/components/visit-cta-band"
 import { FloatingKakao } from "@/components/floating-kakao"
-import { JsonLd } from "@/components/json-ld"
-import { graph, breadcrumbSchema, howToSchema, SITE_URL } from "@/lib/structured-data"
+import { PageHero } from "@/components/page-hero"
 import { cases } from "@/lib/cases-data"
-import { processFlow } from "@/lib/process-flow-data"
-
-const title = "포트폴리오·도입사례 | 와이넥스 YNEX"
-const description =
-  "와이넥스가 직접 만든 업무자동화·ERP·물류·재고관리·크롤링 시스템 도입사례 모음. 업무 효율·개발 금액·소요 기간까지 실제 결과를 공개합니다."
 
 export const metadata: Metadata = {
-  title,
-  description,
+  title: "포트폴리오 | 와이넥스 YNEX",
+  description: "와이넥스가 만든 ERP·SI 시스템과 키오스크 포트폴리오. 사업별로 나눠 보실 수 있습니다.",
   alternates: { canonical: "/portfolio" },
-  openGraph: {
-    type: "website",
-    locale: "ko_KR",
-    url: "/portfolio",
-    siteName: "와이넥스 YNEX",
-    title,
-    description,
-    images: [{ url: "/og.png", width: 1200, height: 630, alt: "와이넥스 포트폴리오" }],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title,
-    description,
-    images: ["/og.png"],
-  },
 }
 
-const jsonLd = graph(
-  breadcrumbSchema([
-    { name: "홈", url: SITE_URL },
-    { name: "포트폴리오", url: `${SITE_URL}/portfolio` },
-  ]),
+const choices = [
   {
-    "@type": "CollectionPage",
-    name: "포트폴리오·도입사례",
-    url: `${SITE_URL}/portfolio`,
-    mainEntity: {
-      "@type": "ItemList",
-      itemListElement: cases.map((c, i) => ({
-        "@type": "ListItem",
-        position: i + 1,
-        url: `${SITE_URL}/portfolio#${c.slug}`,
-        item: {
-          "@type": "CreativeWork",
-          name: c.title,
-          about: c.category,
-          url: `${SITE_URL}/portfolio#${c.slug}`,
-          ...(c.images[0] && { image: `${SITE_URL}${c.images[0]}` }),
-          // GEO: 문제→해결→성과를 한 문단으로 합쳐 AI가 사례 맥락을 통째로 읽게 함
-          description: `${c.description} ${c.detail.problem} ${c.detail.approach} ${c.detail.result}`,
-        },
-      })),
-    },
+    href: "/portfolio/software",
+    icon: MousePointerClick,
+    badge: "ERP·SI 개발",
+    title: "ERP·SI 포트폴리오",
+    desc: "프로젝트별 상세 구축 사례입니다. 고객 업종, 개발 기능, 업무 개선 효과를 보고, 대부분의 시스템은 체험판으로 직접 눌러 볼 수 있습니다.",
+    meta: `구축 사례 ${cases.length}건`,
   },
-  // 도입 프로세스 6단계: 절차형 구조화 데이터 (검색·AI 답변엔진 노출)
-  howToSchema({
-    name: "와이넥스 업무자동화 시스템 도입 프로세스",
-    description:
-      "문제인식부터 성과 도출까지, 와이넥스가 업무자동화·ERP·물류·재고·크롤링 시스템을 만드는 6단계 절차.",
-    steps: processFlow.map((s) => ({
-      name: s.title,
-      text: `${s.summary} ${s.detail}`,
-    })),
-  }),
-)
+  {
+    href: "/portfolio/kiosk",
+    icon: Monitor,
+    badge: "키오스크",
+    title: "키오스크 포트폴리오",
+    desc: "실물 사진 중심의 제품 갤러리입니다. 외함 디자인, 디스플레이 규격, 사용 모듈, 설치 환경을 함께 정리합니다.",
+    meta: "제작 사례 정리 중",
+  },
+]
 
-export default function PortfolioPage() {
+export default function PortfolioChooserPage() {
   return (
     <>
-      <JsonLd data={jsonLd} />
       <Navigation />
       <main className="pt-16 lg:pt-20">
-        {/* Page hero */}
-        <section className="relative overflow-hidden border-b border-border bg-gradient-to-b from-secondary to-background">
-          <div
-            aria-hidden
-            className="pointer-events-none absolute -right-32 -top-32 h-[32rem] w-[32rem] rounded-full bg-primary/10 blur-3xl"
-          />
-          <div className="relative mx-auto max-w-5xl px-4 py-14 text-center sm:px-6 lg:py-20">
-            <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3.5 py-1.5 text-sm font-medium text-primary">
-              <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-              직접 만든 시스템
-            </span>
-            <h1 className="mb-4 text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
-              포트폴리오·도입사례
-            </h1>
-            <p className="mx-auto max-w-2xl text-lg leading-relaxed text-muted-foreground">
-              와이넥스가 직접 만든 업무자동화·ERP·물류·재고관리·크롤링 시스템 도입사례 모음.
-              <br className="hidden sm:block" />{" "}
-              모든 시스템을 체험판으로 직접 눌러 볼 수 있습니다.
-            </p>
+        <PageHero badge="포트폴리오" title="어떤 사례를 보시겠어요?" description="소프트웨어 개발과 키오스크 제작 사례를 나눠서 정리했습니다." />
+        <section className="bg-muted/30 py-16">
+          <div className="mx-auto grid max-w-5xl gap-5 px-4 md:grid-cols-2">
+            {choices.map((c) => {
+              const Icon = c.icon
+              return (
+                <Link
+                  key={c.href}
+                  href={c.href}
+                  className="group flex flex-col rounded-2xl border border-border bg-card p-7 shadow-sm transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-lg"
+                >
+                  <span className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                    <Icon className="h-6 w-6" />
+                  </span>
+                  <span className="mb-1 text-sm font-semibold text-primary">{c.badge}</span>
+                  <h2 className="mb-2 text-2xl font-bold text-foreground">{c.title}</h2>
+                  <p className="mb-6 flex-1 leading-relaxed text-muted-foreground">{c.desc}</p>
+                  <span className="flex items-center justify-between text-sm">
+                    <span className="text-muted-foreground">{c.meta}</span>
+                    <span className="inline-flex items-center gap-1 font-semibold text-primary">
+                      보러 가기 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    </span>
+                  </span>
+                </Link>
+              )
+            })}
           </div>
         </section>
-
-        <PortfolioList />
-        <ProcessFlowSection />
-        <VisitCtaBand />
       </main>
       <Footer />
       <FloatingKakao />

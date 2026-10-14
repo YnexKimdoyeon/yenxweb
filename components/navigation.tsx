@@ -3,19 +3,25 @@
 import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { Menu, X } from "lucide-react"
+import { usePathname } from "next/navigation"
+import { ChevronDown, Menu, X } from "lucide-react"
 import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion"
+import { navGroups, type NavGroup } from "@/lib/nav-data"
 
-const navItems = [
-  { label: "서비스", href: "/services", id: "services" },
-  { label: "도입사례", href: "/portfolio", id: "cases" },
-  { label: "자주 묻는 질문", href: "/faq", id: "faq" },
-]
+// 지금 주소가 어느 메뉴 그룹에 속하는지
+function isActive(group: NavGroup, pathname: string) {
+  if (group.label === "키오스크") return pathname.startsWith("/kiosk") || pathname === "/portfolio/kiosk"
+  if (group.label === "ERP·SI 개발")
+    return pathname.startsWith("/services") || pathname.startsWith("/portfolio/software") || pathname.startsWith("/portfolio/demo")
+  if (group.label === "고객지원") return pathname === "/contact" || pathname.startsWith("/support")
+  return pathname.startsWith(group.href)
+}
 
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [activeId, setActiveId] = useState<string | null>(null)
+  const [openGroup, setOpenGroup] = useState<string | null>(null)
+  const pathname = usePathname() ?? "/"
 
   const { scrollYProgress } = useScroll()
   const progress = useSpring(scrollYProgress, {
@@ -29,23 +35,6 @@ export function Navigation() {
     window.addEventListener("scroll", handleScroll)
     handleScroll()
     return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
-
-  useEffect(() => {
-    const els = navItems
-      .map((n) => document.getElementById(n.id))
-      .filter(Boolean) as HTMLElement[]
-    if (!els.length) return
-    const obs = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) setActiveId(e.target.id)
-        })
-      },
-      { rootMargin: "-45% 0px -50% 0px" },
-    )
-    els.forEach((el) => obs.observe(el))
-    return () => obs.disconnect()
   }, [])
 
   return (
@@ -73,30 +62,67 @@ export function Navigation() {
               className="h-9 w-9 lg:h-10 lg:w-10"
             />
             <span className="text-xl font-bold text-primary lg:text-2xl">
-              YNEX <span className="font-medium text-muted-foreground">(주)와이넥스</span>
+              (주)와이넥스
             </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden items-center gap-9 lg:flex">
-            {navItems.map((item) => {
-              const active = activeId === item.id
+          <div className="hidden items-center gap-8 lg:flex">
+            {navGroups.map((group) => {
+              const active = isActive(group, pathname)
+              const open = openGroup === group.label
               return (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  className={`relative text-base font-semibold tracking-[-0.01em] transition-colors ${
-                    active ? "text-primary" : "text-foreground/90 hover:text-primary"
-                  }`}
+                <div
+                  key={group.label}
+                  className="relative"
+                  onMouseEnter={() => setOpenGroup(group.label)}
+                  onMouseLeave={() => setOpenGroup(null)}
                 >
-                  {item.label}
-                  {active && (
-                    <motion.span
-                      layoutId="nav-underline"
-                      className="absolute -bottom-1.5 left-0 right-0 h-0.5 rounded-full bg-primary"
-                    />
-                  )}
-                </Link>
+                  <Link
+                    href={group.href}
+                    aria-expanded={open}
+                    onFocus={() => setOpenGroup(group.label)}
+                    className={`relative inline-flex items-center gap-1 py-2 text-base font-semibold tracking-[-0.01em] transition-colors ${
+                      active ? "text-primary" : "text-foreground/90 hover:text-primary"
+                    }`}
+                  >
+                    {group.label}
+                    <ChevronDown className={`h-4 w-4 transition-transform ${open ? "rotate-180" : ""}`} />
+                    {active && (
+                      <motion.span
+                        layoutId="nav-underline"
+                        className="absolute bottom-0 left-0 right-5 h-0.5 rounded-full bg-primary"
+                      />
+                    )}
+                  </Link>
+                  <AnimatePresence>
+                    {open && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 6 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 6 }}
+                        transition={{ duration: 0.15 }}
+                        className="absolute left-1/2 top-full w-64 -translate-x-1/2 pt-3"
+                      >
+                        <div className="rounded-xl border border-border bg-background p-2 shadow-xl">
+                          {group.items.map((item) => (
+                            <Link
+                              key={item.href}
+                              href={item.href}
+                              onClick={() => setOpenGroup(null)}
+                              className="block rounded-lg px-3 py-2.5 transition-colors hover:bg-muted"
+                            >
+                              <span className="block text-sm font-semibold text-foreground">{item.label}</span>
+                              {item.desc && (
+                                <span className="block text-xs text-muted-foreground">{item.desc}</span>
+                              )}
+                            </Link>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
               )
             })}
             {/* 프로그램샵(ynexshop.kr): 완성형 프로그램 구독 스토어 */}
@@ -142,16 +168,21 @@ export function Navigation() {
             transition={{ duration: 0.2 }}
             className="border-t border-border bg-background lg:hidden"
           >
-            <div className="space-y-1 px-4 py-4">
-              {navItems.map((item) => (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  className="block rounded-lg px-3 py-2 text-base font-medium text-foreground transition-colors hover:bg-muted"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {item.label}
-                </Link>
+            <div className="max-h-[calc(100dvh-4rem)] space-y-1 overflow-y-auto px-4 py-4">
+              {navGroups.map((group) => (
+                <div key={group.label} className="pb-2">
+                  <p className="px-3 pb-1 pt-2 text-xs font-semibold text-muted-foreground">{group.label}</p>
+                  {group.items.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className="block rounded-lg px-3 py-2 text-base font-medium text-foreground transition-colors hover:bg-muted"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
               ))}
               <a
                 href="https://ynexshop.kr"

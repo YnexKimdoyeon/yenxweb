@@ -12,7 +12,6 @@ import { oneErp } from "./one-erp"
 import { payflow } from "./payflow"
 import { procurement } from "./procurement"
 import { review } from "./review"
-import { salesOps } from "./sales-ops"
 import type { DemoConfig } from "./types"
 import { usedcarCrawl } from "./usedcar-crawl"
 
@@ -28,7 +27,6 @@ export const demos: Record<string, DemoConfig> = Object.fromEntries(
     payflow,
     review,
     contractFarming,
-    salesOps,
     filmSchedule,
     nursingEval,
     oneErp,

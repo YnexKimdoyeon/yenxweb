@@ -4,10 +4,12 @@ import Image from "next/image"
 import Link from "next/link"
 
 const quickLinks = [
-  { label: "서비스", href: "/services" },
+  { label: "회사소개", href: "/about" },
+  { label: "ERP·SI 개발", href: "/services" },
+  { label: "키오스크 주문제작", href: "/kiosk" },
   { label: "포트폴리오", href: "/portfolio" },
   { label: "자주 묻는 질문", href: "/faq" },
-  { label: "현장 방문 신청", href: "/contact" },
+  { label: "견적 문의", href: "/contact" },
   { label: "프로그램샵", href: "https://ynexshop.kr", external: true },
 ]
 

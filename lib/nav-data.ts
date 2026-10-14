@@ -1,0 +1,45 @@
+// 상단 메뉴 단일 출처: 회사소개·고객지원은 공통, 서비스·포트폴리오·견적은 사업별(ERP·SI / 키오스크)로 나눈다
+export interface NavGroup {
+  label: string
+  href: string // 그룹 이름을 눌렀을 때 가는 곳
+  items: { label: string; href: string; desc?: string }[]
+}
+
+export const navGroups: NavGroup[] = [
+  {
+    label: "회사소개",
+    href: "/about",
+    items: [
+      { label: "와이넥스 소개", href: "/about", desc: "현장을 아는 개발 회사" },
+      { label: "기술 및 역량", href: "/about#capabilities", desc: "만들 수 있는 것과 쓰는 기술" },
+    ],
+  },
+  {
+    label: "ERP·SI 개발",
+    href: "/services",
+    items: [
+      { label: "ERP·MES·WMS 개발", href: "/services", desc: "업무에 맞춘 시스템 개발" },
+      { label: "AI·업무 자동화", href: "/services/ai-automation", desc: "반복 업무를 줄이는 자동화" },
+      { label: "개발 포트폴리오", href: "/portfolio/software", desc: "직접 만든 시스템과 체험판" },
+    ],
+  },
+  {
+    label: "키오스크",
+    href: "/kiosk",
+    items: [
+      { label: "키오스크 주문제작", href: "/kiosk", desc: "용도에 맞춘 키오스크 제작" },
+      { label: "제작 유형 및 제품", href: "/kiosk/products", desc: "형태별 제작 유형" },
+      { label: "키오스크 + ERP 결합", href: "/kiosk/erp", desc: "주문부터 재고·정산까지 연결" },
+      { label: "키오스크 포트폴리오", href: "/portfolio/kiosk", desc: "제작·설치 사례" },
+    ],
+  },
+  {
+    label: "고객지원",
+    href: "/contact",
+    items: [
+      { label: "견적 문의", href: "/contact", desc: "ERP·SI 개발 상담" },
+      { label: "키오스크 견적 문의", href: "/kiosk/quote", desc: "키오스크 제작 상담" },
+      { label: "유지보수 문의", href: "/support/maintenance", desc: "운영 중인 시스템 지원" },
+    ],
+  },
+]

@@ -10,7 +10,17 @@ const KAKAO_URL = "https://open.kakao.com/o/sgQ0uyxi"
 // 최초 1회 제출 시 ceo@ynex.kr 로 활성화 확인 메일이 가며, 링크를 눌러야 이후 메일이 수신됩니다.
 const ENDPOINT = "https://formsubmit.co/ajax/ceo@ynex.kr"
 
-export function ContactForm() {
+export function ContactForm({
+  subject = "[와이넥스] 현장 방문 신청",
+  submitLabel = "현장 방문 신청",
+  placeholder = "어떤 업무가 번거로우신지, 자동화하고 싶은 부분을 편하게 적어주세요.",
+  method = "contact_form",
+}: {
+  subject?: string
+  submitLabel?: string
+  placeholder?: string
+  method?: string
+} = {}) {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">(
     "idle",
   )
@@ -28,7 +38,7 @@ export function ContactForm() {
       if (!res.ok) throw new Error("failed")
       setStatus("success")
       // 현장 방문 신청 폼 제출 성공 = 핵심 전환 (GA4 추천 이벤트명)
-      trackEvent("generate_lead", { method: "contact_form" })
+      trackEvent("generate_lead", { method })
       form.reset()
     } catch {
       setStatus("error")
@@ -73,7 +83,7 @@ export function ContactForm() {
         tabIndex={-1}
         autoComplete="off"
       />
-      <input type="hidden" name="_subject" value="[와이넥스] 현장 방문 신청" />
+      <input type="hidden" name="_subject" value={subject} />
       <input type="hidden" name="_template" value="table" />
       <input type="hidden" name="_captcha" value="false" />
 
@@ -97,7 +107,7 @@ export function ContactForm() {
         <textarea
           name="문의내용"
           rows={4}
-          placeholder="어떤 업무가 번거로우신지, 자동화하고 싶은 부분을 편하게 적어주세요."
+          placeholder={placeholder}
           className="w-full resize-none rounded-lg border border-input bg-background px-3.5 py-2.5 text-foreground placeholder:text-muted-foreground/70 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
         />
       </div>
@@ -114,7 +124,7 @@ export function ContactForm() {
               전송 중…
             </>
           ) : (
-            "현장 방문 신청"
+            submitLabel
           )}
         </button>
         <a

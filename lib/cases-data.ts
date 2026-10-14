@@ -1,6 +1,9 @@
 // 도입사례(포트폴리오) 단일 출처: 홈 도입사례 섹션과 /portfolio 페이지가 공유
 import {
   Boxes,
+  Building2,
+  CircleDot,
+  LayoutGrid,
   Car,
   CarFront,
   ClipboardCheck,
@@ -9,7 +12,6 @@ import {
   GraduationCap,
   Clapperboard,
   LayoutDashboard,
-  Megaphone,
   PartyPopper,
   Send,
   ShoppingBag,
@@ -38,6 +40,8 @@ export interface CaseItem {
   features: string[]
   images: string[]
   portrait?: boolean
+  // 실제 화면을 가상 데이터로 옮긴 체험판 (public/demos). 없으면 공통 틀 체험판
+  demoUrl?: string
   // 아래 세 값은 공개 확정된 사례에만 표시
   improvement?: string
   cost?: string
@@ -233,6 +237,7 @@ export const cases: CaseItem[] = [
   },
   {
     slug: "event",
+    demoUrl: "/demos/event/index.html",
     category: "행사 운영",
     color: "#2563EB",
     icon: PartyPopper,
@@ -352,30 +357,8 @@ export const cases: CaseItem[] = [
     },
   },
   {
-    slug: "sales-ops",
-    category: "영업 관리",
-    color: "#2563EB",
-    icon: Megaphone,
-    title: "영업·광고·정산 통합 ERP 구축",
-    description:
-      "광고 랜딩에서 들어온 상담 신청, 매체별 광고비, 매출·마진 장부를 한 시스템에 모았습니다. 직원마다 볼 수 있는 메뉴를 나눠 권한도 관리합니다.",
-    features: [
-      "상담 신청(리드폼) 자동 접수·유입 경로 추적",
-      "매체별 광고비 대비 신청 건당 비용 계산",
-      "매출·마진 정산 장부와 직원별 메뉴 권한",
-    ],
-    images: [],
-    detail: {
-      problem:
-        "상담 신청은 메신저로, 광고비는 매체별 관리 화면에서, 매출은 엑셀 장부로 따로 보다 보니 어느 광고가 실제 매출로 이어지는지 판단하기 어려웠습니다.",
-      approach:
-        "신청서가 들어오는 순간 유입 경로와 함께 자동으로 쌓이게 하고, 광고비와 신청 건수를 묶어 건당 비용을 계산했습니다. 정산 장부와 직원별 접근 메뉴 설정까지 한 화면 구조로 만들었습니다.",
-      result:
-        "신청 접수부터 상담·정산까지 한 흐름으로 이어져, 미처리 신청을 놓치지 않고 광고 매체별 효율을 숫자로 바로 비교하게 됐습니다.",
-    },
-  },
-  {
     slug: "film-schedule",
+    demoUrl: "/demos/film-schedule/index.html",
     category: "촬영 관리",
     color: "#7C3AED",
     icon: Clapperboard,
@@ -399,6 +382,7 @@ export const cases: CaseItem[] = [
   },
   {
     slug: "nursing-eval",
+    demoUrl: "/demos/nursing-eval/index.html",
     category: "교육 평가",
     color: "#2563EB",
     icon: GraduationCap,
@@ -445,6 +429,7 @@ export const cases: CaseItem[] = [
   },
   {
     slug: "export-car",
+    demoUrl: "/demos/export-car/index.html",
     category: "수출 중고차",
     color: "#2563EB",
     icon: CarFront,
@@ -468,6 +453,7 @@ export const cases: CaseItem[] = [
   },
   {
     slug: "procurement",
+    demoUrl: "/demos/procurement/index.html",
     category: "조달 관리",
     color: "#7C3AED",
     icon: FileSpreadsheet,
@@ -489,4 +475,79 @@ export const cases: CaseItem[] = [
         "납기 임박 건과 청구 가능한 금액이 대시보드에 바로 나타나, 납기 관리와 대금 회수를 한 화면에서 챙기게 됐습니다.",
     },
   },
+  {
+    slug: "tire-b2b",
+    category: "B2B 유통",
+    color: "#2563EB",
+    icon: CircleDot,
+    demoUrl: "/demos/tire-b2b/index.html",
+    title: "타이어 B2B 주문·재고 통합 시스템 구축",
+    description:
+      "거래처가 타이어 사이즈만 입력하면 재고와 가격을 바로 보고 주문하고, 본사는 창고별 재고와 매입·매출 전표, 입출금까지 한 시스템에서 관리합니다.",
+    features: [
+      "사이즈 검색 주문·거래처별 할인율 그룹",
+      "창고별 재고 스프레드시트·재고표 관리",
+      "매입·매출 전표, 입출금 조회, 회원·역할 관리",
+    ],
+    images: [],
+    detail: {
+      problem:
+        "거래처 주문은 전화와 메신저로, 창고별 재고는 엑셀로, 매입·매출은 별도 장부로 관리해 재고 확인과 정산에 손이 많이 갔습니다.",
+      approach:
+        "거래처가 직접 사이즈로 재고를 찾고 주문하는 화면을 만들고, 창고별 재고를 스프레드시트처럼 한눈에 보게 했습니다. 전표와 입출금, 할인율 그룹까지 같은 데이터로 묶었습니다.",
+      result:
+        "주문 문의 응대가 줄고, 창고별 재고와 매입·매출 현황을 한 화면에서 바로 확인하게 됐습니다.",
+    },
+  },
+  {
+    slug: "maison-intranet",
+    category: "그룹웨어",
+    color: "#7C3AED",
+    icon: Building2,
+    demoUrl: "/demos/maison-intranet/index.html",
+    title: "복지시설 통합 인트라넷·ERP 구축",
+    description:
+      "전자결재, 일정·업무일지, 게시판부터 행정지원, 인사, 서비스기록, 회계까지 시설 운영에 필요한 업무를 하나의 인트라넷으로 옮겼습니다.",
+    features: [
+      "전자결재·결재경로 설정·기록관리대장",
+      "일정·업무일지·게시판·공람문서",
+      "행정지원·인사·서비스기록·회계 통합",
+    ],
+    images: [],
+    detail: {
+      problem:
+        "오래된 인트라넷과 종이 서류, 엑셀이 섞여 있어 결재와 기록이 흩어지고, 부서마다 같은 내용을 여러 번 입력했습니다.",
+      approach:
+        "기존 인트라넷의 모든 화면을 문서로 정리한 뒤, 결재·일정·인사·회계·서비스기록을 한 시스템으로 다시 설계했습니다. 부서별 권한과 결재경로를 설정할 수 있게 했습니다.",
+      result:
+        "결재부터 기록까지 한곳에 남아, 부서 간 확인 요청과 중복 입력이 줄었습니다.",
+    },
+  },
+  {
+    slug: "ariworks",
+    category: "사내 인트라넷",
+    color: "#2563EB",
+    icon: LayoutGrid,
+    demoUrl: "/demos/ariworks/index.html",
+    title: "사내 통합 인트라넷 구축 (상담·가맹점·마케팅·인사)",
+    description:
+      "상담대장, 가맹점, 재고, 마케팅 성과, 인사·급여, 매입매출까지 회사 업무 전체를 하나의 인트라넷에 모으고, 부서별 접근 권한과 삭제 결재로 정보를 지킵니다.",
+    features: [
+      "통합 상담대장·가맹점관리·고객문의·재고",
+      "광고 성과·리드 현황 등 통합 마케팅 관리",
+      "급여대장·연차·매입매출, 부서별 권한·삭제 결재",
+    ],
+    images: [],
+    detail: {
+      problem:
+        "상담, 가맹점, 마케팅, 인사 자료가 부서별 시트와 메신저에 흩어져 있었고, 누가 어떤 개인정보를 보는지 관리하기 어려웠습니다.",
+      approach:
+        "업무별 메뉴를 한 인트라넷으로 모으고, 상담대장 데이터가 마케팅 리포트로 바로 이어지게 설계했습니다. 민감한 값은 가려 두었다가 열람할 때 기록을 남기고, 삭제는 결재를 거치도록 했습니다.",
+      result:
+        "부서마다 필요한 메뉴만 보이게 되어 정보 노출이 줄고, 상담부터 마케팅·정산까지 같은 데이터로 확인하게 됐습니다.",
+    },
+  },
 ]
+
+// 체험해보기 링크: 실제 화면 체험판이 있으면 그쪽, 없으면 공통 틀 체험판
+export const demoHref = (c: CaseItem) => c.demoUrl ?? `/portfolio/demo/${c.slug}`

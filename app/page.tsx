@@ -12,7 +12,6 @@ import { HeroSection } from "@/components/hero-section"
 import { ProblemSection } from "@/components/problem-section"
 import { WhySection } from "@/components/why-section"
 import { ProcessSection } from "@/components/process-section"
-import { ServicesSection } from "@/components/services-section"
 import { CasesSection } from "@/components/cases-section"
 import { ClientsSection } from "@/components/clients-section"
 import { TrustSection } from "@/components/trust-section"
@@ -41,7 +40,6 @@ export default function HomePage() {
       <WhySection />
       <ProcessSection />
       <CasesSection featured />
-      <ServicesSection />
       <ClientsSection />
       <TrustSection />
       <FaqSection />

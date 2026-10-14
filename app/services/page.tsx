@@ -8,7 +8,7 @@ import { JsonLd } from "@/components/json-ld"
 import { graph, breadcrumbSchema, SITE_URL } from "@/lib/structured-data"
 import { services } from "@/lib/services-data"
 
-const title = "서비스 | 와이넥스 YNEX"
+const title = "ERP·SI 개발 | 와이넥스 YNEX"
 const description =
   "웹·ERP/CRM/SCM 개발, 업무자동화(RPA), 웹 크롤링, 재고·물류관리, 전자결재, 변호사·전문직 랜딩페이지까지. 와이넥스가 제공하는 맞춤 개발 서비스를 한눈에."
 
@@ -36,11 +36,11 @@ export const metadata: Metadata = {
 const jsonLd = graph(
   breadcrumbSchema([
     { name: "홈", url: SITE_URL },
-    { name: "서비스", url: `${SITE_URL}/services` },
+    { name: "ERP·SI 개발", url: `${SITE_URL}/services` },
   ]),
   {
     "@type": "CollectionPage",
-    name: "서비스",
+    name: "ERP·SI 개발",
     url: `${SITE_URL}/services`,
     mainEntity: {
       "@type": "ItemList",
@@ -69,10 +69,10 @@ export default function ServicesPage() {
           <div className="relative mx-auto max-w-5xl px-4 py-14 text-center sm:px-6 lg:py-20">
             <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3.5 py-1.5 text-sm font-medium text-primary">
               <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-              서비스
+              ERP·SI 개발
             </span>
             <h1 className="mb-4 text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
-              와이넥스가 만드는 것들
+              ERP·MES·WMS 맞춤 개발
             </h1>
             <p className="mx-auto max-w-2xl text-lg leading-relaxed text-muted-foreground">
               {description}

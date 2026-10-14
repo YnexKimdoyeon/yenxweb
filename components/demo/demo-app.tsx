@@ -38,7 +38,7 @@ const toneClass: Record<Tone, string> = {
 }
 
 function renderCell(col: Column, value: Cell | undefined) {
-  if (value === undefined || value === "") return <span className="text-gray-300">-</span>
+  if (value === undefined || value === "") return null
   if (col.badge) {
     const tone = col.badge[String(value)] ?? "gray"
     return (
@@ -49,7 +49,8 @@ function renderCell(col: Column, value: Cell | undefined) {
       </span>
     )
   }
-  let text = String(value)
+  // 날짜는 2026.10.14 형식으로 보여 준다 (데이터는 YYYY-MM-DD 유지)
+  let text = String(value).replace(/^(\d{4})-(\d{2})-(\d{2})/, "$1.$2.$3")
   if (col.format === "won") text = won(Number(value))
   else if (col.format === "num") text = num(Number(value))
   return (
@@ -97,7 +98,7 @@ export function DemoApp({ slug }: { slug: string }) {
       {/* 체험판 안내 띠 */}
       <div className="flex flex-wrap items-center gap-x-3 gap-y-2 bg-gray-900 px-4 py-2.5 text-sm text-white">
         <Link
-          href={`/portfolio#${slug}`}
+          href={`/portfolio/software#${slug}`}
           className="inline-flex items-center gap-1 text-white/80 transition-colors hover:text-white"
         >
           <ArrowLeft className="h-4 w-4" />
@@ -170,7 +171,7 @@ export function DemoApp({ slug }: { slug: string }) {
           <header className="flex items-center justify-between gap-3 border-b border-gray-200 bg-white px-4 py-3 sm:px-6">
             <div className="min-w-0">
               <p className="truncate text-sm font-semibold text-gray-900">{config.user}</p>
-              <p className="text-xs text-gray-500">{day()} 기준</p>
+              <p className="text-xs text-gray-500">{day().replaceAll("-", ".")} 기준</p>
             </div>
             <span
               className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-sm font-bold text-white"
