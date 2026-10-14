@@ -82,6 +82,7 @@ export const cases: CaseItem[] = [
   },
   {
     slug: "logistics-sorting",
+    demoUrl: "/demos/logistics-sorting/index.html",
     category: "물류 자동화",
     color: "#7C3AED",
     icon: Truck,
