@@ -52,6 +52,7 @@ export interface CaseItem {
 export const cases: CaseItem[] = [
   {
     slug: "admin-system",
+    demoUrl: "/demos/admin-system/index.html",
     category: "관리자 시스템",
     color: "#2563EB",
     icon: LayoutDashboard,

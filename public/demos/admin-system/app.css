@@ -1,0 +1,100 @@
+/* (가상) 누리모바일 관리자 시스템 — 체험판 보조 스타일 */
+:root {
+  --navy: #14274b;
+  --navy-2: #1b2c4f;
+  --navy-act: #263b64;
+  --line: #e3e7ee;
+  --line-2: #eceff3;
+  --bg: #f1f3f7;
+  --ink: #1f2633;
+  --muted: #6b7280;
+}
+html, body { background: var(--bg); }
+body {
+  font-family: "Noto Sans KR", system-ui, -apple-system, sans-serif;
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+button { cursor: pointer; }
+button:disabled { cursor: default; }
+
+/* 사이드바 */
+.sb { background: var(--navy); color: #fff; width: 262px; }
+.sb-collapsed .sb { width: 72px; }
+.sb-collapsed .sb .sb-text, .sb-collapsed .sb .sb-badge, .sb-collapsed .sb .sb-user { display: none; }
+.sb-collapsed .sb .sb-item { justify-content: center; padding-left: 0; padding-right: 0; }
+.sb-collapsed .sb .sb-brand { justify-content: center; }
+.sb-collapsed .sb .sb-logout { justify-content: center; }
+.sb-collapsed .main { margin-left: 72px; }
+.sb-item { color: #e6eaf2; border-radius: 6px; }
+.sb-item:hover { background: rgba(255, 255, 255, .06); }
+.sb-item.on { background: var(--navy-act); color: #fff; font-weight: 700; }
+.sb-badge { background: #2f8de4; color: #fff; min-width: 32px; height: 26px; border-radius: 999px; font-size: 14px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; padding: 0 8px; }
+.main { margin-left: 262px; min-width: 0; }
+@media (max-width: 1023px) {
+  .sb { transform: translateX(-100%); transition: transform .2s; width: 262px !important; }
+  .nav-open .sb { transform: none; }
+  .main, .sb-collapsed .main { margin-left: 0; }
+  .sb-collapsed .sb .sb-text, .sb-collapsed .sb .sb-badge, .sb-collapsed .sb .sb-user { display: initial; }
+}
+
+/* 카드·표 */
+.card { min-width: 0; background: #fff; border: 1px solid var(--line); border-radius: 6px; }
+.tbl { width: 100%; border-collapse: collapse; }
+.tbl th { font-size: 13px; font-weight: 600; color: #374151; text-align: left; padding: 12px 10px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); white-space: nowrap; background: #fff; }
+.tbl td { font-size: 14px; padding: 10px 10px; border-bottom: 1px solid var(--line-2); vertical-align: middle; white-space: nowrap; }
+.tbl tbody tr:hover td { background: #f8fafc; }
+.tbl .num { text-align: right; font-variant-numeric: tabular-nums; }
+.cb { width: 18px; height: 18px; accent-color: var(--navy-2); vertical-align: middle; }
+
+/* 탭·버튼 */
+.tab { height: 36px; padding: 0 16px; border: 1px solid #d6dbe3; border-radius: 4px; background: #fff; font-size: 14px; color: #1f2633; white-space: nowrap; }
+.tab.on { background: var(--navy-2); border-color: var(--navy-2); color: #fff; font-weight: 700; }
+.tool { height: 42px; padding: 0 16px; border: 1px solid #d6dbe3; border-radius: 4px; background: #fff; font-size: 14px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
+.tool:hover { background: #f7f8fa; }
+.btn { height: 32px; padding: 0 14px; border-radius: 3px; font-size: 13px; font-weight: 600; border: 1px solid transparent; white-space: nowrap; display: inline-flex; align-items: center; justify-content: center; }
+.btn-navy { background: var(--navy-2); color: #fff; }
+.btn-navy:hover { background: #24396a; }
+.btn-white { background: #fff; color: #1f2633; border-color: #d6dbe3; }
+.btn-white:hover { background: #f5f6f8; }
+.btn-red { background: #d71f1f; color: #fff; }
+.btn-red:hover { background: #bd1717; }
+.btn-redline { background: #fff; color: #d71f1f; border-color: #f0a3a3; }
+.btn-redline:hover { background: #fff5f5; }
+.btn-muted { background: #eef1f5; color: #8a93a3; }
+.btn-lg { height: 40px; padding: 0 18px; font-size: 14px; border-radius: 4px; }
+
+/* 상태 표시 */
+.st { display: inline-flex; align-items: center; height: 24px; padding: 0 8px; font-size: 12.5px; font-weight: 500; border: 1px solid; border-radius: 3px; white-space: nowrap; }
+.st-wait { background: #eaf4fc; border-color: #8ec4ec; color: #2c76b6; }
+.st-done { background: #ebf7ee; border-color: #9fd3ad; color: #25804a; }
+.st-cancel { background: #f3f4f6; border-color: #cfd4dc; color: #6b7280; }
+.st-draft { background: #fff8e8; border-color: #f0cf86; color: #a26a06; }
+.st-red { background: #fff1f1; border-color: #f2b1b1; color: #c42020; }
+.pill { display: inline-flex; align-items: center; height: 26px; padding: 0 11px; font-size: 12.5px; border-radius: 999px; border: 1px solid; white-space: nowrap; }
+.pill-blue { background: #edf4fd; border-color: #c9dcf5; color: #3f6fb5; }
+.pill-green { background: #ecf7ee; border-color: #c4e6cc; color: #2e7d46; }
+.pill-purple { background: #f3effc; border-color: #ddd1f5; color: #6b4bb2; }
+.pill-gray { background: #f3f4f6; border-color: #dfe2e7; color: #6b7280; }
+.link { color: #3a6cc4; }
+.link:hover { text-decoration: underline; }
+
+/* 입력 */
+.inp { height: 40px; border: 1px solid #d6dbe3; border-radius: 4px; padding: 0 12px; font-size: 14px; width: 100%; background: #fff; }
+.inp:focus, .srch:focus-within { outline: 2px solid #b9cdf0; outline-offset: -1px; }
+textarea.inp { height: auto; padding: 10px 12px; }
+.srch { height: 42px; border: 1px solid #d6dbe3; border-radius: 4px; display: flex; align-items: center; gap: 10px; padding: 0 14px; background: #fff; }
+.srch input { border: 0; outline: 0; flex: 1; min-width: 0; font-size: 14px; background: transparent; }
+.lbl { font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 6px; display: block; }
+
+/* 대화상자·팝오버 */
+.ov { position: fixed; inset: 0; background: rgba(15, 23, 42, .45); z-index: 60; }
+.dlg { position: fixed; z-index: 61; left: 50%; top: 50%; transform: translate(-50%, -50%); width: min(560px, calc(100vw - 24px)); max-height: calc(100vh - 32px); overflow-y: auto; background: #fff; border-radius: 8px; box-shadow: 0 24px 60px rgba(0, 0, 0, .25); }
+.dlg-wide { width: min(780px, calc(100vw - 24px)); }
+.pop-bg { position: fixed; inset: 0; z-index: 40; }
+.pop { position: absolute; z-index: 41; right: 0; top: calc(100% + 6px); min-width: 230px; background: #fff; border: 1px solid var(--line); border-radius: 6px; box-shadow: 0 12px 32px rgba(0, 0, 0, .14); padding: 12px; }
+.scroll-x { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.tbl-tight th { padding: 12px 7px; }
+.tbl-tight td { padding: 10px 7px; font-size: 13.5px; }
+.tbl-tight .btn { padding: 0 10px; }
