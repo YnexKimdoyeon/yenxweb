@@ -7,7 +7,7 @@ import Link from "next/link"
 import { useCallback, useState } from "react"
 import { CaseGallery, type GalleryData } from "@/components/case-gallery"
 import { DemoModal, type DemoTarget } from "@/components/demo-modal"
-import { cases, demoHref } from "@/lib/cases-data"
+import { caseFields, cases, demoHref } from "@/lib/cases-data"
 
 export function CasesSection({
   showHeader = true,
@@ -47,6 +47,27 @@ export function CasesSection({
             <h2 className="text-4xl font-bold tracking-tight text-foreground md:text-5xl">
               도입 사례
             </h2>
+            {/* 분야 바로가기: 누르면 포트폴리오의 해당 분야 탭으로 */}
+            {featured && (
+              <div className="mx-auto mt-8 max-w-4xl">
+                <p className="mb-3 text-sm font-semibold text-muted-foreground">분야별 프로젝트 {cases.length}건</p>
+                <div className="flex flex-wrap justify-center gap-2">
+                  {caseFields.map((f) => {
+                    const inField = cases.filter((c) => c.field === f.id)
+                    return (
+                      <Link
+                        key={f.id}
+                        href={`/portfolio/software#${inField[0].slug}`}
+                        className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-4 py-2 text-sm font-semibold text-foreground transition-colors hover:border-primary/40 hover:text-primary"
+                      >
+                        {f.label}
+                        <span className="text-primary">{inField.length}</span>
+                      </Link>
+                    )
+                  })}
+                </div>
+              </div>
+            )}
           </motion.div>
         )}
 
