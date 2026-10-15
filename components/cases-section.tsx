@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import { CaseStats } from "@/components/case-stats"
 import { ArrowRight, Check, ChevronDown, MousePointerClick, ZoomIn } from "lucide-react"
 import Link from "next/link"
 import { useCallback, useState } from "react"
@@ -39,9 +40,9 @@ export function CasesSection({
             transition={{ duration: 0.6 }}
             className="mb-16 text-center"
           >
-            <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3.5 py-1.5 text-sm font-medium text-primary">
+            <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3.5 py-1.5 text-sm font-semibold tracking-wider text-primary">
               <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-              직접 만든 시스템
+              PORTFOLIO
             </span>
             <h2 className="text-4xl font-bold tracking-tight text-foreground md:text-5xl">
               도입 사례
@@ -125,26 +126,7 @@ export function CasesSection({
                     ))}
                   </ul>
 
-                  <dl className="grid max-w-md grid-cols-3 gap-2.5">
-                    <div className="rounded-lg border border-border bg-card px-2 py-3 text-center sm:p-3">
-                      <dt className="mb-1 text-xs text-muted-foreground">업무 효율</dt>
-                      <dd className="text-base font-bold sm:text-lg" style={{ color }}>
-                        {item.improvement}↑
-                      </dd>
-                    </div>
-                    <div className="rounded-lg border border-border bg-card px-2 py-3 text-center sm:p-3">
-                      <dt className="mb-1 text-xs text-muted-foreground">개발 금액</dt>
-                      <dd className="text-base font-bold text-foreground sm:text-lg">
-                        {item.cost}
-                      </dd>
-                    </div>
-                    <div className="rounded-lg border border-border bg-card px-2 py-3 text-center sm:p-3">
-                      <dt className="mb-1 text-xs text-muted-foreground">소요 기간</dt>
-                      <dd className="text-base font-bold text-foreground sm:text-lg">
-                        {item.duration}
-                      </dd>
-                    </div>
-                  </dl>
+                  <CaseStats item={item} color={color} className="max-w-md" />
 
                   {/* 자세히 보기: 문제→해결→성과 상세 (내용은 항상 렌더, 접힘만 CSS) */}
                   <div className="mt-6">

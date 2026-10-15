@@ -1,6 +1,7 @@
 "use client"
 
 import { AnimatePresence, motion } from "framer-motion"
+import { CaseStats } from "@/components/case-stats"
 import { Check, MessageCircle, Play, X } from "lucide-react"
 import Link from "next/link"
 import { useEffect } from "react"
@@ -75,20 +76,7 @@ export function CaseDetailModal({
               <h2 className="mb-2 pr-10 text-2xl font-bold leading-snug text-foreground sm:text-3xl">{item.title}</h2>
               <p className="mb-6 leading-relaxed text-muted-foreground">{item.description}</p>
 
-              <dl className="mb-6 grid grid-cols-3 gap-2 sm:gap-3">
-                {[
-                  ["업무 효율", `${item.improvement}↑`, true],
-                  ["개발 금액", item.cost, false],
-                  ["소요 기간", item.duration, false],
-                ].map(([label, value, accent]) => (
-                  <div key={label as string} className="rounded-2xl bg-secondary px-2 py-4 text-center">
-                    <dt className="mb-1 text-xs text-muted-foreground sm:text-sm">{label}</dt>
-                    <dd className="text-lg font-bold text-foreground sm:text-2xl" style={accent ? { color } : undefined}>
-                      {value}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
+              <CaseStats item={item} color={color} size="lg" className="mb-6" />
 
               <div className="mb-6 flex gap-2 overflow-x-auto pb-1">
                 {item.images.map((src, i) => (

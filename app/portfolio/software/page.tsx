@@ -10,7 +10,7 @@ import { cases } from "@/lib/cases-data"
 
 const title = "ERP·업무자동화 포트폴리오 | 와이넥스 YNEX"
 const description =
-  "와이넥스가 직접 만든 ERP·그룹웨어·물류·재고·업종별 맞춤 시스템 도입사례. 모든 시스템을 가상 데이터 체험판으로 직접 눌러 볼 수 있고, 업무 효율·개발 금액·소요 기간도 공개합니다."
+  "와이넥스가 구축한 ERP·그룹웨어·물류·재고·업종별 맞춤 시스템 도입사례. 모든 시스템을 가상 데이터 체험판으로 직접 눌러 볼 수 있고, 업무 효율·개발 금액·소요 기간도 공개합니다."
 
 export const metadata: Metadata = {
   title,
@@ -76,15 +76,15 @@ export default function SoftwarePortfolioPage() {
             className="pointer-events-none absolute -right-32 -top-32 h-[32rem] w-[32rem] rounded-full bg-primary/10 blur-3xl"
           />
           <div className="relative mx-auto max-w-5xl px-4 py-10 text-center sm:px-6 lg:py-14">
-            <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3.5 py-1.5 text-sm font-medium text-primary">
+            <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3.5 py-1.5 text-sm font-semibold tracking-wider text-primary">
               <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-              직접 만든 시스템
+              PORTFOLIO
             </span>
             <h1 className="mb-4 text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
               ERP·업무자동화 포트폴리오
             </h1>
             <p className="mx-auto max-w-2xl text-lg leading-relaxed text-muted-foreground">
-              ERP·그룹웨어·물류·재고부터 업종별 맞춤 시스템까지, 와이넥스가 직접 만든 시스템입니다.
+              ERP·그룹웨어·물류·재고부터 업종별 맞춤 시스템까지, 와이넥스가 구축한 프로젝트입니다.
               <br className="hidden sm:block" />{" "}
               모든 시스템을 가상 데이터 체험판으로 눌러 볼 수 있습니다.
             </p>
