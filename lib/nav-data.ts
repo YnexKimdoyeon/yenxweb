@@ -25,8 +25,6 @@ export const navGroups: NavGroup[] = [
     items: [
       { label: "키오스크 주문제작", href: "/kiosk", desc: "용도에 맞춘 키오스크 제작" },
       { label: "제작 유형 및 제품", href: "/kiosk/products", desc: "형태별 제작 유형" },
-      { label: "키오스크 + ERP 결합", href: "/kiosk/erp", desc: "주문부터 재고·정산까지 연결" },
-      { label: "키오스크 포트폴리오", href: "/portfolio/kiosk", desc: "제작·설치 사례" },
     ],
   },
   {
