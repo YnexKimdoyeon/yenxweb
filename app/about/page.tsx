@@ -30,8 +30,6 @@ const capabilities = [
   },
 ]
 
-const stack = ["Next.js", "React", "TypeScript", "Python", "FastAPI", "Node.js", "SQLite·MySQL·PostgreSQL", "PyQt·Tkinter", "Selenium·Playwright"]
-
 export default function AboutPage() {
   return (
     <>
@@ -62,14 +60,6 @@ export default function AboutPage() {
                 </div>
               ))}
             </div>
-            <h3 className="mb-4 mt-12 font-bold text-foreground">주로 쓰는 기술</h3>
-            <ul className="flex flex-wrap gap-2">
-              {stack.map((s) => (
-                <li key={s} className="rounded-lg border border-border bg-card px-3 py-1.5 text-sm text-foreground">
-                  {s}
-                </li>
-              ))}
-            </ul>
           </div>
         </section>
         <ProcessSection />
