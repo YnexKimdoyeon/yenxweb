@@ -71,6 +71,24 @@ export function Navigation() {
             {navGroups.map((group) => {
               const active = isActive(group, pathname)
               const open = openGroup === group.label
+              if (group.items.length === 0)
+                return (
+                  <Link
+                    key={group.label}
+                    href={group.href}
+                    className={`relative py-2 text-base font-semibold tracking-[-0.01em] transition-colors ${
+                      active ? "text-primary" : "text-foreground/90 hover:text-primary"
+                    }`}
+                  >
+                    {group.label}
+                    {active && (
+                      <motion.span
+                        layoutId="nav-underline"
+                        className="absolute bottom-0 left-0 right-0 h-0.5 rounded-full bg-primary"
+                      />
+                    )}
+                  </Link>
+                )
               return (
                 <div
                   key={group.label}
@@ -169,7 +187,17 @@ export function Navigation() {
             className="border-t border-border bg-background lg:hidden"
           >
             <div className="max-h-[calc(100dvh-4rem)] space-y-1 overflow-y-auto px-4 py-4">
-              {navGroups.map((group) => (
+              {navGroups.map((group) =>
+                group.items.length === 0 ? (
+                  <Link
+                    key={group.label}
+                    href={group.href}
+                    className="block rounded-lg px-3 py-2 text-base font-medium text-foreground transition-colors hover:bg-muted"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {group.label}
+                  </Link>
+                ) : (
                 <div key={group.label} className="pb-2">
                   <p className="px-3 pb-1 pt-2 text-xs font-semibold text-muted-foreground">{group.label}</p>
                   {group.items.map((item) => (
@@ -183,7 +211,8 @@ export function Navigation() {
                     </Link>
                   ))}
                 </div>
-              ))}
+                ),
+              )}
               <a
                 href="https://ynexshop.kr"
                 target="_blank"

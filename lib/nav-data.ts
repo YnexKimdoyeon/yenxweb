@@ -9,10 +9,7 @@ export const navGroups: NavGroup[] = [
   {
     label: "회사소개",
     href: "/about",
-    items: [
-      { label: "와이넥스 소개", href: "/about", desc: "현장을 아는 개발 회사" },
-      { label: "기술 및 역량", href: "/about#capabilities", desc: "만들 수 있는 것과 쓰는 기술" },
-    ],
+    items: [], // 드롭다운 없이 바로 이동
   },
   {
     label: "ERP·업무자동화",
