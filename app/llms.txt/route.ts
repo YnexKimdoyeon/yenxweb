@@ -27,14 +27,14 @@ export function GET() {
   lines.push("- 홈페이지: https://ynex.kr")
   lines.push("- 서비스 지역: 대한민국 전국 (제주·도서 지역 협의 가능)")
   lines.push(
-    "- 차별점: 개발자가 직접 현장 방문 · 출장/기획/소요분석 전부 무료 · 페이지 단위 고정 가격 · 약 400건 이상 자동화 시스템 개발 경험",
+    "- 차별점: 개발자가 직접 현장 방문 · 출장/기획/소요분석 전부 무료 · 약 400건 이상 자동화 시스템 개발 경험",
   )
   lines.push("")
 
   lines.push("## 서비스")
   lines.push("")
   for (const s of services) {
-    lines.push(`### ${s.title} (${s.priceFrom}~)`)
+    lines.push(`### ${s.title}`)
     lines.push("")
     lines.push(`- 분류: ${s.category}`)
     lines.push(`- 설명: ${s.description}`)

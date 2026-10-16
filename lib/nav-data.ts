@@ -17,7 +17,6 @@ export const navGroups: NavGroup[] = [
     items: [
       { label: "ERP·MES·WMS 개발", href: "/services", desc: "업무에 맞춘 시스템 개발" },
       { label: "AI·업무 자동화", href: "/services/ai-automation", desc: "반복 업무를 줄이는 자동화" },
-      { label: "개발 포트폴리오", href: "/portfolio/software", desc: "구축 사례와 체험판" },
     ],
   },
   {

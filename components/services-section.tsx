@@ -35,7 +35,7 @@ export function ServicesSection({ showHeader = true }: { showHeader?: boolean })
               와이넥스가 만드는 것들
             </h2>
             <p className="text-muted-foreground">
-              시작 가격부터 숨기지 않고 적어뒀습니다. 더 궁금한 건 각 서비스에서 확인하세요.
+              더 궁금한 건 각 서비스에서 확인하세요.
             </p>
           </motion.div>
         )}
@@ -61,13 +61,9 @@ export function ServicesSection({ showHeader = true }: { showHeader?: boolean })
                 <p className="mb-3 font-medium text-accent">
                   {service.cardSubtitle}
                 </p>
-                <p className="mb-6 flex-1 text-muted-foreground">
+                <p className="mb-6 flex-1 border-b border-border pb-6 text-muted-foreground">
                   {service.cardDescription}
                 </p>
-                <div className="mb-4 flex items-baseline gap-1.5 border-t border-border pt-4">
-                  <span className="text-xs text-muted-foreground">시작가</span>
-                  <span className="text-lg font-bold text-foreground">{service.priceFrom}~</span>
-                </div>
                 <Link
                   href={`/services/${service.slug}`}
                   className="inline-flex items-center gap-2 text-sm font-medium text-primary transition-colors hover:text-primary/80"

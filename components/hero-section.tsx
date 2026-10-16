@@ -155,7 +155,7 @@ export function HeroSection() {
                 </div>
                 <div className="leading-tight">
                   <div className="text-sm font-bold text-foreground">4.9 / 5.0</div>
-                  <div className="text-xs text-muted-foreground">크몽 실제 후기</div>
+                  <div className="text-xs text-muted-foreground">실제 고객 후기</div>
                 </div>
               </motion.div>
 

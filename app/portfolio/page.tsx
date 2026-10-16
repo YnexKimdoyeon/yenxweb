@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 const choices = [
   {
-    href: "/portfolio/software",
+    href: "/services",
     icon: MousePointerClick,
     badge: "ERP·업무자동화",
     title: "ERP·업무자동화 포트폴리오",

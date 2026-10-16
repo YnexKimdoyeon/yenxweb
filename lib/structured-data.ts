@@ -42,7 +42,6 @@ export function organizationSchema() {
       addressCountry: "KR",
     },
     areaServed: { "@type": "Country", name: "대한민국" },
-    priceRange: "₩₩",
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "sales",
@@ -126,9 +125,8 @@ export function breadcrumbSchema(trail: { name: string; url: string }[]) {
   }
 }
 
-// 개별 서비스 (제공 기관·가격대 포함)
+// 개별 서비스 (제공 기관 포함)
 export function serviceSchema(service: ServiceDetail) {
-  const numericPrice = service.priceFrom.replace(/[^0-9]/g, "")
   return {
     "@type": "Service",
     "@id": `${SITE_URL}/services/${service.slug}#service`,
@@ -139,12 +137,6 @@ export function serviceSchema(service: ServiceDetail) {
     provider: { "@id": ORG_ID },
     areaServed: { "@type": "Country", name: "대한민국" },
     aggregateRating: AGGREGATE_RATING,
-    offers: {
-      "@type": "Offer",
-      price: numericPrice,
-      priceCurrency: "KRW",
-      availability: "https://schema.org/InStock",
-    },
   }
 }
 

@@ -5,7 +5,8 @@ import {
   ArrowLeft,
   Check,
   MessageCircle,
-  Star,
+  MapPin,
+  Quote,
   Scale,
   Database,
   Globe,
@@ -90,7 +91,8 @@ export default async function ServiceDetailPage({
   if (!service) notFound()
 
   const Icon = iconMap[service.icon]
-  const pageReviews = reviews.slice(0, 3)
+  // 다른 플랫폼 이름이 들어간 후기는 빼고 보여 줌
+  const pageReviews = reviews.filter((r) => !r.comment.includes("크몽")).slice(0, 3)
   const others = services.filter((s) => s.slug !== service.slug).slice(0, 3)
 
   const jsonLd = graph(
@@ -132,14 +134,9 @@ export default async function ServiceDetailPage({
                 <h1 className="mb-4 text-3xl font-bold leading-tight tracking-tight text-foreground sm:text-4xl">
                   {service.title}
                 </h1>
-                <p className="mb-6 text-lg leading-relaxed text-muted-foreground">
+                <p className="mb-8 text-lg leading-relaxed text-muted-foreground">
                   {service.tagline}
                 </p>
-                <div className="mb-8 flex items-baseline gap-2">
-                  <span className="text-sm text-muted-foreground">시작가</span>
-                  <span className="text-3xl font-bold text-foreground">{service.priceFrom}</span>
-                  <span className="text-sm text-muted-foreground">~</span>
-                </div>
                 <div className="flex flex-wrap gap-3">
                   <a
                     href={KAKAO_URL}
@@ -161,14 +158,13 @@ export default async function ServiceDetailPage({
 
               {/* Trust card */}
               <div className="rounded-2xl border border-border bg-card p-6 shadow-xl shadow-primary/5 ring-1 ring-black/5">
-                <div className="mb-4 flex items-center gap-2">
-                  <span className="flex items-center gap-0.5 text-[#D4A24C]">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="h-4 w-4 fill-current" />
-                    ))}
-                  </span>
-                  <span className="text-sm font-semibold text-foreground">4.9 / 5.0</span>
-                  <span className="text-sm text-muted-foreground">· 누적 의뢰 343건+</span>
+                <div className="mb-5 rounded-xl bg-primary p-5 text-primary-foreground">
+                  <div className="mb-2 flex items-center gap-2">
+                    <MapPin className="h-5 w-5 shrink-0" />
+                    <span className="rounded-full bg-white px-2 py-0.5 text-xs font-bold text-primary">무료</span>
+                  </div>
+                  <p className="mb-1.5 text-lg font-bold leading-snug">{service.diagnosis.title}</p>
+                  <p className="text-sm leading-relaxed text-primary-foreground/85">{service.diagnosis.desc}</p>
                 </div>
                 <ul className="space-y-3">
                   {service.features.slice(0, 4).map((f) => (
@@ -205,64 +201,37 @@ export default async function ServiceDetailPage({
           </div>
         </section>
 
-        {/* Packages */}
+        {/* Process */}
         <section className="bg-muted/30 py-16 lg:py-20">
           <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-            <h2 className="mb-3 text-2xl font-bold text-foreground">가격 안내</h2>
+            <h2 className="mb-3 text-2xl font-bold text-foreground">진행 절차</h2>
             <p className="mb-10 text-muted-foreground">
-              정확한 견적은 상담 후 작업 내용에 맞춰 안내해 드립니다.
+              처음 상담부터 운영까지, 만든 개발자가 끝까지 맡습니다. 단계마다 무엇을 받으시는지 미리 알려 드립니다.
             </p>
-            <div className="grid gap-6 md:grid-cols-3">
-              {service.packages.map((pkg, i) => (
-                <div
-                  key={pkg.name}
-                  className={`relative flex flex-col rounded-2xl border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg ${
-                    i === 1
-                      ? "border-primary shadow-xl shadow-primary/10 md:-translate-y-2 md:scale-[1.02]"
-                      : "border-border hover:border-primary/30"
+            <ol className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {service.process.map((p, i) => (
+                <li
+                  key={p.step}
+                  className={`relative flex flex-col rounded-2xl border bg-card p-6 ${
+                    p.free ? "border-primary shadow-lg shadow-primary/10" : "border-border"
                   }`}
                 >
-                  {i === 1 && (
-                    <span className="mb-3 w-fit rounded-full bg-primary px-2.5 py-0.5 text-xs font-semibold text-primary-foreground">
-                      인기
+                  <div className="mb-4 flex items-center justify-between">
+                    <span className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-base font-bold text-primary-foreground">
+                      {i + 1}
                     </span>
-                  )}
-                  <h3 className="text-sm font-semibold text-muted-foreground">{pkg.name}</h3>
-                  <p className="mb-3 mt-1 text-2xl font-bold text-foreground">{pkg.price}</p>
-                  <p className="mb-5 flex-1 text-sm leading-relaxed text-muted-foreground">{pkg.desc}</p>
-                  <dl className="space-y-1.5 border-t border-border pt-4 text-sm">
-                    <div className="flex justify-between">
-                      <dt className="text-muted-foreground">작업일</dt>
-                      <dd className="font-medium text-foreground">{pkg.days}</dd>
-                    </div>
-                    <div className="flex justify-between">
-                      <dt className="text-muted-foreground">수정</dt>
-                      <dd className="font-medium text-foreground">{pkg.revisions}</dd>
-                    </div>
-                  </dl>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Process */}
-        <section className="bg-background py-16 lg:py-20">
-          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-            <h2 className="mb-10 text-2xl font-bold text-foreground">진행 절차</h2>
-            <ol className="relative space-y-5">
-              <span
-                aria-hidden
-                className="absolute bottom-5 left-5 top-5 w-px bg-border"
-              />
-              {service.process.map((p, i) => (
-                <li key={p.step} className="relative flex gap-5">
-                  <span className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary text-base font-bold text-primary-foreground ring-4 ring-background">
-                    {i + 1}
-                  </span>
-                  <div className="pt-1">
-                    <h3 className="font-semibold text-foreground">{p.step}</h3>
-                    <p className="mt-1 text-muted-foreground">{p.desc}</p>
+                    {p.free && (
+                      <span className="rounded-full bg-primary/10 px-2.5 py-1 text-xs font-bold text-primary">무료</span>
+                    )}
+                  </div>
+                  <h3 className="mb-2 text-lg font-bold text-foreground">{p.step}</h3>
+                  <p className="mb-5 flex-1 leading-relaxed text-muted-foreground">{p.desc}</p>
+                  <div className="flex items-start gap-2 border-t border-border pt-4 text-sm">
+                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                    <span>
+                      <span className="text-muted-foreground">받으시는 것 </span>
+                      <span className="font-semibold text-foreground">{p.get}</span>
+                    </span>
                   </div>
                 </li>
               ))}
@@ -271,24 +240,15 @@ export default async function ServiceDetailPage({
         </section>
 
         {/* Reviews */}
-        <section className="bg-muted/30 py-16 lg:py-20">
+        <section className="bg-background py-16 lg:py-20">
           <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
             <h2 className="mb-3 text-2xl font-bold text-foreground">고객 후기</h2>
-            <p className="mb-10 text-muted-foreground">
-              실제 거래 고객이 남긴 후기입니다. 평점 4.9 / 5.0 · 누적 후기 343개
-            </p>
+            <p className="mb-10 text-muted-foreground">함께 일한 고객이 남긴 말입니다.</p>
             <div className="grid gap-6 md:grid-cols-3">
               {pageReviews.map((r) => (
                 <div key={r.comment} className="rounded-xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg">
-                  <div className="mb-3 flex items-center gap-0.5 text-[#D4A24C]">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="h-4 w-4 fill-current" />
-                    ))}
-                  </div>
-                  <p className="mb-4 leading-relaxed text-foreground">&ldquo;{r.comment}&rdquo;</p>
-                  <p className="text-sm text-muted-foreground">
-                    {r.nickname} · {r.priceRange}
-                  </p>
+                  <Quote className="mb-3 h-6 w-6 text-primary/40" />
+                  <p className="leading-relaxed text-foreground">{r.comment}</p>
                 </div>
               ))}
             </div>
@@ -369,7 +329,6 @@ export default async function ServiceDetailPage({
                       {OIcon && <OIcon className="h-5 w-5 text-primary transition-colors group-hover:text-primary-foreground" />}
                     </div>
                     <h3 className="mb-1 font-semibold text-foreground">{s.cardTitle}</h3>
-                    <p className="text-sm text-muted-foreground">{s.priceFrom}~</p>
                   </Link>
                 )
               })}

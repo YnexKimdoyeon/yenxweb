@@ -131,7 +131,7 @@ export default function KioskErpPage() {
               <p className="mb-1 text-white/70">ERP를 직접 만드는 회사입니다</p>
               <p className="text-xl font-bold md:text-2xl">지금까지 만든 업무 시스템 {cases.length}건을 체험판으로 확인해 보세요</p>
             </div>
-            <Link href="/portfolio/software" className="inline-flex shrink-0 items-center gap-1.5 rounded-xl bg-white px-5 py-3 font-semibold text-accent">
+            <Link href="/services" className="inline-flex shrink-0 items-center gap-1.5 rounded-xl bg-white px-5 py-3 font-semibold text-accent">
               ERP 포트폴리오 <ArrowRight className="h-4 w-4" />
             </Link>
           </div>

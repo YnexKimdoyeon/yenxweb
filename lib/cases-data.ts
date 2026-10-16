@@ -632,4 +632,4 @@ export const cases: CaseItem[] = [
 ]
 
 // 체험해보기 링크: 실제 화면을 가상 데이터로 옮긴 체험판
-export const demoHref = (c: CaseItem) => c.demoUrl ?? `/portfolio/software#${c.slug}`
+export const demoHref = (c: CaseItem) => c.demoUrl ?? `/services#${c.slug}`

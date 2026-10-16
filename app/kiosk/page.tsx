@@ -17,6 +17,7 @@ import {
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { FloatingKakao } from "@/components/floating-kakao"
+import { KioskLogisticsDemo } from "@/components/kiosk-logistics-demo"
 
 export const metadata: Metadata = {
   title: "키오스크 주문제작 | 와이넥스 YNEX",
@@ -65,12 +66,12 @@ const places = [
   { icon: PartyPopper, title: "행사·전시장", desc: "참가 등록·티켓 발권·QR 확인·현장 통계" },
 ]
 
-const caseFlow = [
-  "키오스크에서 출고 요청 등록",
-  "지게차 산업용 태블릿에 실시간 전달",
-  "지게차 기사가 요청 확인·수락",
-  "차량번호·위치정보 SMS 자동 발송",
-  "ERP·WMS에 처리 이력 자동 저장",
+// 키오스크 진행 절차 (간단판): 첫 단계 현장 진단은 무료
+const steps = [
+  { title: "현장 방문 진단", desc: "개발자가 직접 가서 키오스크가 받을 일과 놓을 자리를 봅니다.", free: true },
+  { title: "사양·외함 설계", desc: "받을 일, 필요한 장비, 연결할 시스템과 외함 형태를 정합니다." },
+  { title: "제작·화면 개발", desc: "외함 제작과 키오스크 화면, 관리자 ERP를 함께 만듭니다." },
+  { title: "설치·교육·유지보수", desc: "현장에 설치하고 같이 눌러 보며 맞춘 뒤, 운영 중에도 계속 봅니다." },
 ]
 
 const scope = [
@@ -187,43 +188,23 @@ export default function KioskPage() {
           </div>
         </section>
 
-        {/* 5. 구축 사례 예시 */}
+        {/* 5. 물류 현장 적용 예시: 두 화면 연동 체험 */}
         <section className="bg-muted/30 py-16 lg:py-20">
-          <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 lg:grid-cols-2">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/kiosk/logistics-case.jpg"
-              alt="지게차 산업용 태블릿과 출고 요청 키오스크가 연결된 물류 현장 예시"
-              width={1586}
-              height={992}
-              loading="lazy"
-              className="w-full rounded-2xl border border-border shadow-xl"
-            />
-            <div>
-              <span className="mb-3 inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
-                <Ticket className="h-3.5 w-3.5" />
-                물류 현장 적용 예시
-              </span>
-              <h2 className="mb-4 text-2xl font-bold leading-snug text-foreground md:text-3xl">
-                키오스크 출고 요청과 지게차 작업을 실시간 연결
-              </h2>
-              <p className="mb-6 leading-relaxed text-muted-foreground">
-                화물차 기사가 사무실 키오스크에서 출고를 요청하면 지게차 태블릿에 즉시 전달됩니다. 담당 기사가 요청을 수락하면 차량번호와 위치를 문자로 안내하고, 모든 처리 이력은 ERP에 자동 기록됩니다.
-              </p>
-              <ol className="mb-5 space-y-2">
-                {caseFlow.map((c, i) => (
-                  <li key={c} className="flex items-center gap-3 rounded-lg bg-card px-4 py-2.5 text-sm text-foreground">
-                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground">
-                      {i + 1}
-                    </span>
-                    {c}
-                  </li>
-                ))}
-              </ol>
-              <p className="text-sm text-muted-foreground">
-                이 사례는 활용 예시 중 하나입니다. 업종과 업무 방식에 따라 장비와 기능을 새롭게 구성합니다.
-              </p>
-            </div>
+          <div className="mx-auto max-w-6xl px-4">
+            <span className="mb-3 inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
+              <Ticket className="h-3.5 w-3.5" />
+              물류 현장 적용 예시 · 직접 눌러 보기
+            </span>
+            <h2 className="mb-3 text-2xl font-bold leading-snug text-foreground md:text-3xl">
+              키오스크 출고 요청과 지게차 작업을 실시간 연결
+            </h2>
+            <p className="mb-8 max-w-3xl leading-relaxed text-muted-foreground">
+              왼쪽 사무실 키오스크에서 출고를 요청하면 오른쪽 지게차 태블릿에 바로 뜹니다. 지게차에서 수락하면 기사님께 도크 위치 문자가 가고, 처리 이력은 ERP에 자동으로 남습니다.
+            </p>
+            <KioskLogisticsDemo />
+            <p className="mt-4 text-sm text-muted-foreground">
+              이 화면은 활용 예시 중 하나입니다. 업종과 업무 방식에 따라 장비와 기능을 새롭게 구성합니다.
+            </p>
           </div>
         </section>
 
@@ -253,14 +234,38 @@ export default function KioskPage() {
               <Link href="/kiosk/erp" className="inline-flex items-center gap-1 text-primary hover:underline">
                 키오스크 + ERP 결합 보기 <ArrowRight className="h-4 w-4" />
               </Link>
-              <Link href="/portfolio/software" className="inline-flex items-center gap-1 text-primary hover:underline">
+              <Link href="/services" className="inline-flex items-center gap-1 text-primary hover:underline">
                 ERP 체험판 보기 <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
           </div>
         </section>
 
-        {/* 7. 마지막 문의 */}
+        {/* 7. 진행 절차 */}
+        <section className="bg-muted/30 py-16 lg:py-20">
+          <div className="mx-auto max-w-6xl px-4">
+            <h2 className="mb-10 text-2xl font-bold text-foreground md:text-3xl">진행 절차</h2>
+            <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {steps.map((st, i) => (
+                <li
+                  key={st.title}
+                  className={`rounded-2xl border bg-card p-6 ${st.free ? "border-primary shadow-lg shadow-primary/10" : "border-border"}`}
+                >
+                  <div className="mb-4 flex items-center justify-between">
+                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">
+                      {i + 1}
+                    </span>
+                    {st.free && <span className="rounded-full bg-primary/10 px-2.5 py-1 text-xs font-bold text-primary">무료</span>}
+                  </div>
+                  <h3 className="mb-2 font-bold text-foreground">{st.title}</h3>
+                  <p className="text-sm leading-relaxed text-muted-foreground">{st.desc}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
+        {/* 8. 마지막 문의 */}
         <section className="bg-accent py-16 text-accent-foreground">
           <div className="mx-auto max-w-3xl px-4 text-center">
             <h2 className="mb-4 text-2xl font-bold md:text-3xl">필요한 키오스크가 시중에 없으신가요?</h2>

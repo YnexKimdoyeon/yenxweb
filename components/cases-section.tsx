@@ -57,7 +57,7 @@ export function CasesSection({
                     return (
                       <Link
                         key={f.id}
-                        href={`/portfolio/software#${inField[0].slug}`}
+                        href={`/services#${inField[0].slug}`}
                         className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-4 py-2 text-sm font-semibold text-foreground transition-colors hover:border-primary/40 hover:text-primary"
                       >
                         {f.label}
@@ -237,7 +237,7 @@ export function CasesSection({
               이 외에도 다양한 도입사례가 있습니다
             </p>
             <Link
-              href="/portfolio/software"
+              href="/services"
               className="group inline-flex items-center justify-center gap-2.5 rounded-xl bg-primary px-8 py-4 text-base font-semibold text-primary-foreground shadow-lg shadow-primary/25 transition-all hover:-translate-y-0.5 hover:bg-primary/90 hover:shadow-xl hover:shadow-primary/30"
             >
               전체 도입사례 보기

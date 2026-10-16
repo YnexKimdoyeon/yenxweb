@@ -10,7 +10,7 @@ import { caseFields, cases, demoHref, type CaseField, type CaseItem } from "@/li
 // 분야 안에서 순서대로 파랑·보라 번갈아
 const colorAt = (i: number) => (i % 2 === 0 ? "#2563EB" : "#7C3AED")
 
-// /portfolio/software 목록: 분야 탭 + 카드 격자. 자세히·체험판은 팝업.
+// /services 목록: 분야 탭 + 카드 격자. 자세히·체험판은 팝업.
 // 다른 탭의 사례와 상세 글도 HTML에는 그대로 두고 숨기기만 한다 (검색·AI 노출 유지, #사례 주소로 바로 열림)
 export function PortfolioList() {
   const [field, setField] = useState<CaseField>(caseFields[0].id)
