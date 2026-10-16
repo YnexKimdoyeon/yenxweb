@@ -92,9 +92,11 @@ export function HeroSection() {
               className="mb-8 max-w-xl text-lg leading-relaxed text-muted-foreground"
             >
               엑셀·수기 업무를 시스템으로 바꾸는{" "}
-              <span className="font-semibold text-foreground">디지털 전환(DX)</span>,
+              <span className="whitespace-nowrap"><span className="font-semibold text-foreground">디지털 전환(DX)</span>,</span>
+              <br />
               반복 업무를 AI로 줄이는{" "}
-              <span className="font-semibold text-foreground">AI 전환(AX)</span>.
+              <span className="whitespace-nowrap"><span className="font-semibold text-foreground">AI 전환(AX)</span>.</span>
+              <br />
               발로 뛰는 개발자와 함께하세요.
             </motion.p>
 
