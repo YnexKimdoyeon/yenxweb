@@ -95,7 +95,7 @@ export function HeroSection() {
               <span className="font-semibold text-foreground">디지털 전환(DX)</span>,
               반복 업무를 AI로 줄이는{" "}
               <span className="font-semibold text-foreground">AI 전환(AX)</span>.
-              개발자가 직접 회사에 찾아가 일하는 모습을 보고, 거기에 맞게 만들어 드립니다.
+              발로 뛰는 개발자와 함께하세요.
             </motion.p>
 
             <motion.div
