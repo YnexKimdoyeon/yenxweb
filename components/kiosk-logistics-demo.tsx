@@ -1,13 +1,13 @@
 "use client"
 
 import { useState } from "react"
-import { Check, Forklift, MessageSquare, Monitor, RotateCcw, Truck } from "lucide-react"
+import { Check, Forklift, MessageSquare, Monitor, RotateCcw } from "lucide-react"
 
-// 물류 현장 적용 예시 체험: 사무실 키오스크(왼쪽)에서 출고 요청 → 지게차 태블릿(오른쪽)에 바로 뜨고 수락·상차 → 키오스크·문자·ERP 기록에 반영
+// 물류 현장 적용 예시 체험: 사무실 키오스크(왼쪽)에서 출고 신청 → 지게차 태블릿(오른쪽)에 바로 뜨고 수락·상차 → 키오스크 목록·문자·ERP 기록에 반영
 type Status = "대기" | "수락" | "완료"
 interface Req {
   no: number
-  car: string
+  car: string // 차량번호 뒷 4자리
   shipper: string
   cargo: string
   dock: string
@@ -21,7 +21,18 @@ interface Log {
 const SHIPPERS = ["하늘포장", "바다수출", "새봄물산"]
 const CARGOS = ["팔레트 2개", "팔레트 4개", "목상자 6개"]
 const DOCKS = ["1번 도크", "2번 도크", "3번 도크"]
-const SAMPLE_CARS = ["80바 1234", "92사 5678", "71아 2468"]
+// 처음 화면이 비어 보이지 않게 넣어 둔 예시 요청
+const SEED: Req[] = [
+  { no: 98, car: "4821", shipper: "새봄물산", cargo: "목상자 6개", dock: "2번 도크", status: "완료" },
+  { no: 99, car: "1357", shipper: "하늘포장", cargo: "팔레트 4개", dock: "3번 도크", status: "수락" },
+  { no: 100, car: "9024", shipper: "바다수출", cargo: "팔레트 2개", dock: "1번 도크", status: "대기" },
+]
+const LABEL: Record<Status, string> = { 대기: "진행 대기", 수락: "진행 중", 완료: "진행 완료" }
+const KIOSK_BADGE: Record<Status, string> = {
+  대기: "bg-amber-100 text-amber-800",
+  수락: "bg-sky-100 text-sky-800",
+  완료: "bg-neutral-100 text-neutral-500",
+}
 
 const now = () => {
   const d = new Date()
@@ -29,17 +40,18 @@ const now = () => {
 }
 
 export function KioskLogisticsDemo() {
-  const [step, setStep] = useState<"home" | "car" | "cargo" | "done">("home")
+  const [step, setStep] = useState<"list" | "car" | "cargo">("list")
   const [car, setCar] = useState("")
   const [shipper, setShipper] = useState(SHIPPERS[0])
   const [cargo, setCargo] = useState(CARGOS[0])
-  const [reqs, setReqs] = useState<Req[]>([])
-  const [mine, setMine] = useState<number | null>(null) // 키오스크에서 방금 접수한 요청 번호
+  const [reqs, setReqs] = useState<Req[]>(SEED)
+  const [mine, setMine] = useState<number | null>(null) // 키오스크에서 방금 신청한 요청 번호
   const [logs, setLogs] = useState<Log[]>([])
   const [flash, setFlash] = useState<number | null>(null)
 
   const log = (text: string) => setLogs((l) => [{ time: now(), text }, ...l].slice(0, 6))
   const myReq = reqs.find((r) => r.no === mine)
+  const count = (st: Status) => reqs.filter((r) => r.status === st).length
 
   const submit = () => {
     const no = (reqs.at(-1)?.no ?? 100) + 1
@@ -48,34 +60,34 @@ export function KioskLogisticsDemo() {
     setMine(no)
     setFlash(no)
     setTimeout(() => setFlash(null), 1600)
-    setStep("done")
-    log(`출고 요청 #${no} 접수 (${car} · ${shipper} ${cargo})`)
+    setCar("")
+    setStep("list")
+    log(`출고 신청 #${no} 접수 (차량 ${car} · ${shipper} ${cargo})`)
   }
 
   const update = (no: number, status: Status) => {
     setReqs((x) => x.map((r) => (r.no === no ? { ...r, status } : r)))
     const r = reqs.find((x) => x.no === no)!
-    if (status === "수락") log(`#${no} 지게차 2호기 수락 → ${r.car} 기사님께 ${r.dock} 안내 문자 발송`)
+    if (status === "수락") log(`#${no} 지게차 2호기 수락 → 차량 ${r.car} 기사님께 ${r.dock} 안내 문자 발송`)
     if (status === "완료") log(`#${no} 상차 완료 → 재고 차감·출고 이력 저장`)
   }
 
-  const resetKiosk = () => {
-    setStep("home")
+  const cancel = () => {
+    setStep("list")
     setCar("")
-    setMine(null)
   }
 
   const resetAll = () => {
-    resetKiosk()
-    setReqs([])
+    cancel()
+    setMine(null)
+    setReqs(SEED)
     setLogs([])
   }
 
-  const keys = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "가", "0", "⌫"]
+  const keys = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "", "0", "⌫"]
   const press = (k: string) => {
     if (k === "⌫") return setCar((c) => c.slice(0, -1))
-    if (car.length >= 9) return
-    setCar((c) => c + k)
+    setCar((c) => (c.length >= 4 ? c : c + k))
   }
 
   return (
@@ -86,61 +98,104 @@ export function KioskLogisticsDemo() {
           <p className="mb-2 flex items-center gap-1.5 text-sm font-semibold text-foreground">
             <Monitor className="h-4 w-4 text-primary" /> 사무실 출고 요청 키오스크
           </p>
-          <div className="flex min-h-[460px] flex-1 flex-col overflow-hidden rounded-2xl border-[10px] border-neutral-800 bg-white shadow-xl">
+          <div className="flex h-[520px] flex-col overflow-hidden rounded-2xl border-[10px] border-neutral-800 bg-white shadow-xl">
             <div className="flex items-center justify-between bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground">
-              <span>출고 요청</span>
+              <span>{step === "list" ? "출고 요청 목록" : "출고 신청"}</span>
               <span className="text-xs opacity-80">와이넥스 물류센터</span>
             </div>
-            <div className="flex flex-1 flex-col p-5">
-              {step === "home" && (
-                <div className="flex flex-1 flex-col items-center justify-center text-center">
-                  <Truck className="mb-4 h-14 w-14 text-primary" />
-                  <p className="mb-1 text-xl font-bold text-foreground">기사님, 출고 요청하세요</p>
-                  <p className="mb-6 text-sm text-muted-foreground">사무실에 들르지 않아도 지게차가 바로 받습니다</p>
+            <div className="flex min-h-0 flex-1 flex-col p-4">
+              {step === "list" && (
+                <>
+                  <div className="mb-3 grid grid-cols-3 gap-1.5 text-center">
+                    {(["대기", "수락", "완료"] as Status[]).map((st) => (
+                      <div key={st} className={`rounded-lg py-2 ${KIOSK_BADGE[st]}`}>
+                        <p className="text-xs font-semibold">{LABEL[st]}</p>
+                        <p className="text-xl font-bold">{count(st)}</p>
+                      </div>
+                    ))}
+                  </div>
+                  {myReq && myReq.status !== "대기" && (
+                    <div className="mb-3 rounded-xl bg-[#FEE500]/30 p-3">
+                      <p className="mb-1 flex items-center gap-1 text-xs font-semibold text-muted-foreground">
+                        <MessageSquare className="h-3.5 w-3.5" /> 기사님 휴대폰 문자
+                      </p>
+                      <p className="text-sm leading-relaxed text-foreground">
+                        {myReq.status === "수락"
+                          ? `[와이넥스 물류센터] 차량 ${myReq.car} 출고 요청이 접수되었습니다. 지게차 2호기가 ${myReq.dock}에서 상차합니다.`
+                          : `[와이넥스 물류센터] 차량 ${myReq.car} ${myReq.cargo} 상차 완료. 안전 운행하세요.`}
+                      </p>
+                    </div>
+                  )}
+                  <ul className="min-h-0 flex-1 space-y-1.5 overflow-y-auto">
+                    {[...reqs].reverse().map((r) => (
+                      <li
+                        key={r.no}
+                        className={`flex items-center justify-between rounded-lg border px-3 py-2.5 ${
+                          r.no === mine ? "border-primary bg-primary/5" : "border-border"
+                        }`}
+                      >
+                        <div>
+                          <p className="font-bold text-foreground">
+                            차량 {r.car}
+                            {r.no === mine && <span className="ml-1.5 text-xs font-semibold text-primary">방금 신청</span>}
+                          </p>
+                          <p className="text-xs text-muted-foreground">
+                            #{r.no} · {r.shipper} · {r.cargo}
+                            {r.status !== "대기" && ` · ${r.dock}`}
+                          </p>
+                        </div>
+                        <span className={`shrink-0 rounded-full px-2.5 py-1 text-xs font-bold ${KIOSK_BADGE[r.status]}`}>
+                          {LABEL[r.status]}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
                   <button
                     onClick={() => setStep("car")}
-                    className="w-full rounded-xl bg-primary py-4 text-lg font-bold text-primary-foreground hover:bg-primary/90"
+                    className="mt-3 w-full rounded-xl bg-primary py-4 text-lg font-bold text-primary-foreground hover:bg-primary/90"
                   >
-                    출고 요청 시작
+                    출고 신청
                   </button>
-                </div>
+                </>
               )}
 
               {step === "car" && (
                 <div className="flex flex-1 flex-col">
                   <p className="mb-1 text-sm font-semibold text-muted-foreground">1 / 2</p>
-                  <p className="mb-3 text-lg font-bold text-foreground">차량번호를 입력하세요</p>
-                  <div className="mb-3 rounded-xl border-2 border-primary/40 bg-muted/40 px-4 py-3 text-center text-2xl font-bold tracking-wider text-foreground">
-                    {car || <span className="text-muted-foreground/50">아래에서 누르거나 고르세요</span>}
-                  </div>
-                  <div className="mb-3 flex flex-wrap gap-1.5">
-                    {SAMPLE_CARS.map((c) => (
-                      <button
-                        key={c}
-                        onClick={() => setCar(c)}
-                        className="rounded-full border border-border px-2.5 py-1 text-xs text-muted-foreground hover:border-primary hover:text-primary"
+                  <p className="mb-4 text-lg font-bold text-foreground">차량번호 뒷 4자리를 입력하세요</p>
+                  <div className="mb-4 grid grid-cols-4 gap-2">
+                    {[0, 1, 2, 3].map((i) => (
+                      <div
+                        key={i}
+                        className={`flex h-14 items-center justify-center rounded-xl border-2 text-3xl font-bold text-foreground ${
+                          i === car.length ? "border-primary" : "border-border"
+                        }`}
                       >
-                        {c}
-                      </button>
+                        {car[i] ?? ""}
+                      </div>
                     ))}
                   </div>
                   <div className="mb-3 grid grid-cols-3 gap-1.5">
-                    {keys.map((k) => (
-                      <button
-                        key={k}
-                        onClick={() => press(k)}
-                        className="rounded-lg bg-muted py-2.5 text-lg font-semibold text-foreground hover:bg-muted/70"
-                      >
-                        {k}
-                      </button>
-                    ))}
+                    {keys.map((k, i) =>
+                      k ? (
+                        <button
+                          key={k}
+                          onClick={() => press(k)}
+                          className="rounded-lg bg-muted py-3 text-xl font-semibold text-foreground hover:bg-muted/70"
+                        >
+                          {k}
+                        </button>
+                      ) : (
+                        <span key={i} />
+                      ),
+                    )}
                   </div>
                   <div className="mt-auto flex gap-2">
-                    <button onClick={resetKiosk} className="rounded-xl border border-border px-4 py-3 font-semibold text-foreground">
-                      처음
+                    <button onClick={cancel} className="rounded-xl border border-border px-4 py-3 font-semibold text-foreground">
+                      취소
                     </button>
                     <button
-                      disabled={car.length < 5}
+                      disabled={car.length < 4}
                       onClick={() => setStep("cargo")}
                       className="flex-1 rounded-xl bg-primary py-3 font-bold text-primary-foreground disabled:opacity-40"
                     >
@@ -156,15 +211,15 @@ export function KioskLogisticsDemo() {
                   <p className="mb-3 text-lg font-bold text-foreground">화주와 물량을 고르세요</p>
                   <p className="mb-1.5 text-xs font-semibold text-muted-foreground">화주</p>
                   <div className="mb-4 grid grid-cols-3 gap-1.5">
-                    {SHIPPERS.map((s) => (
+                    {SHIPPERS.map((x) => (
                       <button
-                        key={s}
-                        onClick={() => setShipper(s)}
+                        key={x}
+                        onClick={() => setShipper(x)}
                         className={`rounded-lg border-2 py-3 text-sm font-semibold ${
-                          shipper === s ? "border-primary bg-primary/10 text-primary" : "border-border text-foreground"
+                          shipper === x ? "border-primary bg-primary/10 text-primary" : "border-border text-foreground"
                         }`}
                       >
-                        {s}
+                        {x}
                       </button>
                     ))}
                   </div>
@@ -183,53 +238,16 @@ export function KioskLogisticsDemo() {
                     ))}
                   </div>
                   <div className="mb-4 rounded-lg bg-muted/50 px-3 py-2 text-sm text-foreground">
-                    {car} · {shipper} · {cargo}
+                    차량 {car} · {shipper} · {cargo}
                   </div>
                   <div className="mt-auto flex gap-2">
                     <button onClick={() => setStep("car")} className="rounded-xl border border-border px-4 py-3 font-semibold text-foreground">
                       이전
                     </button>
                     <button onClick={submit} className="flex-1 rounded-xl bg-primary py-3 font-bold text-primary-foreground">
-                      출고 요청 보내기
+                      출고 신청 보내기
                     </button>
                   </div>
-                </div>
-              )}
-
-              {step === "done" && myReq && (
-                <div className="flex flex-1 flex-col">
-                  <p className="mb-1 text-sm font-semibold text-muted-foreground">요청번호 #{myReq.no}</p>
-                  {myReq.status === "대기" && (
-                    <>
-                      <p className="mb-2 text-xl font-bold text-foreground">지게차 배정을 기다리는 중</p>
-                      <p className="mb-5 text-sm text-muted-foreground">
-                        오른쪽 지게차 태블릿에서 <b className="text-primary">수락</b>을 눌러 보세요
-                      </p>
-                      <div className="mb-5 h-2 overflow-hidden rounded-full bg-muted">
-                        <div className="h-full w-1/3 animate-pulse rounded-full bg-primary" />
-                      </div>
-                    </>
-                  )}
-                  {myReq.status !== "대기" && (
-                    <>
-                      <p className="mb-3 text-xl font-bold text-foreground">
-                        {myReq.status === "수락" ? `${myReq.dock}로 이동하세요` : "상차가 끝났습니다"}
-                      </p>
-                      <div className="mb-5 rounded-xl bg-[#FEE500]/30 p-3">
-                        <p className="mb-1 flex items-center gap-1 text-xs font-semibold text-muted-foreground">
-                          <MessageSquare className="h-3.5 w-3.5" /> 기사님 휴대폰 문자
-                        </p>
-                        <p className="text-sm leading-relaxed text-foreground">
-                          {myReq.status === "수락"
-                            ? `[와이넥스 물류센터] ${myReq.car} 출고 요청이 접수되었습니다. 지게차 2호기가 ${myReq.dock}에서 상차합니다.`
-                            : `[와이넥스 물류센터] ${myReq.car} ${myReq.cargo} 상차 완료. 안전 운행하세요.`}
-                        </p>
-                      </div>
-                    </>
-                  )}
-                  <button onClick={resetKiosk} className="mt-auto rounded-xl border border-border py-3 font-semibold text-foreground">
-                    다른 차량 요청하기
-                  </button>
                 </div>
               )}
             </div>
@@ -241,20 +259,19 @@ export function KioskLogisticsDemo() {
           <p className="mb-2 flex items-center gap-1.5 text-sm font-semibold text-foreground">
             <Forklift className="h-4 w-4 text-primary" /> 지게차 2호기 산업용 태블릿
           </p>
-          <div className="flex min-h-[460px] flex-1 flex-col overflow-hidden rounded-2xl border-[10px] border-amber-500 bg-neutral-900 text-white shadow-xl">
+          <div className="flex h-[520px] flex-col overflow-hidden rounded-2xl border-[10px] border-amber-500 bg-neutral-900 text-white shadow-xl">
             <div className="flex items-center justify-between border-b border-white/10 px-4 py-2.5 text-sm">
               <span className="font-semibold">출고 작업 목록</span>
               <span className="text-xs text-white/60">
-                대기 {reqs.filter((r) => r.status === "대기").length} · 진행 {reqs.filter((r) => r.status === "수락").length} · 완료{" "}
-                {reqs.filter((r) => r.status === "완료").length}
+                대기 {count("대기")} · 진행 {count("수락")} · 완료 {count("완료")}
               </span>
             </div>
-            <div className="flex-1 space-y-2.5 overflow-y-auto p-4">
+            <div className="min-h-0 flex-1 space-y-2.5 overflow-y-auto p-4">
               {reqs.length === 0 && (
                 <div className="flex h-full min-h-[300px] flex-col items-center justify-center text-center text-white/50">
                   <Forklift className="mb-3 h-12 w-12" />
                   <p className="text-sm">아직 들어온 요청이 없습니다</p>
-                  <p className="mt-1 text-xs">왼쪽 키오스크에서 출고 요청을 보내 보세요</p>
+                  <p className="mt-1 text-xs">왼쪽 키오스크에서 출고 신청을 보내 보세요</p>
                 </div>
               )}
               {[...reqs].reverse().map((r) => (
@@ -278,7 +295,7 @@ export function KioskLogisticsDemo() {
                       {r.status === "대기" ? "새 요청" : r.status === "수락" ? "상차 중" : "완료"}
                     </span>
                   </div>
-                  <p className="text-lg font-bold">{r.car}</p>
+                  <p className="text-lg font-bold">차량 {r.car}</p>
                   <p className="mb-3 text-sm text-white/70">
                     {r.shipper} · {r.cargo} · {r.dock}
                   </p>
@@ -315,7 +332,7 @@ export function KioskLogisticsDemo() {
           )}
         </div>
         {logs.length === 0 ? (
-          <p className="text-sm text-muted-foreground">요청을 보내고 수락하면 처리 이력이 여기에 자동으로 쌓입니다.</p>
+          <p className="text-sm text-muted-foreground">출고 신청을 보내고 지게차에서 수락하면 처리 이력이 여기에 자동으로 쌓입니다.</p>
         ) : (
           <ul className="space-y-1.5 text-sm">
             {logs.map((l, i) => (

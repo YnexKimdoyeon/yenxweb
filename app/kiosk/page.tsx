@@ -193,13 +193,13 @@ export default function KioskPage() {
           <div className="mx-auto max-w-6xl px-4">
             <span className="mb-3 inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
               <Ticket className="h-3.5 w-3.5" />
-              물류 현장 적용 예시 · 직접 눌러 보기
+              물류 현장 적용 예시
             </span>
             <h2 className="mb-3 text-2xl font-bold leading-snug text-foreground md:text-3xl">
               키오스크 출고 요청과 지게차 작업을 실시간 연결
             </h2>
             <p className="mb-8 max-w-3xl leading-relaxed text-muted-foreground">
-              왼쪽 사무실 키오스크에서 출고를 요청하면 오른쪽 지게차 태블릿에 바로 뜹니다. 지게차에서 수락하면 기사님께 도크 위치 문자가 가고, 처리 이력은 ERP에 자동으로 남습니다.
+              왼쪽 사무실 키오스크에서 출고 신청을 누르면 오른쪽 지게차 태블릿에 바로 뜹니다. 지게차에서 수락하면 기사님께 도크 위치 문자가 가고, 처리 이력은 ERP에 자동으로 남습니다.
             </p>
             <KioskLogisticsDemo />
             <p className="mt-4 text-sm text-muted-foreground">
