@@ -76,7 +76,7 @@ export function CaseDetailModal({
               <h2 className="mb-2 pr-10 text-2xl font-bold leading-snug text-foreground sm:text-3xl">{item.title}</h2>
               <p className="mb-6 leading-relaxed text-muted-foreground">{item.description}</p>
 
-              <CaseStats item={item} color={color} size="lg" className="mb-6" />
+              <CaseStats item={item} color={color} size="lg" className="mb-6" showCost />
 
               <div className="mb-6 flex gap-2 overflow-x-auto pb-1">
                 {item.images.map((src, i) => (
@@ -95,9 +95,9 @@ export function CaseDetailModal({
 
               <div className="mb-6 grid gap-5 md:grid-cols-3">
                 {[
-                  ["문제인식", item.detail.problem],
-                  ["업무 분석 · 설계", item.detail.approach],
-                  ["성과", item.detail.result],
+                  ["고객의 문제", item.detail.problem],
+                  ["와이넥스의 해결", item.detail.approach],
+                  ["고객이 얻은 성과", item.detail.result],
                 ].map(([h, body], i) => (
                   <div key={h}>
                     <h3 className="mb-1.5 flex items-center gap-2 text-sm font-bold" style={{ color }}>

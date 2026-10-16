@@ -5,7 +5,7 @@ import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { FloatingKakao } from "@/components/floating-kakao"
 import { PageHero } from "@/components/page-hero"
-import { kioskSpecFields, kioskTypes } from "@/lib/kiosk-data"
+import { kioskCaseFields, kioskSpecFields, kioskTypes } from "@/lib/kiosk-data"
 
 export const metadata: Metadata = {
   title: "키오스크 포트폴리오 | 와이넥스 YNEX",
@@ -21,7 +21,7 @@ export default function KioskPortfolioPage() {
         <PageHero
           badge="키오스크"
           title="키오스크 포트폴리오"
-          description="실물 사진 중심으로 제작 사례를 정리합니다. 사례마다 외함 디자인, 디스플레이 규격, 사용 모듈, 설치 환경을 함께 적습니다."
+          description="실물 사진 중심으로 제작·납품 사례를 정리합니다. 사례마다 고객의 문제, 와이넥스의 해결, 성과와 견적·기간, 외함·규격을 함께 적습니다."
         />
         <section className="bg-muted/30 py-16">
           <div className="mx-auto max-w-6xl px-4">
@@ -48,7 +48,7 @@ export default function KioskPortfolioPage() {
                     <p className="mb-1 text-xs font-semibold text-primary">{t.name}</p>
                     <h2 className="mb-3 font-bold text-foreground">제작 사례 정리 중</h2>
                     <dl className="space-y-1.5 text-sm">
-                      {kioskSpecFields.map((f) => (
+                      {[...kioskCaseFields, ...kioskSpecFields].map((f) => (
                         <div key={f} className="flex justify-between gap-3">
                           <dt className="text-muted-foreground">{f}</dt>
                           <dd className="text-muted-foreground/70">자료 준비 중</dd>
@@ -62,7 +62,7 @@ export default function KioskPortfolioPage() {
             <p className="mt-10 text-center text-muted-foreground">
               제작 사례를 정리하고 있습니다. 원하는 형태가 있으시면{" "}
               <Link href="/contact?type=kiosk" className="font-semibold text-primary hover:underline">
-                키오스크 견적 문의
+                현장 방문 · 견적 신청
               </Link>
               로 먼저 알려 주세요.
             </p>

@@ -4,16 +4,16 @@ import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { ChevronDown, Menu, X } from "lucide-react"
+import { ChevronDown, Menu, Phone, X } from "lucide-react"
 import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion"
 import { navGroups, type NavGroup } from "@/lib/nav-data"
+import { PHONE, PHONE_HREF } from "@/lib/company"
 
 // 지금 주소가 어느 메뉴 그룹에 속하는지
 function isActive(group: NavGroup, pathname: string) {
   if (group.label === "키오스크") return pathname.startsWith("/kiosk") || pathname === "/portfolio/kiosk"
   if (group.label === "ERP·업무자동화")
-    return pathname.startsWith("/services") || pathname.startsWith("/portfolio/demo")
-  if (group.label === "고객지원") return pathname === "/contact"
+    return pathname.startsWith("/services") || pathname.startsWith("/automation") || pathname.startsWith("/portfolio/demo")
   return pathname.startsWith(group.href)
 }
 
@@ -154,13 +154,20 @@ export function Navigation() {
             </a>
           </div>
 
-          {/* Desktop CTA */}
-          <div className="hidden lg:block">
+          {/* Desktop CTA: 전화 + 신청 */}
+          <div className="hidden items-center gap-4 lg:flex">
+            <a
+              href={PHONE_HREF}
+              className="inline-flex items-center gap-1.5 text-[15px] font-bold text-foreground transition-colors hover:text-primary"
+            >
+              <Phone className="h-4 w-4 text-primary" />
+              {PHONE}
+            </a>
             <Link
               href="/contact"
               className="inline-flex items-center justify-center rounded-lg bg-primary px-5 py-2.5 text-[15px] font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
             >
-              현장 방문 신청
+              현장 방문 · 견적 신청
             </Link>
           </div>
 
@@ -222,13 +229,20 @@ export function Navigation() {
               >
                 프로그램샵
               </a>
-              <div className="pt-4">
+              <div className="space-y-2 pt-4">
+                <a
+                  href={PHONE_HREF}
+                  className="flex w-full items-center justify-center gap-2 rounded-lg border border-primary px-3 py-2.5 text-sm font-bold text-primary"
+                >
+                  <Phone className="h-4 w-4" />
+                  전화 상담 {PHONE}
+                </a>
                 <Link
                   href="/contact"
                   className="block w-full rounded-lg bg-primary px-3 py-2.5 text-center text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  현장 방문 신청
+                  현장 방문 · 견적 신청
                 </Link>
               </div>
             </div>

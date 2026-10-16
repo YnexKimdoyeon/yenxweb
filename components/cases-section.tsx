@@ -7,7 +7,7 @@ import Link from "next/link"
 import { useCallback, useState } from "react"
 import { CaseGallery, type GalleryData } from "@/components/case-gallery"
 import { DemoModal, type DemoTarget } from "@/components/demo-modal"
-import { caseFields, cases, demoHref } from "@/lib/cases-data"
+import { caseFields, cases, demoHref, caseHref } from "@/lib/cases-data"
 
 export function CasesSection({
   showHeader = true,
@@ -57,7 +57,7 @@ export function CasesSection({
                     return (
                       <Link
                         key={f.id}
-                        href={`/services#${inField[0].slug}`}
+                        href={caseHref(inField[0])}
                         className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-4 py-2 text-sm font-semibold text-foreground transition-colors hover:border-primary/40 hover:text-primary"
                       >
                         {f.label}

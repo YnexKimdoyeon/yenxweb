@@ -18,7 +18,7 @@ const choices = [
     href: "/services",
     icon: MousePointerClick,
     badge: "ERP·업무자동화",
-    title: "ERP·업무자동화 포트폴리오",
+    title: "ERP 구축 사례",
     desc: "프로젝트별 상세 구축 사례입니다. 고객 업종, 개발 기능, 업무 개선 효과를 보고, 대부분의 시스템은 체험판으로 직접 눌러 볼 수 있습니다.",
     meta: `구축 사례 ${cases.length}건`,
   },

@@ -151,7 +151,7 @@ export default async function ServiceDetailPage({
                     href="/contact"
                     className="inline-flex items-center justify-center rounded-lg border border-border bg-background px-6 py-3 text-base font-semibold text-foreground transition-colors hover:bg-muted"
                   >
-                    현장 방문 신청
+                    현장 방문 · 견적 신청
                   </Link>
                 </div>
               </div>

@@ -631,5 +631,8 @@ export const cases: CaseItem[] = [
   },
 ]
 
+// 사례가 실린 페이지: 자동화는 /automation, 나머지는 ERP 개발(/services)
+export const caseHref = (c: CaseItem) => `${c.field === "automation" ? "/automation" : "/services"}#${c.slug}`
+
 // 체험해보기 링크: 실제 화면을 가상 데이터로 옮긴 체험판
-export const demoHref = (c: CaseItem) => c.demoUrl ?? `/services#${c.slug}`
+export const demoHref = (c: CaseItem) => c.demoUrl ?? caseHref(c)

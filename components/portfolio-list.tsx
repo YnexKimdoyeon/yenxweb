@@ -5,15 +5,26 @@ import { useCallback, useEffect, useState } from "react"
 import { CaseDetailModal } from "@/components/case-detail-modal"
 import { CaseGallery, type GalleryData } from "@/components/case-gallery"
 import { DemoModal, type DemoTarget } from "@/components/demo-modal"
+import { shortWon } from "@/components/case-stats"
 import { caseFields, cases, demoHref, type CaseField, type CaseItem } from "@/lib/cases-data"
 
 // 분야 안에서 순서대로 파랑·보라 번갈아
 const colorAt = (i: number) => (i % 2 === 0 ? "#2563EB" : "#7C3AED")
 
-// /services 목록: 분야 탭 + 카드 격자. 자세히·체험판은 팝업.
-// 다른 탭의 사례와 상세 글도 HTML에는 그대로 두고 숨기기만 한다 (검색·AI 노출 유지, #사례 주소로 바로 열림)
-export function PortfolioList() {
-  const [field, setField] = useState<CaseField>(caseFields[0].id)
+// 포트폴리오 목록: 분야 탭 + 카드 격자. 카드마다 고객 문제 → 해결 → 성과와 금액·기간. 자세히·체험판은 팝업.
+// 다른 탭의 사례도 HTML에는 그대로 두고 숨기기만 한다 (검색·AI 노출 유지, #사례 주소로 바로 열림)
+export function PortfolioList({
+  fields = caseFields.map((f) => f.id),
+  title = "대표 프로젝트",
+  subtitle = "와이넥스의 대표 프로젝트를 직접 확인해보세요",
+}: {
+  fields?: CaseField[]
+  title?: string
+  subtitle?: string
+} = {}) {
+  const tabs = caseFields.filter((f) => fields.includes(f.id))
+  const pool = cases.filter((c) => fields.includes(c.field))
+  const [field, setField] = useState<CaseField>(tabs[0].id)
   const [gallery, setGallery] = useState<GalleryData | null>(null)
   const [demo, setDemo] = useState<DemoTarget | null>(null)
   const [detail, setDetail] = useState<{ item: CaseItem; color: string } | null>(null)
@@ -25,7 +36,7 @@ export function PortfolioList() {
   useEffect(() => {
     const go = () => {
       const slug = decodeURIComponent(window.location.hash.slice(1))
-      const item = cases.find((c) => c.slug === slug)
+      const item = pool.find((c) => c.slug === slug)
       if (!item) return
       setField(item.field)
       requestAnimationFrame(() => document.getElementById(slug)?.scrollIntoView({ block: "center" }))
@@ -51,11 +62,15 @@ export function PortfolioList() {
       <div className="mx-auto max-w-7xl px-4">
         <div className="mb-6 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <h2 className="text-2xl font-bold tracking-tight text-foreground md:text-3xl">대표 프로젝트</h2>
-            <p className="mt-1 text-muted-foreground">와이넥스의 대표 프로젝트를 직접 확인해보세요</p>
+            <h2 className="text-2xl font-bold tracking-tight text-foreground md:text-3xl">{title}</h2>
+            <p className="mt-1 text-muted-foreground">{subtitle}</p>
           </div>
-          <div role="tablist" aria-label="분야" className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 lg:mx-0 lg:px-0">
-            {caseFields.map((f) => {
+          <div
+            role="tablist"
+            aria-label="분야"
+            className={`-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 lg:mx-0 lg:px-0 ${tabs.length < 2 ? "hidden" : ""}`}
+          >
+            {tabs.map((f) => {
               const n = cases.filter((c) => c.field === f.id).length
               const active = field === f.id
               return (
@@ -78,7 +93,7 @@ export function PortfolioList() {
           </div>
         </div>
 
-        {caseFields.map((f) => {
+        {tabs.map((f) => {
           const list = cases.filter((c) => c.field === f.id)
           return (
             <ul
@@ -125,16 +140,33 @@ export function PortfolioList() {
                         <Icon className="h-3 w-3" />
                         {item.category}
                       </span>
-                      <h3 className="mb-2 text-lg font-bold leading-snug text-foreground">{item.title}</h3>
-                      <p className="mb-5 line-clamp-2 text-sm leading-relaxed text-muted-foreground">{item.description}</p>
+                      <h3 className="mb-3 text-lg font-bold leading-snug text-foreground">{item.title}</h3>
 
-                      {/* 검색·AI용 상세 글: 화면에는 '자세히' 팝업으로 보여 준다 */}
-                      <div className="sr-only">
-                        <p>{item.features.join(", ")}</p>
-                        <p>문제인식: {item.detail.problem}</p>
-                        <p>업무 분석·설계: {item.detail.approach}</p>
-                        <p>성과: {item.detail.result}</p>
-                      </div>
+                      {/* 고객의 문제 → 와이넥스의 해결 → 성과 (전문은 '자세히') */}
+                      <dl className="mb-4 space-y-2 text-sm leading-relaxed">
+                        {(
+                          [
+                            ["문제", item.detail.problem],
+                            ["해결", item.detail.approach],
+                            ["성과", item.detail.result],
+                          ] as const
+                        ).map(([k, v]) => (
+                          <div key={k} className="grid grid-cols-[2.5rem_1fr] gap-2">
+                            <dt className="font-bold" style={{ color: k === "성과" ? color : undefined }}>
+                              {k}
+                            </dt>
+                            <dd className="line-clamp-2 text-muted-foreground">{v}</dd>
+                          </div>
+                        ))}
+                      </dl>
+                      <p className="mb-5 flex items-center gap-2 text-sm">
+                        <span className="rounded-md bg-muted px-2 py-1 font-bold text-foreground">{shortWon(item.cost)}</span>
+                        <span className="rounded-md bg-muted px-2 py-1 font-bold text-foreground">{item.duration}</span>
+                        <span className="text-xs text-muted-foreground">개발 견적 · 기간</span>
+                      </p>
+
+                      {/* 검색·AI용 기능 목록 */}
+                      <p className="sr-only">{item.features.join(", ")}</p>
 
                       <div className="mt-auto grid grid-cols-[1fr_auto] gap-2">
                         <a

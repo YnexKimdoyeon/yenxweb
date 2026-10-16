@@ -1,7 +1,8 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { MessageCircle } from "lucide-react"
+import { MessageCircle, Phone } from "lucide-react"
+import { PHONE, PHONE_HREF } from "@/lib/company"
 import { ContactForm } from "@/components/contact-form"
 
 const KAKAO_URL = "https://open.kakao.com/o/sgQ0uyxi"
@@ -71,7 +72,14 @@ export function CtaSection() {
             className="inline-flex items-center gap-2 text-sm font-medium text-white/70 transition-colors hover:text-white"
           >
             <MessageCircle className="h-4 w-4" />
-            전화·작성이 번거로우면 카카오톡으로 바로 문의하기
+            작성이 번거로우면 카카오톡으로 바로 문의하기
+          </a>
+          <a
+            href={PHONE_HREF}
+            className="mt-3 flex w-fit items-center gap-2 text-2xl font-bold text-white transition-colors hover:text-white/80"
+          >
+            <Phone className="h-6 w-6" />
+            {PHONE}
           </a>
         </motion.div>
 

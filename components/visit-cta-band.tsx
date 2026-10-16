@@ -15,7 +15,7 @@ export function VisitCtaBand() {
           href="/contact"
           className="group inline-flex items-center justify-center gap-2.5 rounded-xl bg-primary px-8 py-4 text-base font-semibold text-primary-foreground shadow-lg shadow-primary/25 transition-all hover:-translate-y-0.5 hover:bg-primary/90 hover:shadow-xl hover:shadow-primary/30"
         >
-          현장 방문 신청하기
+          현장 방문 · 견적 신청
           <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
         </Link>
       </div>

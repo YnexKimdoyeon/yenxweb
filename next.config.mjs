@@ -14,6 +14,9 @@ const nextConfig = {
       // 견적 문의는 /contact 하나로 합침
       { source: '/kiosk/quote', destination: '/contact?type=kiosk', permanent: true },
       { source: '/support/maintenance', destination: '/contact', permanent: true },
+      // 키오스크는 주문제작(/kiosk)·포트폴리오 두 페이지로 정리
+      { source: '/kiosk/products', destination: '/kiosk#models', permanent: true },
+      { source: '/kiosk/erp', destination: '/kiosk', permanent: true },
     ]
   },
 }

@@ -2,14 +2,16 @@
 
 import Image from "next/image"
 import Link from "next/link"
+import { PHONE, PHONE_HREF } from "@/lib/company"
 
 const quickLinks = [
   { label: "회사소개", href: "/about" },
-  { label: "ERP·업무자동화", href: "/services" },
+  { label: "ERP 개발", href: "/services" },
+  { label: "업무자동화", href: "/automation" },
   { label: "키오스크 주문제작", href: "/kiosk" },
-  { label: "포트폴리오", href: "/portfolio" },
+  { label: "키오스크 포트폴리오", href: "/portfolio/kiosk" },
   { label: "자주 묻는 질문", href: "/faq" },
-  { label: "견적 문의", href: "/contact" },
+  { label: "현장 방문 · 견적 신청", href: "/contact" },
   { label: "프로그램샵", href: "https://ynexshop.kr", external: true },
 ]
 
@@ -38,6 +40,12 @@ export function Footer() {
               <p>상호: 주식회사 와이넥스</p>
               <p>대표: 김도연</p>
               <p>주소: 충청남도 아산시 탕정면 이순신대로 442, 912호</p>
+              <p>
+                전화:{" "}
+                <a href={PHONE_HREF} className="font-semibold text-white transition-colors hover:text-white">
+                  {PHONE}
+                </a>
+              </p>
               <p>
                 이메일:{" "}
                 <a

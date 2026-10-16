@@ -45,6 +45,7 @@ export function organizationSchema() {
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "sales",
+      telephone: "+82-10-9922-4178",
       email: "ceo@ynex.kr",
       areaServed: "KR",
       availableLanguage: "Korean",

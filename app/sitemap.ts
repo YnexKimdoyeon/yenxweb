@@ -20,6 +20,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
+      url: `${SITE}/automation`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
       url: `${SITE}/portfolio`,
       lastModified: now,
       changeFrequency: 'monthly',
@@ -39,18 +45,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${SITE}/kiosk`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.9,
-    },
-    {
-      url: `${SITE}/kiosk/products`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: `${SITE}/kiosk/erp`,
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.9,

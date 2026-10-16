@@ -12,8 +12,8 @@ const KAKAO_URL = "https://open.kakao.com/o/sgQ0uyxi"
 const ENDPOINT = "https://formsubmit.co/ajax/ceo@ynex.kr"
 
 export function ContactForm({
-  subject = "[와이넥스] 현장 방문 신청",
-  submitLabel = "현장 방문 신청",
+  subject = "[와이넥스] 현장 방문·견적 신청",
+  submitLabel = "현장 방문 · 견적 신청",
   placeholder = "어떤 업무가 번거로우신지, 자동화하고 싶은 부분을 편하게 적어주세요.",
   method = "contact_form",
 }: {
