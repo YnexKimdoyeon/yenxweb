@@ -91,9 +91,8 @@ export function HeroSection() {
               variants={item}
               className="mb-8 max-w-xl text-lg leading-relaxed text-muted-foreground"
             >
-              엑셀·수기 업무는 <span className="font-semibold text-foreground">ERP 시스템</span>으로,
-              반복 업무는 <span className="font-semibold text-foreground">자동화 프로그램</span>으로 바꿉니다.
-              개발자가 직접 무료로 찾아가 업무를 진단하고, 그 진단 보고서를 바탕으로 만듭니다.
+              엑셀로 하던 일, 매일 손으로 반복하던 일을 프로그램으로 바꿔 드립니다.
+              상담은 <span className="font-semibold text-foreground">개발자가 직접 회사에 찾아가서</span> 합니다. 출장비는 받지 않습니다.
             </motion.p>
 
             <motion.div
