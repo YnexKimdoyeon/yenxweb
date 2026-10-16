@@ -91,11 +91,9 @@ export function HeroSection() {
               variants={item}
               className="mb-8 max-w-xl text-lg leading-relaxed text-muted-foreground"
             >
-              엑셀·수기 업무를 시스템으로 바꾸는{" "}
-              <span className="font-semibold text-foreground">디지털 전환(DX)</span>,
-              반복 업무를 AI로 줄이는{" "}
-              <span className="font-semibold text-foreground">AI 전환(AX)</span>.
-              대기업 컨설팅사의 뜬구름이 아니라, 현장을 직접 보고 만드는 실행 중심 맞춤 개발입니다.
+              엑셀·수기 업무는 <span className="font-semibold text-foreground">ERP 시스템</span>으로,
+              반복 업무는 <span className="font-semibold text-foreground">자동화 프로그램</span>으로 바꿉니다.
+              개발자가 직접 무료로 찾아가 업무를 진단하고, 그 진단 보고서를 바탕으로 만듭니다.
             </motion.p>
 
             <motion.div
