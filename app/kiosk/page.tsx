@@ -102,7 +102,7 @@ export default function KioskPage() {
                 주문·접수·출고·발권·결제 등 필요한 업무에 맞춰 키오스크와 ERP를 함께 설계합니다. 외함 제작부터 화면 개발, 데이터 연동, 설치와 유지보수까지 와이넥스가 직접 맡습니다.
               </p>
               <div className="flex flex-wrap gap-3">
-                <Link href="/kiosk/quote" className="rounded-xl bg-primary px-6 py-3 font-semibold text-primary-foreground hover:bg-primary/90">
+                <Link href="/contact?type=kiosk" className="rounded-xl bg-primary px-6 py-3 font-semibold text-primary-foreground hover:bg-primary/90">
                   무료 현장 상담 신청
                 </Link>
                 <a href="#scope" className="rounded-xl border border-border bg-card px-6 py-3 font-semibold text-foreground hover:border-primary/40">
@@ -272,7 +272,7 @@ export default function KioskPage() {
             <p className="mb-8 leading-relaxed text-white/80">
               사용 목적과 현재 업무만 알려주세요. 개발자가 직접 현장을 확인하고, 키오스크와 ERP를 어떤 구조로 만들면 좋을지 제안해 드립니다.
             </p>
-            <Link href="/kiosk/quote" className="inline-flex rounded-xl bg-white px-7 py-3.5 font-semibold text-accent hover:bg-white/90">
+            <Link href="/contact?type=kiosk" className="inline-flex rounded-xl bg-white px-7 py-3.5 font-semibold text-accent hover:bg-white/90">
               무료 현장 상담 신청
             </Link>
             <p className="mt-5 text-sm text-white/60">외함·장비·프로그램·ERP 연동·설치·유지보수를 한 회사가 책임집니다.</p>

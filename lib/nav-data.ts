@@ -30,10 +30,6 @@ export const navGroups: NavGroup[] = [
   {
     label: "고객지원",
     href: "/contact",
-    items: [
-      { label: "견적 문의", href: "/contact", desc: "ERP·업무자동화 상담" },
-      { label: "키오스크 견적 문의", href: "/kiosk/quote", desc: "키오스크 제작 상담" },
-      { label: "유지보수 문의", href: "/support/maintenance", desc: "운영 중인 시스템 지원" },
-    ],
+    items: [], // 견적 문의 하나로 합쳐 드롭다운 없이 바로 이동
   },
 ]

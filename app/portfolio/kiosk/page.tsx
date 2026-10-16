@@ -61,7 +61,7 @@ export default function KioskPortfolioPage() {
             </div>
             <p className="mt-10 text-center text-muted-foreground">
               제작 사례를 정리하고 있습니다. 원하는 형태가 있으시면{" "}
-              <Link href="/kiosk/quote" className="font-semibold text-primary hover:underline">
+              <Link href="/contact?type=kiosk" className="font-semibold text-primary hover:underline">
                 키오스크 견적 문의
               </Link>
               로 먼저 알려 주세요.

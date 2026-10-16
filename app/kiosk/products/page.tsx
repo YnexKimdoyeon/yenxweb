@@ -56,7 +56,7 @@ export default function KioskProductsPage() {
             ))}
             <p className="pt-4 text-center text-muted-foreground">
               원하는 형태나 필요한 기능을 알려 주시면 사양을 함께 정합니다.{" "}
-              <Link href="/kiosk/quote" className="font-semibold text-primary hover:underline">
+              <Link href="/contact?type=kiosk" className="font-semibold text-primary hover:underline">
                 키오스크 견적 문의
               </Link>
             </p>

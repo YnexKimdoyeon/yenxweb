@@ -47,7 +47,7 @@ export default function KioskErpPage() {
           description="키오스크에서 받은 주문이 재고·매출·정산까지 그대로 이어집니다. 기기 제작과 업무 시스템 개발을 와이넥스가 함께 맡습니다."
         >
           <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Link href="/kiosk/quote" className="rounded-xl bg-primary px-6 py-3 font-semibold text-primary-foreground hover:bg-primary/90">
+            <Link href="/contact?type=kiosk" className="rounded-xl bg-primary px-6 py-3 font-semibold text-primary-foreground hover:bg-primary/90">
               결합 상품 상담 신청
             </Link>
           </div>

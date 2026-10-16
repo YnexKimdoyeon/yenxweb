@@ -27,10 +27,14 @@ export function ContactForm({
   )
   // 체험판의 "이런 시스템 문의"로 들어오면 ?from=<사례 slug> 로 어떤 시스템을 보고 있었는지 넘어온다
   const [system, setSystem] = useState<string | null>(null)
+  // 견적 문의를 한 곳으로 합쳐 분야만 고르게 함. 키오스크 페이지에서 오면 ?type=kiosk 로 미리 선택
+  const [field, setField] = useState("ERP·업무자동화")
   useEffect(() => {
-    const from = new URLSearchParams(window.location.search).get("from")
+    const q = new URLSearchParams(window.location.search)
+    const from = q.get("from")
     const item = from ? cases.find((c) => c.slug === from) : undefined
     if (item) setSystem(item.title)
+    if (q.get("type") === "kiosk") setField("키오스크")
   }, [])
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -91,7 +95,8 @@ export function ContactForm({
         tabIndex={-1}
         autoComplete="off"
       />
-      <input type="hidden" name="_subject" value={system ? `${subject} · ${system}` : subject} />
+      <input type="hidden" name="_subject" value={`${subject} · ${field}${system ? ` · ${system}` : ""}`} />
+      <input type="hidden" name="문의분야" value={field} />
       {system && <input type="hidden" name="보고있던_시스템" value={system} />}
 
       {system && (
@@ -102,6 +107,23 @@ export function ContactForm({
       <input type="hidden" name="_template" value="table" />
       <input type="hidden" name="_captcha" value="false" />
 
+      <div className="mb-4">
+        <p className="mb-1.5 text-sm font-medium text-foreground">문의 분야</p>
+        <div className="grid grid-cols-3 gap-2">
+          {["ERP·업무자동화", "키오스크", "기타"].map((f) => (
+            <button
+              key={f}
+              type="button"
+              onClick={() => setField(f)}
+              className={`rounded-lg border px-2 py-2.5 text-sm font-semibold transition-colors ${
+                field === f ? "border-primary bg-primary/10 text-primary" : "border-input text-foreground hover:border-primary/40"
+              }`}
+            >
+              {f}
+            </button>
+          ))}
+        </div>
+      </div>
       <div className="grid gap-4 sm:grid-cols-2">
         <Field label="회사명" name="회사명" placeholder="(주)예시" />
         <Field label="담당자명" name="담당자명" placeholder="홍길동" required />
