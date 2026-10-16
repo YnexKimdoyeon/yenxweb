@@ -91,8 +91,11 @@ export function HeroSection() {
               variants={item}
               className="mb-8 max-w-xl text-lg leading-relaxed text-muted-foreground"
             >
-              엑셀로 하던 일, 매일 손으로 반복하던 일을 프로그램으로 바꿔 드립니다.
-              상담은 <span className="font-semibold text-foreground">개발자가 직접 회사에 찾아가서</span> 합니다. 출장비는 받지 않습니다.
+              엑셀·수기 업무를 시스템으로 바꾸는{" "}
+              <span className="font-semibold text-foreground">디지털 전환(DX)</span>,
+              반복 업무를 AI로 줄이는{" "}
+              <span className="font-semibold text-foreground">AI 전환(AX)</span>.
+              개발자가 직접 회사에 찾아가 일하는 모습을 보고, 거기에 맞게 만들어 드립니다.
             </motion.p>
 
             <motion.div
