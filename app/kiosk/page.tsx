@@ -7,6 +7,9 @@ import { FloatingKakao } from "@/components/floating-kakao"
 import { KioskLogisticsDemo } from "@/components/kiosk-logistics-demo"
 import { kioskFields, kioskTypes, publicDeliveries } from "@/lib/kiosk-data"
 
+// 실제 모델 자료가 들어오기 전까지 모델 섹션 숨김
+const SHOW_MODELS = false
+
 export const metadata: Metadata = {
   title: "키오스크 주문제작 | 와이넥스 YNEX",
   description:
@@ -53,8 +56,8 @@ export default function KioskPage() {
                 <Link href="/contact?type=kiosk" className="rounded-xl bg-primary px-6 py-3 font-semibold text-primary-foreground hover:bg-primary/90">
                   무료 현장 상담 신청
                 </Link>
-                <a href="#models" className="rounded-xl border border-border bg-card px-6 py-3 font-semibold text-foreground hover:border-primary/40">
-                  키오스크 모델 보기
+                <a href="#scope" className="rounded-xl border border-border bg-card px-6 py-3 font-semibold text-foreground hover:border-primary/40">
+                  제작 가능 범위 보기
                 </a>
               </div>
             </div>
@@ -91,14 +94,14 @@ export default function KioskPage() {
           </div>
         </section>
 
-        {/* 3. 공공기관 납품 이력 */}
+        {/* 3. 공공기관 납품 이력: 자료가 들어오면 표시 */}
+        {publicDeliveries.length > 0 && (
         <section className="bg-muted/30 py-16 lg:py-20">
           <div className="mx-auto max-w-6xl px-4">
             <h2 className="mb-8 flex items-center gap-2 text-2xl font-bold text-foreground md:text-3xl">
               <Landmark className="h-7 w-7 text-primary" />
               공공기관 납품 이력
             </h2>
-            {publicDeliveries.length > 0 ? (
               <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                 {publicDeliveries.map((d) => (
                   <li key={`${d.org}-${d.item}`} className="rounded-2xl border border-border bg-card p-5">
@@ -108,15 +111,12 @@ export default function KioskPage() {
                   </li>
                 ))}
               </ul>
-            ) : (
-              <p className="rounded-2xl border border-dashed border-border bg-card p-6 text-muted-foreground">
-                납품 기관·품목·연도를 정리하고 있습니다.
-              </p>
-            )}
           </div>
         </section>
+        )}
 
-        {/* 4. 키오스크 모델 */}
+        {/* 4. 키오스크 모델: 실제 모델명·사진·규격이 들어오면 SHOW_MODELS 를 켠다 */}
+        {SHOW_MODELS && (
         <section id="models" className="scroll-mt-24 py-16 lg:py-20">
           <div className="mx-auto max-w-6xl px-4">
             <h2 className="mb-3 text-2xl font-bold text-foreground md:text-3xl">와이넥스 키오스크 모델</h2>
@@ -138,6 +138,7 @@ export default function KioskPage() {
             </div>
           </div>
         </section>
+        )}
 
         {/* 5. 물류 현장 적용 예시: 두 화면 연동 체험 */}
         <section className="bg-muted/30 py-16 lg:py-20">
