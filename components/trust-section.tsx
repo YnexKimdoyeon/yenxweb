@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 import { Clock, FileCheck, MessageSquare, Star } from "lucide-react"
 
 const stats = [
-  { value: "4.9 / 5.0", label: "크몽 평점" },
+  { value: "4.9 / 5.0", label: "고객 평점" },
   { value: "343건+", label: "누적 의뢰" },
   { value: "3일 이내", label: "평균 방문까지 영업일" },
   { value: "전국", label: "현장 방문 가능 지역" },
@@ -14,7 +14,7 @@ const badges = [
   { icon: Clock, label: "응답 1시간 이내" },
   { icon: MessageSquare, label: "언제나 상담 가능" },
   { icon: FileCheck, label: "세금계산서 발행" },
-  { icon: Star, label: "크몽 4.9★ 343 리뷰" },
+  { icon: Star, label: "평점 4.9★ 343 리뷰" },
 ]
 
 export function TrustSection() {
