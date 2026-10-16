@@ -32,8 +32,7 @@ export function Footer() {
                 height={759}
                 className="h-10 w-10"
               />
-              <span className="text-xl font-bold text-white">YNEX</span>
-              <span className="text-lg text-white/70">(주)와이넥스</span>
+              <span className="text-xl font-bold text-white">(주)와이넥스</span>
             </Link>
             <div className="space-y-2 text-sm text-white/55">
               <p>상호: 주식회사 와이넥스</p>
