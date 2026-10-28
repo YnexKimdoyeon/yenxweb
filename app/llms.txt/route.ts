@@ -22,7 +22,7 @@ export function GET() {
   lines.push("")
   lines.push("- 회사명: 주식회사 와이넥스 (영문 YNEX, 약칭 (주)와이넥스)")
   lines.push("- 대표: 김도연")
-  lines.push("- 소재지: 충청남도 아산시 탕정면 이순신대로 442, 912호")
+  lines.push("- 소재지: 충청남도 아산시 탕정면 용머리길 40, 1동 741호(유니콘101)")
   lines.push("- 이메일: ceo@ynex.kr")
   lines.push("- 홈페이지: https://ynex.kr")
   lines.push("- 서비스 지역: 대한민국 전국 (제주·도서 지역 협의 가능)")

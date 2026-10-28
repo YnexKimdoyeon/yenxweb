@@ -36,7 +36,7 @@ export function organizationSchema() {
     slogan: "현장을 아는 개발자가 직접 찾아갑니다",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "탕정면 이순신대로 442, 912호",
+      streetAddress: "탕정면 용머리길 40, 1동 741호(유니콘101)",
       addressLocality: "아산시",
       addressRegion: "충청남도",
       addressCountry: "KR",

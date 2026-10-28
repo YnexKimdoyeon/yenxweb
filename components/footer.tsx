@@ -39,7 +39,7 @@ export function Footer() {
             <div className="space-y-2 text-sm text-white/55">
               <p>상호: 주식회사 와이넥스</p>
               <p>대표: 김도연</p>
-              <p>주소: 충청남도 아산시 탕정면 이순신대로 442, 912호</p>
+              <p>주소: 충청남도 아산시 탕정면 용머리길 40, 1동 741호(유니콘101)</p>
               <p>
                 전화:{" "}
                 <a href={PHONE_HREF} className="font-semibold text-white transition-colors hover:text-white">

@@ -32,7 +32,7 @@ const profile: [string, React.ReactNode][] = [
   ["상호", "주식회사 와이넥스 (YNEX)"],
   ["대표", "김도연"],
   ["사업 분야", "ERP·WMS·MES 개발, 업무자동화 프로그램 개발, 키오스크 주문제작"],
-  ["주소", "충청남도 아산시 탕정면 이순신대로 442, 912호"],
+  ["주소", "충청남도 아산시 탕정면 용머리길 40, 1동 741호(유니콘101)"],
   [
     "전화",
     <a key="tel" href={PHONE_HREF} className="font-semibold text-primary hover:underline">
