@@ -1,6 +1,7 @@
 "use client"
 
 import { MapPin, Wrench, ShieldCheck } from "lucide-react"
+import { useEffect, useRef, useState } from "react"
 import { motion } from "framer-motion"
 
 const differentiators = [
@@ -46,6 +47,25 @@ const itemVariants = {
 }
 
 export function WhySection() {
+  // 영상(2.4MB)은 화면 가까이 왔을 때만 불러옴 (첫 화면 속도)
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const [videoSrc, setVideoSrc] = useState<string>()
+  useEffect(() => {
+    const el = videoRef.current
+    if (!el) return
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVideoSrc("/why-video.mp4")
+          io.disconnect()
+        }
+      },
+      { rootMargin: "300px" },
+    )
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
+
   return (
     <section className="bg-background py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -78,7 +98,8 @@ export function WhySection() {
           >
             <video
               className="absolute inset-0 h-full w-full object-cover"
-              src="/why-video.mp4"
+              ref={videoRef}
+              src={videoSrc}
               autoPlay
               muted
               loop

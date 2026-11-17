@@ -12,14 +12,6 @@ const ORG_ALT_NAME = ["와이넥스", "(주)와이넥스", "YNEX"]
 const ORG_DESCRIPTION =
   "영업사원이 아닌 개발자가 직접 현장을 방문해 업무를 분석하고, 중소기업의 디지털 전환(DX)과 AI 전환(AX)을 맞춤으로 구축하는 IT 전문 기업. 업무자동화·ERP·매크로·크롤링부터 AI 문서 자동화·상담 챗봇까지 개발."
 
-// 누적 후기 기준 평점 (서비스 상세·홈 공통 노출 값)
-const AGGREGATE_RATING = {
-  "@type": "AggregateRating",
-  ratingValue: "4.9",
-  bestRating: "5",
-  ratingCount: "343",
-} as const
-
 // 조직 + 지역 비즈니스 (아산 소재, 전국 방문 서비스)
 export function organizationSchema() {
   return {
@@ -73,7 +65,6 @@ export function organizationSchema() {
       "파이썬 자동화",
       "맞춤형 소프트웨어 개발",
     ],
-    aggregateRating: AGGREGATE_RATING,
     // 동일 주체임을 알리는 외부 프로필 + 자사 프로그램샵 (검색·AI 엔티티 연결)
     sameAs: [
       "https://ynexshop.kr",
@@ -137,7 +128,6 @@ export function serviceSchema(service: ServiceDetail) {
     url: `${SITE_URL}/services/${service.slug}`,
     provider: { "@id": ORG_ID },
     areaServed: { "@type": "Country", name: "대한민국" },
-    aggregateRating: AGGREGATE_RATING,
   }
 }
 

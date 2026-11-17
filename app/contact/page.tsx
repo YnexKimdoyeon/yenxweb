@@ -44,7 +44,7 @@ export default function ContactPage() {
       <JsonLd data={jsonLd} />
       <Navigation />
       <main className="pt-16 lg:pt-20">
-        <CtaSection />
+        <CtaSection asPageTitle />
       </main>
       <Footer />
       <FloatingKakao />

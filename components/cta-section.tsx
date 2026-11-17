@@ -8,7 +8,8 @@ import { ContactForm } from "@/components/contact-form"
 const KAKAO_URL = "https://open.kakao.com/o/sgQ0uyxi"
 const trust = ["첫 방문·분석 무료", "응답 1시간 이내", "전국 어디든", "세금계산서 발행"]
 
-export function CtaSection() {
+export function CtaSection({ asPageTitle = false }: { asPageTitle?: boolean }) {
+  const Heading = asPageTitle ? "h1" : "h2"
   return (
     <section
       id="contact"
@@ -45,10 +46,10 @@ export function CtaSection() {
             10분이면 신청 완료
           </span>
 
-          <h2 className="mb-5 text-[1.7rem] font-extrabold leading-tight tracking-tight text-white sm:text-4xl lg:text-[3rem] lg:leading-[1.1]">
+          <Heading className="mb-5 text-[1.7rem] font-extrabold leading-tight tracking-tight text-white sm:text-4xl lg:text-[3rem] lg:leading-[1.1]">
             지금, 와이넥스가{" "}
             <span className="text-[#A9B6E8]">직접 찾아갑니다.</span>
-          </h2>
+          </Heading>
           <p className="mb-8 max-w-md text-base leading-relaxed text-white/70 sm:text-lg">
             전화 한 통, 카톡 한 줄이면 충분합니다. 신청 후 영업일 3일 이내,
             개발자가 직접 방문드립니다.
