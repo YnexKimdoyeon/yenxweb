@@ -122,9 +122,10 @@ export function HeroSection() {
           </motion.div>
 
           {/* Right: Framed photo + trust cards */}
+          {/* 사진은 첫 화면 가장 큰 요소(LCP)라 투명 시작 없이 바로 보이게 함 */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
+            initial={{ scale: 0.96 }}
+            animate={{ scale: 1 }}
             transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
             className="relative mx-auto w-full max-w-xl lg:max-w-none"
           >
