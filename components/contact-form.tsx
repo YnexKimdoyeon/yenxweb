@@ -4,6 +4,7 @@ import { useEffect, useState, type FormEvent } from "react"
 import { Check, Loader2, MessageCircle } from "lucide-react"
 import { trackEvent } from "@/lib/gtag"
 import { cases } from "@/lib/cases-data"
+import { decodePlacement, describePlacement, encodePlacement } from "@/components/kiosk-builder/data"
 
 const KAKAO_URL = "https://open.kakao.com/o/sgQ0uyxi"
 
@@ -29,12 +30,23 @@ export function ContactForm({
   const [system, setSystem] = useState<string | null>(null)
   // 견적 문의를 한 곳으로 합쳐 분야만 고르게 함. 키오스크 페이지에서 오면 ?type=kiosk 로 미리 선택
   const [field, setField] = useState("ERP·업무자동화")
+  // 키오스크 3D 조립에서 「이 구성으로 문의하기」로 오면 ?k=<구성>&use=<업무> 가 붙는다. 메일에 구성 설명과 다시 볼 링크를 넣는다
+  const [kiosk, setKiosk] = useState<{ text: string; url: string; use: string | null } | null>(null)
   useEffect(() => {
     const q = new URLSearchParams(window.location.search)
     const from = q.get("from")
     const item = from ? cases.find((c) => c.slug === from) : undefined
     if (item) setSystem(item.title)
     if (q.get("type") === "kiosk") setField("키오스크")
+    const placed = decodePlacement(q.get("k"))
+    if (placed) {
+      setField("키오스크")
+      setKiosk({
+        text: describePlacement(placed),
+        url: `${window.location.origin}/kiosk?k=${encodeURIComponent(encodePlacement(placed))}#3d`,
+        use: q.get("use"),
+      })
+    }
   }, [])
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -95,14 +107,30 @@ export function ContactForm({
         tabIndex={-1}
         autoComplete="off"
       />
-      <input type="hidden" name="_subject" value={`${subject} · ${field}${system ? ` · ${system}` : ""}`} />
+      <input type="hidden" name="_subject" value={`${subject} · ${field}${system ? ` · ${system}` : ""}${kiosk ? " · 3D 구성 첨부" : ""}`} />
       <input type="hidden" name="문의분야" value={field} />
       {system && <input type="hidden" name="보고있던_시스템" value={system} />}
+      {kiosk && (
+        <>
+          <input type="hidden" name="키오스크_구성" value={kiosk.text} />
+          {kiosk.use && <input type="hidden" name="키오스크_업무" value={kiosk.use} />}
+          <input type="hidden" name="키오스크_3D로_보기" value={kiosk.url} />
+        </>
+      )}
 
       {system && (
         <p className="mb-4 rounded-lg bg-primary/5 px-3.5 py-2.5 text-sm text-primary">
           보고 계셨던 시스템: <span className="font-semibold">{system}</span>
         </p>
+      )}
+      {kiosk && (
+        <div className="mb-4 rounded-lg bg-primary/5 px-3.5 py-3 text-sm">
+          <p className="mb-1 font-semibold text-primary">만드신 키오스크 구성{kiosk.use ? ` · ${kiosk.use}` : ""}</p>
+          <p className="leading-relaxed text-foreground">{kiosk.text}</p>
+          <a href={kiosk.url} className="mt-1.5 inline-block text-xs font-medium text-primary underline underline-offset-2">
+            3D로 다시 보기
+          </a>
+        </div>
       )}
       <input type="hidden" name="_template" value="table" />
       <input type="hidden" name="_captcha" value="false" />
@@ -142,9 +170,15 @@ export function ContactForm({
           문의 내용
         </label>
         <textarea
-          key={system ?? "none"}
+          key={(system ?? "none") + (kiosk ? "k" : "")}
           name="문의내용"
-          defaultValue={system ? `[체험판: ${system}] 이 시스템과 비슷하게 만들고 싶습니다.\n` : undefined}
+          defaultValue={
+            system
+              ? `[체험판: ${system}] 이 시스템과 비슷하게 만들고 싶습니다.\n`
+              : kiosk
+                ? "3D로 만든 구성으로 키오스크를 만들고 싶습니다.\n어디에 쓸지: \n설치할 곳·대수: \n"
+                : undefined
+          }
           rows={4}
           placeholder={placeholder}
           className="w-full resize-none rounded-lg border border-input bg-background px-3.5 py-2.5 text-foreground placeholder:text-muted-foreground/70 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
