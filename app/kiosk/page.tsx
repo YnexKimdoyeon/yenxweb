@@ -64,10 +64,10 @@ export default function KioskPage() {
             </div>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/kiosk/kiosk-hero.jpg"
-              alt="물류 사무실에 놓인 맞춤 제작 스탠드형 키오스크"
-              width={1586}
-              height={992}
+              src="/kiosk/kiosk-hero-3d.jpg"
+              alt="와이넥스 스탠드 키오스크, 사원증 태그·바코드 스캐너·라벨 프린터·저울·경광등을 붙인 모습"
+              width={1200}
+              height={900}
               className="w-full rounded-2xl border border-border shadow-2xl"
             />
           </div>
@@ -78,7 +78,7 @@ export default function KioskPage() {
           <div className="mx-auto max-w-6xl px-4">
             <h2 className="mb-3 text-2xl font-bold leading-snug text-white md:text-3xl">와이넥스 키오스크, 직접 조립해 보세요</h2>
             <p className="mb-8 max-w-3xl leading-relaxed text-white/65">
-              스캐너, 프린터, 라벨 프린터, 저울, 카드 단말기, 사원증 태그, 카메라, 경광등을 원하는 자리에 붙이고 「눌러 보기」로 어떻게 돌아가는지 확인해 보세요. 만든 구성 그대로 문의하실 수 있습니다.
+              필요한 장비를 원하는 자리에 붙이고, 실제로 어떻게 돌아가는지 눌러 보세요. 만든 구성 그대로 문의하실 수 있습니다.
             </p>
             <KioskBuilder />
           </div>

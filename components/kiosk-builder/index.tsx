@@ -41,8 +41,11 @@ function Loading() {
 export function KioskBuilder() {
   const [open, setOpen] = useState(false)
   const [initial, setInitial] = useState<Placement | null>(null)
+  // 움직임 줄이기를 켠 사람에겐 영상 대신 정지 화면
+  const [still, setStill] = useState(false)
 
   useEffect(() => {
+    setStill(window.matchMedia("(prefers-reduced-motion: reduce)").matches)
     const k = decodePlacement(new URLSearchParams(window.location.search).get("k"))
     if (k) {
       setInitial(k)
@@ -61,21 +64,44 @@ export function KioskBuilder() {
 
   return (
     <>
+      {/* 미리보기: 왼쪽 순서·모듈·버튼, 오른쪽 3D 키오스크가 천천히 도는 영상(3D 창과 같은 모델). 카드 전체가 버튼 */}
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className={`group relative block aspect-[16/9] w-full overflow-hidden rounded-3xl bg-[#0a1330] text-left sm:aspect-[21/9] ${focusRing}`}
+        className={`group grid w-full grid-cols-1 overflow-hidden rounded-3xl bg-[#0a1330] text-left ring-1 ring-white/10 transition hover:ring-[#7fe3ff]/40 lg:grid-cols-[minmax(0,1fr)_440px] ${focusRing}`}
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/kiosk/showroom.jpg"
-          alt="와이넥스 스탠드 키오스크"
-          className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-        />
-        <span className="absolute inset-0 bg-gradient-to-r from-[#060d24]/85 via-[#060d24]/30 to-transparent" />
-        <span className="absolute bottom-6 left-6 flex flex-col gap-3 sm:bottom-10 sm:left-10">
-          <span className="text-lg font-bold text-white sm:text-2xl">모듈을 원하는 자리에 붙이고 눌러 보세요</span>
-          <span className="inline-flex w-fit items-center gap-2 rounded-xl bg-white px-5 py-3 font-semibold text-[#0b1530] shadow-lg transition group-hover:bg-[#dff7ff]">
+        <span className="relative order-1 flex h-[380px] items-end justify-center overflow-hidden bg-[#0a1330] sm:h-[460px] lg:order-2 lg:h-[520px]">
+          {still ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src="/kiosk/kiosk-3d-poster.jpg" alt="" className="h-full w-auto object-contain [mask-image:linear-gradient(90deg,transparent,black_22%,black_78%,transparent)]" />
+          ) : (
+            <video autoPlay muted loop playsInline preload="metadata" poster="/kiosk/kiosk-3d-poster.jpg" className="h-full w-auto object-contain [mask-image:linear-gradient(90deg,transparent,black_22%,black_78%,transparent)]" aria-hidden>
+              <source src="/videos/kiosk-3d-loop.webm" type="video/webm" />
+              <source src="/videos/kiosk-3d-loop.mp4" type="video/mp4" />
+            </video>
+          )}
+        </span>
+        <span className="order-2 flex flex-col justify-center gap-7 p-6 sm:p-10 lg:order-1">
+          <span className="flex flex-col gap-3.5">
+            {["어디에 쓸지 고르면 맞는 장비가 붙습니다", "모듈을 원하는 자리에 끌어다 붙이고 눌러 봅니다", "만든 구성 그대로 문의하면 저희도 그 모양을 보고 연락드립니다"].map((s, i) => (
+              <span key={s} className="flex items-center gap-3.5 text-[15px] text-white/80 sm:text-base">
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#7fe3ff]/15 text-sm font-bold text-[#9debff]">{i + 1}</span>
+                {s}
+              </span>
+            ))}
+          </span>
+          <span className="flex flex-wrap gap-2">
+            {MODULES.map((m) => {
+              const I = ICON[m.id]
+              return (
+                <span key={m.id} className="inline-flex items-center gap-1.5 rounded-lg bg-white/[.06] px-2.5 py-1.5 text-xs text-white/70 ring-1 ring-white/10">
+                  <I className="h-3.5 w-3.5 text-[#7fe3ff]" />
+                  {m.name}
+                </span>
+              )
+            })}
+          </span>
+          <span className="inline-flex w-fit items-center gap-2 rounded-xl bg-white px-6 py-3.5 font-semibold text-[#0b1530] shadow-lg transition group-hover:bg-[#dff7ff]">
             <Box className="h-5 w-5" />
             3D로 조립해 보기
           </span>
@@ -87,14 +113,34 @@ export function KioskBuilder() {
 }
 
 function BuilderModal({ open, onClose, initial }: { open: boolean; onClose: () => void; initial: Placement | null }) {
+  const dialog = useRef<HTMLDivElement>(null)
+  const closeBtn = useRef<HTMLButtonElement>(null)
   useEffect(() => {
     if (!open) return
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose()
+    const back = document.activeElement as HTMLElement | null
+    const t = setTimeout(() => closeBtn.current?.focus(), 50)
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") return onClose()
+      if (e.key !== "Tab" || !dialog.current) return
+      const items = [...dialog.current.querySelectorAll<HTMLElement>("button:not([disabled]), a[href], [tabindex]:not([tabindex='-1'])")].filter((el) => el.offsetParent !== null)
+      if (!items.length) return
+      const first = items[0]
+      const last = items[items.length - 1]
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault()
+        last.focus()
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault()
+        first.focus()
+      }
+    }
     window.addEventListener("keydown", onKey)
     document.body.style.overflow = "hidden"
     return () => {
+      clearTimeout(t)
       window.removeEventListener("keydown", onKey)
       document.body.style.overflow = ""
+      back?.focus?.()
     }
   }, [open, onClose])
 
@@ -115,6 +161,7 @@ function BuilderModal({ open, onClose, initial }: { open: boolean; onClose: () =
             exit={{ scale: 0.98, y: 8 }}
             transition={{ duration: 0.2 }}
             onClick={(e) => e.stopPropagation()}
+            ref={dialog}
             role="dialog"
             aria-modal="true"
             aria-label="와이넥스 키오스크 3D 조립"
@@ -124,6 +171,7 @@ function BuilderModal({ open, onClose, initial }: { open: boolean; onClose: () =
               <span className="rounded bg-[#7fe3ff]/15 px-2 py-0.5 text-xs font-bold text-[#9debff]">3D 체험</span>
               <p className="min-w-0 flex-1 truncate text-sm font-semibold">와이넥스 키오스크 조립해 보기</p>
               <button
+                ref={closeBtn}
                 type="button"
                 onClick={onClose}
                 aria-label="3D 체험 닫기"
@@ -148,9 +196,12 @@ function Builder({ initial }: { initial: Placement | null }) {
   const [history, setHistory] = useState<Placement[]>([])
   const [placing, setPlacing] = useState<ModuleId | null>(null)
   const [overSlot, setOverSlot] = useState<SlotId | null>(null)
+  // 자리 이름 버튼에 올렸을 때 3D 에서 그 자리를 강조
+  const [hintSlot, setHintSlot] = useState<SlotId | null>(null)
   const [play, setPlay] = useState<Play | null>(null)
   const [focus, setFocus] = useState<[number, number, number] | null>(null)
-  const [idle, setIdle] = useState(true)
+  // 움직임 줄이기를 켠 사람에겐 저절로 흔들리지 않게
+  const [idle, setIdle] = useState(() => typeof window === "undefined" || !window.matchMedia("(prefers-reduced-motion: reduce)").matches)
   const [open, setOpen] = useState(false)
   const [cmd, setCmd] = useState<ViewCmd | null>(null)
   const [drag, setDrag] = useState<{ id: ModuleId; x: number; y: number } | null>(null)
@@ -188,6 +239,7 @@ function Builder({ initial }: { initial: Placement | null }) {
     next[placing] = slot
     commit(next)
     setPlacing(null)
+    setHintSlot(null)
     setDrag(null)
     look(slot)
   }
@@ -236,7 +288,7 @@ function Builder({ initial }: { initial: Placement | null }) {
   const count = MODULES.filter((m) => placement[m.id]).length
 
   const tools: { label: string; icon: typeof Barcode; on?: boolean; disabled?: boolean; act: () => void }[] = [
-    { label: open ? "문 닫기" : "문 열어 안쪽 보기", icon: DoorOpen, on: open, act: () => (setOpen((o) => !o), setIdle(false), setFocus([0, 0.32, 0.25])) },
+    { label: open ? "문 닫기" : "문 열어 안쪽 보기", icon: DoorOpen, on: open, act: () => (setOpen((o) => !o), setIdle(false), setFocus([0, 0.27, 0.3])) },
     { label: "가까이", icon: ZoomIn, act: () => (setIdle(false), setCmd({ type: "in", n: Date.now() })) },
     { label: "멀리", icon: ZoomOut, act: () => (setIdle(false), setCmd({ type: "out", n: Date.now() })) },
     { label: "처음 시점", icon: RotateCcw, act: () => setCmd({ type: "reset", n: Date.now() }) },
@@ -260,6 +312,7 @@ function Builder({ initial }: { initial: Placement | null }) {
           onSelect={startPlacing}
           onPick={pick}
           onHoverSlot={setOverSlot}
+          hint={hintSlot}
         />
       </div>
 
@@ -284,7 +337,7 @@ function Builder({ initial }: { initial: Placement | null }) {
       </div>
 
       {/* 왼쪽: 보기 도구 */}
-      <div className={`absolute right-3 top-[4.25rem] flex flex-col gap-1 p-1 sm:left-5 sm:right-auto sm:top-1/2 sm:-translate-y-1/2 ${panel}`}>
+      <div className={`absolute right-3 top-[4.25rem] flex-col gap-1 p-1 sm:left-5 ${placing ? "hidden sm:flex" : "flex"} sm:right-auto sm:top-1/2 sm:-translate-y-1/2 ${panel}`}>
         {tools.map((t) => (
           <button
             key={t.label}
@@ -306,16 +359,41 @@ function Builder({ initial }: { initial: Placement | null }) {
         ))}
       </div>
 
-      {/* 자리 고르는 중 안내 */}
+      {/* 자리 고르는 중 안내: 3D 자리를 누르거나, 아래 자리 이름 버튼으로도 고른다(터치·키보드) */}
       {placing && (
-        <div className="pointer-events-none absolute inset-x-3 top-[4.25rem] flex justify-center sm:bottom-24 sm:top-auto">
-          <div className="pointer-events-auto flex items-center gap-3 rounded-2xl bg-[#38c6ee] py-2 pl-4 pr-2 text-sm font-semibold text-[#06233a] shadow-xl">
-            <span>
-              {overSlot ? `「${slotById(overSlot).name}」에 붙이기` : `「${moduleById(placing).name}」 붙일 자리를 고르세요`}
-            </span>
-            <button type="button" onClick={() => setPlacing(null)} className={`rounded-lg bg-black/10 px-2.5 py-1 hover:bg-black/20 ${focusRing}`}>
-              취소
-            </button>
+        <div className="pointer-events-none absolute inset-x-3 top-[4.25rem] z-10 flex justify-center sm:bottom-24 sm:top-auto">
+          <div role="group" aria-label="붙일 자리" className="pointer-events-auto max-w-[560px] rounded-2xl bg-[#38c6ee] p-2.5 text-sm font-semibold text-[#06233a] shadow-xl">
+            <div className="flex items-center gap-3 pl-1.5">
+              <span className="flex-1">
+                {overSlot ? `「${slotById(overSlot).name}」에 붙이기` : `「${moduleById(placing).name}」 붙일 자리를 고르세요`}
+              </span>
+              <button type="button" onClick={() => setPlacing(null)} className={`rounded-lg bg-black/10 px-2.5 py-1 hover:bg-black/20 ${focusRing}`}>
+                취소
+              </button>
+            </div>
+            <div className="mt-2 flex flex-wrap gap-1.5">
+              {moduleById(placing).slots.map((id) => {
+                const owner = MODULES.find((m) => m.id !== placing && placement[m.id] === id)
+                return (
+                  <button
+                    key={id}
+                    type="button"
+                    onClick={() => pick(id)}
+                    onPointerEnter={() => setHintSlot(id)}
+                    onPointerLeave={() => setHintSlot(null)}
+                    onFocus={() => setHintSlot(id)}
+                    onBlur={() => setHintSlot(null)}
+                    className={`rounded-lg px-2.5 py-1 text-xs font-semibold transition ${focusRing} ${
+                      placement[placing] === id ? "bg-[#06233a] text-white" : "bg-white/70 hover:bg-white"
+                    }`}
+                    title={owner ? "있던 모듈은 떨어지고 이 자리에 붙습니다" : undefined}
+                  >
+                    {slotById(id).name}
+                    {owner && <span className="ml-1 font-normal text-[#06233a]/60">(교체)</span>}
+                  </button>
+                )
+              })}
+            </div>
           </div>
         </div>
       )}

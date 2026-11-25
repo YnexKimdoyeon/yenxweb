@@ -9,7 +9,7 @@ import { Bloom, EffectComposer, N8AO, ToneMapping, Vignette } from "@react-three
 import { ToneMappingMode } from "postprocessing"
 import * as THREE from "three"
 import { KioskScreenMesh } from "./screen"
-import { Cabinet, ScreenUnit } from "./kiosk-model"
+import { Cabinet, SCREEN, ScreenUnit } from "./kiosk-model"
 import { MODULE_VIEW } from "./modules"
 import { MODULES, SLOTS, slotById, type ModuleId, type Placement, type Play, type SlotId } from "./data"
 
@@ -132,7 +132,7 @@ function Rig({ focus, idle, cmd }: { focus: [number, number, number] | null; idl
     const side = Math.abs(focus[0]) > 0.24 ? Math.sign(focus[0]) : 0
     const target = new THREE.Vector3(focus[0] * 0.5, Math.max(focus[1], 0.3), focus[2])
     const d = far > 4 ? 1.35 : 1
-    go(new THREE.Vector3(side ? side * 1.7 * d : focus[0] * 1.2 + 0.4, target.y + 0.25, side ? 1.1 * d : focus[2] + 1.9 * d), target)
+    go(new THREE.Vector3(side ? side * 1.7 * d : focus[0] * 1.2 + 0.4, target.y + 0.25, side ? 1.1 * d : focus[2] + 2.5 * d), target)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [focus])
   useEffect(() => {
@@ -234,6 +234,7 @@ export type SceneProps = {
   onSelect: (id: ModuleId) => void
   onPick: (slot: SlotId) => void
   onHoverSlot?: (slot: SlotId | null) => void
+  hint?: SlotId | null
 }
 
 export default function KioskScene(props: SceneProps) {
@@ -274,7 +275,7 @@ export default function KioskScene(props: SceneProps) {
   )
 }
 
-function Kiosk({ placement, play, placing, open, title, onTrigger, onSelect, onPick, onHoverSlot }: SceneProps) {
+function Kiosk({ placement, play, placing, open, title, onTrigger, onSelect, onPick, onHoverSlot, hint }: SceneProps) {
   // 바깥에서 받은 재생 요청을 장면 시계 기준 시작 시각으로 바꾼다
   const clock = useThree((s) => s.clock)
   const [p, setP] = useState<Play | null>(null)
@@ -298,13 +299,13 @@ function Kiosk({ placement, play, placing, open, title, onTrigger, onSelect, onP
     <group>
       <Cabinet open={open ? 1 : 0} />
       <ScreenUnit>
-        <KioskScreenMesh modules={modules} play={p} title={title} onTrigger={onTrigger} position={[0, 0.44, 0.031]} />
+        <KioskScreenMesh modules={modules} play={p} title={title} onTrigger={onTrigger} position={SCREEN.pos} size={SCREEN.size} />
       </ScreenUnit>
       {(Object.entries(placement) as [ModuleId, SlotId | null][]).map(
         ([id, slot]) => slot && <Mounted key={`${id}-${slot}`} id={id} slot={slot} play={p} picked={placing === id} onSelect={onSelect} />,
       )}
       {placing &&
-        SLOTS.filter((s) => MODULES.find((m) => m.id === placing)!.slots.includes(s.id)).map((s) => <SlotMarker key={s.id} id={s.id} taken={taken.has(s.id)} placing={placing} over={over === s.id} onOver={hover} onPick={onPick} />)}
+        SLOTS.filter((s) => MODULES.find((m) => m.id === placing)!.slots.includes(s.id)).map((s) => <SlotMarker key={s.id} id={s.id} taken={taken.has(s.id)} placing={placing} over={(over ?? hint) === s.id} onOver={hover} onPick={onPick} />)}
     </group>
   )
 }

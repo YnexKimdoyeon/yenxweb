@@ -51,10 +51,10 @@ function rr(g: CanvasRenderingContext2D, x: number, y: number, w: number, h: num
 type Tile = { id: ModuleId; x: number; y: number; w: number; h: number }
 
 function layout(on: ModuleId[]): Tile[] {
-  const w = (W - 56 - 16) / 2
+  const w = (W - 52 - 14) / 2
   // 모듈이 많으면 버튼을 낮춘다(8개까지 4줄)
-  const h = on.length > 6 ? 92 : on.length > 4 ? 128 : 170
-  return on.map((id, i) => ({ id, x: 28 + (i % 2) * (w + 16), y: 200 + Math.floor(i / 2) * (h + 16), w, h }))
+  const h = on.length > 6 ? 88 : on.length > 4 ? 124 : 160
+  return on.map((id, i) => ({ id, x: 26 + (i % 2) * (w + 14), y: 196 + Math.floor(i / 2) * (h + 14), w, h }))
 }
 
 export function KioskScreenMesh({
@@ -63,12 +63,14 @@ export function KioskScreenMesh({
   title,
   onTrigger,
   position,
+  size = [0.45, 0.78],
 }: {
   modules: Record<ModuleId, boolean>
   play: Play | null
   title: string
   onTrigger: (id: ModuleId) => void
   position: [number, number, number]
+  size?: [number, number]
 }) {
   const canvas = useMemo(() => {
     const c = document.createElement("canvas")
@@ -107,66 +109,74 @@ export function KioskScreenMesh({
 
     const g = canvas.getContext("2d")!
     g.setTransform(S, 0, 0, S, 0, 0)
-    const bg = g.createLinearGradient(0, 0, W * 0.3, H)
-    bg.addColorStop(0, "#132a5c")
-    bg.addColorStop(0.6, "#0b1433")
+    // 실제 와이넥스 키오스크 앱 톤: 진남색 바탕, 파란 강조(#4f8cff), 완료는 청록(#2dd4bf)
+    const bg = g.createLinearGradient(0, 0, 0, H)
+    bg.addColorStop(0, "#111d3d")
+    bg.addColorStop(1, "#0a1228")
     g.fillStyle = bg
     g.fillRect(0, 0, W, H)
 
-    // 위 줄: 로고·회사명·시계
+    // 위 줄: 파란 꼬리표(회사명)·시계
+    g.textBaseline = "middle"
+    g.font = `700 14px ${font}`
+    const tag = "와이넥스"
+    const tw = g.measureText(tag).width + 36
+    rr(g, 24, 24, tw, 28, 8)
+    g.fillStyle = "#2f6bff"
+    g.fill()
     if (logo.complete && logo.naturalWidth) {
       g.save()
       g.beginPath()
-      g.arc(40, 36, 13, 0, Math.PI * 2)
+      g.arc(40, 38, 8, 0, Math.PI * 2)
       g.fillStyle = "#fff"
       g.fill()
       g.clip()
-      g.drawImage(logo, 28, 24, 24, 24)
+      g.drawImage(logo, 32, 30, 16, 16)
       g.restore()
     }
-    g.fillStyle = "rgba(255,255,255,.85)"
-    g.font = `600 17px ${font}`
-    g.textBaseline = "middle"
-    g.fillText("와이넥스", 62, 37)
+    g.fillStyle = "#fff"
+    g.fillText(tag, 54, 38.5)
+    g.fillStyle = "rgba(255,255,255,.55)"
+    g.font = `500 15px ${font}`
     g.textAlign = "right"
-    g.fillText(time, W - 28, 37)
-    icon(g, "wifi", W - 28 - g.measureText(time).width - 26, 28, 18, "rgba(255,255,255,.85)")
+    g.fillText(time, W - 26, 38.5)
+    icon(g, "wifi", W - 26 - g.measureText(time).width - 24, 30, 16, "rgba(255,255,255,.55)")
     g.textAlign = "left"
 
     g.textBaseline = "alphabetic"
-    g.fillStyle = "rgba(255,255,255,.6)"
-    g.font = `400 20px ${font}`
-    g.fillText("오늘도 수고 많으십니다", 28, 118)
+    g.fillStyle = "rgba(255,255,255,.5)"
+    g.font = `500 18px ${font}`
+    g.fillText("오늘도 수고 많으십니다", 26, 116)
     g.fillStyle = "#fff"
-    g.font = `700 42px ${font}`
-    g.fillText(title, 28, 170)
+    g.font = `800 40px ${font}`
+    g.fillText(title, 26, 166)
 
     for (const t of tiles) {
       const m = MODULES.find((x) => x.id === t.id)!
-      rr(g, t.x, t.y, t.w, t.h, 22)
-      g.fillStyle = hover === t.id ? "rgba(255,255,255,.2)" : "rgba(255,255,255,.1)"
+      rr(g, t.x, t.y, t.w, t.h, 18)
+      g.fillStyle = hover === t.id ? "rgba(79,140,255,.28)" : "rgba(79,140,255,.12)"
       g.fill()
-      g.strokeStyle = "rgba(255,255,255,.15)"
+      g.strokeStyle = hover === t.id ? "rgba(120,170,255,.7)" : "rgba(79,140,255,.28)"
       g.lineWidth = 1.5
       g.stroke()
       if (t.h < 100) {
-        icon(g, t.id, t.x + 16, t.y + (t.h - 30) / 2, 30, "#7fe3ff")
+        icon(g, t.id, t.x + 16, t.y + (t.h - 30) / 2, 30, "#7aa8ff")
         g.fillStyle = "#fff"
         g.font = `700 21px ${font}`
         g.textBaseline = "middle"
         g.fillText(m.action, t.x + 58, t.y + t.h / 2)
         g.textBaseline = "alphabetic"
       } else {
-        icon(g, t.id, t.x + 20, t.y + 20, t.h > 140 ? 44 : 36, "#7fe3ff")
+        icon(g, t.id, t.x + 20, t.y + 20, t.h > 140 ? 44 : 36, "#7aa8ff")
         g.fillStyle = "#fff"
         g.font = `700 ${t.h > 140 ? 26 : 23}px ${font}`
         g.fillText(m.action, t.x + 20, t.y + t.h - 22)
       }
     }
     if (tiles.length === 0) {
-      rr(g, 28, 200, W - 56, 150, 22)
+      rr(g, 26, 200, W - 52, 150, 18)
       g.setLineDash([8, 8])
-      g.strokeStyle = "rgba(255,255,255,.25)"
+      g.strokeStyle = "rgba(79,140,255,.4)"
       g.lineWidth = 2
       g.stroke()
       g.setLineDash([])
@@ -177,32 +187,52 @@ export function KioskScreenMesh({
       g.fillText("여기에 버튼이 생깁니다", W / 2, 298)
       g.textAlign = "left"
     }
-    g.fillStyle = "rgba(255,255,255,.45)"
-    g.font = `400 16px ${font}`
+    // 아래 청록 버튼줄(실제 앱의 「작업 완료」 자리)
+    rr(g, 24, H - 76, W - 48, 52, 14)
+    g.fillStyle = "rgba(45,212,191,.16)"
+    g.fill()
+    g.fillStyle = "#5eead4"
+    g.font = `600 17px ${font}`
     g.textAlign = "center"
-    g.fillText("버튼을 눌러 보세요", W / 2, H - 34)
+    g.textBaseline = "middle"
+    g.fillText("버튼을 눌러 보세요", W / 2, H - 50)
+    g.textBaseline = "alphabetic"
     g.textAlign = "left"
 
-    // 결과 알림
+    // 결과: 실제 앱의 「사무실로 전송 완료」처럼 화면 가운데 청록 체크
     if (toastK > 0 && play) {
       const m = MODULES.find((x) => x.id === play.id)!
       const e = 1 - Math.pow(1 - toastK, 3)
       g.save()
       g.globalAlpha = e
-      g.translate(0, (1 - e) * 30)
-      g.shadowColor = "rgba(0,0,0,.45)"
-      g.shadowBlur = 30
-      rr(g, 24, H - 96 - 96, W - 48, 96, 22)
-      g.fillStyle = "#fff"
+      g.fillStyle = "rgba(8,14,32,.82)"
+      g.fillRect(0, 0, W, H)
+      const cy = H / 2 - 40
+      g.translate(W / 2, cy)
+      g.scale(0.85 + 0.15 * e, 0.85 + 0.15 * e)
+      g.beginPath()
+      g.arc(0, 0, 40, 0, Math.PI * 2)
+      g.fillStyle = "#2dd4bf"
       g.fill()
-      g.shadowBlur = 0
-      icon(g, "check", 44, H - 96 - 96 + 24, 48, "#10b981")
-      g.fillStyle = "#0b1530"
-      g.font = `700 26px ${font}`
-      g.fillText(m.done[0], 110, H - 96 - 96 + 44)
-      g.fillStyle = "#737373"
-      g.font = `400 19px ${font}`
-      g.fillText(m.done[1], 110, H - 96 - 96 + 74)
+      g.strokeStyle = "#062a26"
+      g.lineWidth = 6
+      g.lineCap = "round"
+      g.lineJoin = "round"
+      g.beginPath()
+      g.moveTo(-15, 1)
+      g.lineTo(-4, 12)
+      g.lineTo(17, -11)
+      g.stroke()
+      g.restore()
+      g.save()
+      g.globalAlpha = e
+      g.textAlign = "center"
+      g.fillStyle = "#fff"
+      g.font = `800 32px ${font}`
+      g.fillText(m.done[0], W / 2, cy + 92)
+      g.fillStyle = "rgba(255,255,255,.6)"
+      g.font = `500 18px ${font}`
+      g.fillText(m.done[1], W / 2, cy + 124)
       g.restore()
     }
     if (flash > 0) {
@@ -237,7 +267,7 @@ export function KioskScreenMesh({
         document.body.style.cursor = ""
       }}
     >
-      <planeGeometry args={[0.45, 0.78]} />
+      <planeGeometry args={size} />
       <meshBasicMaterial map={tex} toneMapped={false} />
     </mesh>
   )
