@@ -4,7 +4,7 @@ import { useEffect, useState, type FormEvent } from "react"
 import { Check, Loader2, MessageCircle } from "lucide-react"
 import { trackEvent } from "@/lib/gtag"
 import { cases } from "@/lib/cases-data"
-import { decodePlacement, describePlacement, encodePlacement } from "@/components/kiosk-builder/data"
+import { decodePlacement, describePlacement, encodePlacement, placedRows } from "@/components/kiosk-builder/data"
 
 const KAKAO_URL = "https://open.kakao.com/o/sgQ0uyxi"
 
@@ -31,7 +31,7 @@ export function ContactForm({
   // 견적 문의를 한 곳으로 합쳐 분야만 고르게 함. 키오스크 페이지에서 오면 ?type=kiosk 로 미리 선택
   const [field, setField] = useState("ERP·업무자동화")
   // 키오스크 3D 조립에서 「이 구성으로 문의하기」로 오면 ?k=<구성>&use=<업무> 가 붙는다. 메일에 구성 설명과 다시 볼 링크를 넣는다
-  const [kiosk, setKiosk] = useState<{ text: string; url: string; use: string | null } | null>(null)
+  const [kiosk, setKiosk] = useState<{ text: string; rows: ReturnType<typeof placedRows>; url: string; use: string | null } | null>(null)
   useEffect(() => {
     const q = new URLSearchParams(window.location.search)
     const from = q.get("from")
@@ -43,7 +43,8 @@ export function ContactForm({
       setField("키오스크")
       setKiosk({
         text: describePlacement(placed),
-        url: `${window.location.origin}/kiosk?k=${encodeURIComponent(encodePlacement(placed))}#3d`,
+        rows: placedRows(placed),
+        url: `${window.location.origin}/kiosk?k=${encodeURIComponent(encodePlacement(placed))}${q.get("use") ? `&use=${encodeURIComponent(q.get("use")!)}` : ""}#3d`,
         use: q.get("use"),
       })
     }
@@ -112,8 +113,12 @@ export function ContactForm({
       {system && <input type="hidden" name="보고있던_시스템" value={system} />}
       {kiosk && (
         <>
-          <input type="hidden" name="키오스크_구성" value={kiosk.text} />
           {kiosk.use && <input type="hidden" name="키오스크_업무" value={kiosk.use} />}
+          <input type="hidden" name="키오스크_구성" value={kiosk.text} />
+          {/* 붙은 자리만 한 줄씩: 자리_D2 = 바코드·QR 스캐너 (경사면 오른쪽) */}
+          {kiosk.rows.map((r) => (
+            <input key={r.code} type="hidden" name={`자리_${r.code}`} value={`${r.module} (${r.slot})`} />
+          ))}
           <input type="hidden" name="키오스크_3D로_보기" value={kiosk.url} />
         </>
       )}
@@ -126,7 +131,15 @@ export function ContactForm({
       {kiosk && (
         <div className="mb-4 rounded-lg bg-primary/5 px-3.5 py-3 text-sm">
           <p className="mb-1 font-semibold text-primary">만드신 키오스크 구성{kiosk.use ? ` · ${kiosk.use}` : ""}</p>
-          <p className="leading-relaxed text-foreground">{kiosk.text}</p>
+          <ul className="space-y-0.5 text-foreground">
+            {kiosk.rows.map((r) => (
+              <li key={r.code}>
+                <span className="mr-1.5 inline-block w-7 rounded bg-primary/10 text-center text-xs font-bold text-primary">{r.code}</span>
+                {r.module}
+                <span className="ml-1 text-xs text-muted-foreground">{r.slot}</span>
+              </li>
+            ))}
+          </ul>
           <a href={kiosk.url} className="mt-1.5 inline-block text-xs font-medium text-primary underline underline-offset-2">
             3D로 다시 보기
           </a>
@@ -176,7 +189,7 @@ export function ContactForm({
             system
               ? `[체험판: ${system}] 이 시스템과 비슷하게 만들고 싶습니다.\n`
               : kiosk
-                ? "3D로 만든 구성으로 키오스크를 만들고 싶습니다.\n어디에 쓸지: \n설치할 곳·대수: \n"
+                ? `3D로 만든 구성으로 키오스크를 만들고 싶습니다.\n어디에 쓸지: ${kiosk.use ?? ""}\n설치할 곳·대수: \n`
                 : undefined
           }
           rows={4}

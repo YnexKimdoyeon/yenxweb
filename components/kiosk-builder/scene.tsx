@@ -28,6 +28,35 @@ const SIZE: Record<ModuleId, [number, number, number]> = {
   tower: [0.05, 0.16, 0.05],
 }
 
+// 자리 코드 글자(D1, F2 …)를 둥근 딱지 텍스처로
+const codeTex = new Map<string, THREE.Texture>()
+function useCodeTex(code: string) {
+  return useMemo(() => {
+    const hit = codeTex.get(code)
+    if (hit) return hit
+    const c = document.createElement("canvas")
+    c.width = 128
+    c.height = 72
+    const g = c.getContext("2d")!
+    g.fillStyle = "#06233a"
+    g.beginPath()
+    g.roundRect(4, 4, 120, 64, 22)
+    g.fill()
+    g.strokeStyle = "#7fe3ff"
+    g.lineWidth = 4
+    g.stroke()
+    g.fillStyle = "#ffffff"
+    g.font = "bold 42px sans-serif"
+    g.textAlign = "center"
+    g.textBaseline = "middle"
+    g.fillText(code, 64, 38)
+    const t = new THREE.CanvasTexture(c)
+    t.colorSpace = THREE.SRGBColorSpace
+    codeTex.set(code, t)
+    return t
+  }, [code])
+}
+
 // 미리보기 상자 중심(모듈 기준). 저울은 앞으로 뻗고, 경광등은 위로 선다
 const GHOST_AT: Partial<Record<ModuleId, [number, number, number]>> = { scale: [0, -0.035, 0.145], tower: [0, 0.064, 0] }
 
@@ -72,6 +101,7 @@ function SlotMarker({ id, taken, placing, over, onOver, onPick }: { id: SlotId; 
     if (ring.current) ring.current.scale.setScalar(over ? 1.15 : 1 + 0.1 * Math.sin(clock.elapsedTime * 5 + s.pos[0] * 10))
   })
   const [w, h, d] = SIZE[placing]
+  const label = useCodeTex(s.code)
   const ox = s.offset?.[0] ?? 0
   const oy = s.offset?.[1] ?? 0
   return (
@@ -96,6 +126,9 @@ function SlotMarker({ id, taken, placing, over, onOver, onPick }: { id: SlotId; 
           <circleGeometry args={[0.06, 32]} />
           <meshBasicMaterial color="#38e1ff" transparent opacity={over ? 0 : taken ? 0.08 : 0.18} toneMapped={false} depthTest={false} />
         </mesh>
+        <sprite position={[0, 0.095, 0.02]} scale={[0.085, 0.048, 1]} renderOrder={4}>
+          <spriteMaterial map={label} depthTest={false} transparent toneMapped={false} />
+        </sprite>
         {!over && (
           <mesh ref={ring} position={[0, 0, 0.013]} renderOrder={3}>
             <ringGeometry args={[0.052, 0.058, 48]} />

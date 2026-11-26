@@ -12,6 +12,7 @@ import {
   MODULES,
   PRESETS,
   decodePlacement,
+  emptyPlacement,
   encodePlacement,
   moduleById,
   presetPlacement,
@@ -41,6 +42,7 @@ function Loading() {
 export function KioskBuilder() {
   const [open, setOpen] = useState(false)
   const [initial, setInitial] = useState<Placement | null>(null)
+  const [initialUse, setInitialUse] = useState<string | null>(null)
   // 움직임 줄이기를 켠 사람에겐 영상 대신 정지 화면
   const [still, setStill] = useState(false)
 
@@ -49,6 +51,7 @@ export function KioskBuilder() {
     const k = decodePlacement(new URLSearchParams(window.location.search).get("k"))
     if (k) {
       setInitial(k)
+      setInitialUse(new URLSearchParams(window.location.search).get("use"))
       setOpen(true)
     }
     const sync = () => window.location.hash === "#3d" && setOpen(true)
@@ -107,12 +110,12 @@ export function KioskBuilder() {
           </span>
         </span>
       </button>
-      <BuilderModal open={open} onClose={close} initial={initial} />
+      <BuilderModal open={open} onClose={close} initial={initial} initialUse={initialUse} />
     </>
   )
 }
 
-function BuilderModal({ open, onClose, initial }: { open: boolean; onClose: () => void; initial: Placement | null }) {
+function BuilderModal({ open, onClose, initial, initialUse }: { open: boolean; onClose: () => void; initial: Placement | null; initialUse: string | null }) {
   const dialog = useRef<HTMLDivElement>(null)
   const closeBtn = useRef<HTMLButtonElement>(null)
   useEffect(() => {
@@ -180,7 +183,7 @@ function BuilderModal({ open, onClose, initial }: { open: boolean; onClose: () =
                 <X className="h-5 w-5" />
               </button>
             </div>
-            <Builder initial={initial} />
+            <Builder initial={initial} initialUse={initialUse} />
           </motion.div>
         </motion.div>
       )}
@@ -190,8 +193,9 @@ function BuilderModal({ open, onClose, initial }: { open: boolean; onClose: () =
 
 // 창 안: 3D 가 전체를 채우고, 왼쪽 위 업무 고르기, 왼쪽 도구(문 열기·확대·축소·처음 시점·되돌리기),
 // 오른쪽 모듈 카드(누르거나 키오스크로 끌어다 놓기), 오른쪽 아래 문의 버튼. 휴대폰은 모듈 카드가 아래로.
-function Builder({ initial }: { initial: Placement | null }) {
-  const [preset, setPreset] = useState(initial ? "custom" : PRESETS[0].id)
+function Builder({ initial, initialUse }: { initial: Placement | null; initialUse?: string | null }) {
+  const usePreset = initialUse ? PRESETS.find((p) => p.name === initialUse)?.id : undefined
+  const [preset, setPreset] = useState(initial ? (usePreset ?? (initialUse ? "mine" : "custom")) : PRESETS[0].id)
   const [placement, setPlacement] = useState<Placement>(() => initial ?? presetPlacement(PRESETS[0].id))
   const [history, setHistory] = useState<Placement[]>([])
   const [placing, setPlacing] = useState<ModuleId | null>(null)
@@ -206,7 +210,9 @@ function Builder({ initial }: { initial: Placement | null }) {
   const [cmd, setCmd] = useState<ViewCmd | null>(null)
   const [drag, setDrag] = useState<{ id: ModuleId; x: number; y: number } | null>(null)
   const n = useRef(0)
-  const title = PRESETS.find((p) => p.id === preset)?.title ?? "와이넥스 키오스크"
+  // 「직접 입력」에서 적은 쓰실 곳(화면 제목과 문의 메일 키오스크_업무로 들어감)
+  const [myUse, setMyUse] = useState(initial && initialUse && !usePreset && initialUse !== "직접 입력" ? initialUse : "")
+  const title = preset === "mine" ? myUse.trim() || "우리 회사 키오스크" : (PRESETS.find((p) => p.id === preset)?.title ?? "와이넥스 키오스크")
   const code = encodePlacement(placement)
 
   const look = (slot: SlotId) => {
@@ -216,7 +222,8 @@ function Builder({ initial }: { initial: Placement | null }) {
   const commit = (next: Placement) => {
     setHistory((h) => [...h.slice(-19), placement])
     setPlacement(next)
-    setPreset("custom")
+    // 직접 입력 중이면 그대로 두고, 정해 둔 구성을 고친 경우만 「사용자 구성」으로
+    setPreset((cur) => (cur === "mine" ? cur : "custom"))
   }
 
   const trigger = useCallback(
@@ -252,13 +259,13 @@ function Builder({ initial }: { initial: Placement | null }) {
     if (!prev) return
     setHistory((h) => h.slice(0, -1))
     setPlacement(prev)
-    setPreset("custom")
+    setPreset((cur) => (cur === "mine" ? cur : "custom"))
     setPlacing(null)
   }
   const pickPreset = (id: string) => {
     setHistory((h) => [...h.slice(-19), placement])
     setPreset(id)
-    setPlacement(presetPlacement(id))
+    setPlacement(id === "mine" ? emptyPlacement() : presetPlacement(id))
     setPlacing(null)
     setFocus(null)
     setIdle(true)
@@ -283,7 +290,7 @@ function Builder({ initial }: { initial: Placement | null }) {
   }, [drag])
 
   const panel = "rounded-2xl bg-[#0b1430]/80 ring-1 ring-white/10 backdrop-blur-md"
-  const presetName = PRESETS.find((p) => p.id === preset)?.name
+  const presetName = preset === "mine" ? myUse.trim() || "직접 입력" : PRESETS.find((p) => p.id === preset)?.name
   const inquiry = `/contact?type=kiosk&k=${encodeURIComponent(code)}${presetName ? `&use=${encodeURIComponent(presetName)}` : ""}`
   const count = MODULES.filter((m) => placement[m.id]).length
 
@@ -306,7 +313,7 @@ function Builder({ initial }: { initial: Placement | null }) {
           placing={placing}
           open={open}
           cmd={cmd}
-          title={preset === "custom" ? "와이넥스 키오스크" : title}
+          title={title}
           onInteract={() => setIdle(false)}
           onTrigger={trigger}
           onSelect={startPlacing}
@@ -333,11 +340,33 @@ function Builder({ initial }: { initial: Placement | null }) {
               {p.name}
             </button>
           ))}
+          <button
+            type="button"
+            onClick={() => pickPreset("mine")}
+            aria-pressed={preset === "mine"}
+            className={`shrink-0 rounded-xl px-3.5 py-2 text-sm font-semibold transition ${focusRing} ${
+              preset === "mine" ? "bg-white text-[#0b1530]" : "text-white/75 hover:bg-white/10"
+            }`}
+          >
+            직접 입력
+          </button>
         </div>
+        {preset === "mine" && (
+          <label className={`pointer-events-auto mt-2 flex items-center gap-2 px-3 py-2 ${panel}`}>
+            <span className="shrink-0 text-xs font-semibold text-white/55">쓰실 곳</span>
+            <input
+              value={myUse}
+              onChange={(e) => setMyUse(e.target.value.slice(0, 20))}
+              placeholder="예: 자재 불출, 방문자 접수"
+              className="min-w-0 flex-1 bg-transparent text-sm text-white placeholder:text-white/35 focus:outline-none"
+              autoFocus
+            />
+          </label>
+        )}
       </div>
 
       {/* 왼쪽: 보기 도구 */}
-      <div className={`absolute right-3 top-[4.25rem] flex-col gap-1 p-1 sm:left-5 ${placing ? "hidden sm:flex" : "flex"} sm:right-auto sm:top-1/2 sm:-translate-y-1/2 ${panel}`}>
+      <div className={`absolute right-3 ${preset === "mine" ? "top-[7.25rem]" : "top-[4.25rem]"} flex-col gap-1 p-1 sm:left-5 ${placing ? "hidden sm:flex" : "flex"} sm:right-auto sm:top-1/2 sm:-translate-y-1/2 ${panel}`}>
         {tools.map((t) => (
           <button
             key={t.label}
@@ -361,11 +390,11 @@ function Builder({ initial }: { initial: Placement | null }) {
 
       {/* 자리 고르는 중 안내: 3D 자리를 누르거나, 아래 자리 이름 버튼으로도 고른다(터치·키보드) */}
       {placing && (
-        <div className="pointer-events-none absolute inset-x-3 top-[4.25rem] z-10 flex justify-center sm:bottom-24 sm:top-auto">
+        <div className={`pointer-events-none absolute inset-x-3 ${preset === "mine" ? "top-[7.25rem]" : "top-[4.25rem]"} z-10 flex justify-center sm:bottom-24 sm:top-auto`}>
           <div role="group" aria-label="붙일 자리" className="pointer-events-auto max-w-[560px] rounded-2xl bg-[#38c6ee] p-2.5 text-sm font-semibold text-[#06233a] shadow-xl">
             <div className="flex items-center gap-3 pl-1.5">
               <span className="flex-1">
-                {overSlot ? `「${slotById(overSlot).name}」에 붙이기` : `「${moduleById(placing).name}」 붙일 자리를 고르세요`}
+                {overSlot ? `「${slotById(overSlot).code} ${slotById(overSlot).name}」에 붙이기` : `「${moduleById(placing).name}」 붙일 자리를 고르세요`}
               </span>
               <button type="button" onClick={() => setPlacing(null)} className={`rounded-lg bg-black/10 px-2.5 py-1 hover:bg-black/20 ${focusRing}`}>
                 취소
@@ -388,6 +417,7 @@ function Builder({ initial }: { initial: Placement | null }) {
                     }`}
                     title={owner ? "있던 모듈은 떨어지고 이 자리에 붙습니다" : undefined}
                   >
+                    <span className="mr-1 font-bold">{slotById(id).code}</span>
                     {slotById(id).name}
                     {owner && <span className="ml-1 font-normal text-[#06233a]/60">(교체)</span>}
                   </button>
@@ -449,7 +479,7 @@ function Builder({ initial }: { initial: Placement | null }) {
                         {slot ? (
                           <>
                             <Move className="h-3 w-3 shrink-0" />
-                            {slotById(slot).name}
+                            <b className="font-bold text-[#9debff]">{slotById(slot).code}</b> {slotById(slot).name}
                           </>
                         ) : (
                           <span className="truncate">{m.desc}</span>

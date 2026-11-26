@@ -18,17 +18,18 @@ export const MODULES: { id: ModuleId; name: string; desc: string; action: string
 ]
 
 // 붙일 자리: 위치(m)와 그 면의 기울기. 모듈은 앞(+z)이 바깥을 보게 만들어 두고 이 기울기로 면에 맞춘다.
+// code: 자리 고유 코드(문의 메일에 「D2: 바코드·QR 스캐너」처럼 들어감). D 경사면, F 앞판, T 꼭대기, L·R 옆면, 번호는 왼쪽부터
 // 경사면 법선 (0, .832, .555), 앞판은 수직, 꼭대기는 판 두께 위(카메라 앞면이 판 앞면과 맞게 z -0.035)
-export const SLOTS: { id: SlotId; name: string; pos: [number, number, number]; rot: [number, number, number]; offset?: [number, number, number] }[] = [
-  { id: "deckL", name: "경사면 왼쪽", pos: [-0.13, 0.7467, 0.1844], rot: [-0.983, 0, 0] },
-  { id: "deckR", name: "경사면 오른쪽", pos: [0.13, 0.7467, 0.1844], rot: [-0.983, 0, 0] },
-  { id: "frontL", name: "앞판 왼쪽", pos: [-0.15, 0.56, 0.3], rot: [0, 0, 0] },
-  { id: "frontC", name: "앞판 가운데", pos: [0, 0.56, 0.3], rot: [0, 0, 0] },
-  { id: "frontR", name: "앞판 오른쪽", pos: [0.15, 0.56, 0.3], rot: [0, 0, 0] },
-  { id: "top", name: "꼭대기 가운데", pos: [0, 1.786, -0.035], rot: [0, 0, 0], offset: [0, 0.016, 0] },
-  { id: "crown", name: "꼭대기 오른쪽", pos: [0.17, 1.786, -0.035], rot: [0, 0, 0], offset: [0, 0.016, 0] },
-  { id: "sideL", name: "왼쪽 옆면", pos: [-0.256, 0.55, 0.14], rot: [0, -Math.PI / 2, 0] },
-  { id: "sideR", name: "오른쪽 옆면", pos: [0.256, 0.55, 0.14], rot: [0, Math.PI / 2, 0] },
+export const SLOTS: { id: SlotId; code: string; name: string; pos: [number, number, number]; rot: [number, number, number]; offset?: [number, number, number] }[] = [
+  { id: "deckL", code: "D1", name: "경사면 왼쪽", pos: [-0.13, 0.7467, 0.1844], rot: [-0.983, 0, 0] },
+  { id: "deckR", code: "D2", name: "경사면 오른쪽", pos: [0.13, 0.7467, 0.1844], rot: [-0.983, 0, 0] },
+  { id: "frontL", code: "F1", name: "앞판 왼쪽", pos: [-0.15, 0.56, 0.3], rot: [0, 0, 0] },
+  { id: "frontC", code: "F2", name: "앞판 가운데", pos: [0, 0.56, 0.3], rot: [0, 0, 0] },
+  { id: "frontR", code: "F3", name: "앞판 오른쪽", pos: [0.15, 0.56, 0.3], rot: [0, 0, 0] },
+  { id: "top", code: "T1", name: "꼭대기 가운데", pos: [0, 1.786, -0.035], rot: [0, 0, 0], offset: [0, 0.016, 0] },
+  { id: "crown", code: "T2", name: "꼭대기 오른쪽", pos: [0.17, 1.786, -0.035], rot: [0, 0, 0], offset: [0, 0.016, 0] },
+  { id: "sideL", code: "L1", name: "왼쪽 옆면", pos: [-0.256, 0.55, 0.14], rot: [0, -Math.PI / 2, 0] },
+  { id: "sideR", code: "R1", name: "오른쪽 옆면", pos: [0.256, 0.55, 0.14], rot: [0, Math.PI / 2, 0] },
 ]
 export const slotById = (id: SlotId) => SLOTS.find((s) => s.id === id)!
 export const moduleById = (id: ModuleId) => MODULES.find((m) => m.id === id)!
@@ -60,7 +61,14 @@ export function decodePlacement(s: string | null): Placement | null {
   }
   return Object.values(p).some(Boolean) ? p : null
 }
-// 메일에 들어갈 사람이 읽는 설명: "바코드·QR 스캐너(데크 오른쪽), 영수증·번호표 프린터(데크 왼쪽)"
+// 붙은 자리만 코드 순서로: [{ code: "D1", slot: "경사면 왼쪽", module: "라벨 프린터" }, …]
+export function placedRows(p: Placement) {
+  return SLOTS.flatMap((s) => {
+    const m = MODULES.find((x) => p[x.id] === s.id)
+    return m ? [{ code: s.code, slot: s.name, module: m.name }] : []
+  })
+}
+// 메일 한 줄 요약: "D1: 라벨 프린터 / D2: 바코드·QR 스캐너 / R1: 저울"
 export function describePlacement(p: Placement) {
-  return MODULES.filter((m) => p[m.id]).map((m) => `${m.name}(${slotById(p[m.id]!).name})`).join(", ")
+  return placedRows(p).map((r) => `${r.code}: ${r.module}`).join(" / ")
 }
